@@ -33,6 +33,9 @@ Extra credit:
 
 
 ### Notes/Assumptions
+Lines are in the format Name, Gender as M/F, Occurences 
+Lines are sorted in decreasing order by occurences 
+Format of text file is "yob" + year + ".txt"
 
 
 ### Impressions
