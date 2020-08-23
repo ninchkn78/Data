@@ -4,11 +4,11 @@ data
 This project uses data about [baby names from the US Social Security Administration](https://www.ssa.gov/oact/babynames/limits.html) to answer specific questions. 
 
 
-Name: 
+Name: Alex Chao
 
 ### Timeline
 
-Start Date: 
+Start Date: 08/22/20
 
 Finish Date: 
 
