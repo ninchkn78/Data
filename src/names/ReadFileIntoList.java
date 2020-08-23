@@ -10,6 +10,7 @@ public class ReadFileIntoList {
         String PathName = "C:/Users/alexc/CS307/data_team01/data/ssa_complete/";
         return PathName + FileName;
     }
+    //change data structure later
     public ArrayList<String[]> generateList(int year) {
         // pass the path to the file as a parameter
         File file =
