@@ -24,9 +24,12 @@ Question 2:
 increment some counter and then add the count to a sum 
 -output the counter and total sum for both genders 
 ### Likely you may not even need a data structure to answer the questions below, but what about some of the questions in Part 2?
-
+Since the first two questions are fairly simple and only come from one year, it would be possible to implement a solution
+that scans through the file, keeps track of sums/names in local variables, and returns the output. However, this is not 
+scalable to more complex questions that involve multiple years.
 ### What are some ways you could test your code to make sure it is giving the correct answer (think beyond just choosing "lucky" parameter values)?
-
+Try multiple years for question one. For question two, test with more and less common beginning letters using smaller 
+datasets. 
 ### What kinds of things make the second question harder to test?
 The first question only requires returning one name from each gender based off of 
 information we are given in the data (the number of occurences), so the algorithm is simpler. This also means that
@@ -37,11 +40,19 @@ as first letters of names. In both instances, since we are reducing the data, we
 out the comprehensiveness of the test with the feasibility of verifying than for the first question.
 
 ### What kind of errors might you expect to encounter based on the questions or in the dataset?
-1. For the second question, no names in the dataset begin with the given letter. 
+1. For question 1, either or both genders is missing 
+2. For the second question, no names in the dataset begin with the given letter. 
 ### How would you detect those errors and what would a reasonable "answer" be in such cases?
-1. Can detect the error if the name counter for is 0. Could output something that said that no names were
+1. Can detect the error if reached the end of file and haven't found a name for both genders
+2. Can detect the error if the name counter for is 0. Could output something that said that no names were
 found for that year. 
 ### How would your algorithm and testing need to change (if at all) to handle multiple files (i.e., a range of years)?
-
-For the second question, the meat of the algorithm wouldn't change, but instead of outputting after reaching the end of file, 
+The meat of the algorithm wouldn't change, but instead of outputting after reaching the end of file, 
 I would loop through the range of years and then output after exiting the loop. 
+
+//across the years or for each year 
+
+
+scan things into a list 
+can have a different method to use the original one and loop it 
+have variables that represent which index 
