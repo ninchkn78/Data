@@ -6,9 +6,9 @@ public class Process {
     //Constants
 
     //in case format of lines are different
-    int NAME_INDEX = 0;
-    int GENDER_INDEX = 1;
-    int COUNT_INDEX = 2;
+    private final int NAME_INDEX = 0;
+    private final int GENDER_INDEX = 1;
+    private final int COUNT_INDEX = 2;
 
     //Variables
     private ArrayList<String[]> profiles;
@@ -32,6 +32,7 @@ public class Process {
         return sum;
     }
 
+    //only accounts for gender
     public String TopName(String gender){
         for (String[] profile: profiles) {
             if(profile[GENDER_INDEX].equals(gender)) {
