@@ -6,20 +6,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadFileIntoList {
     //TO-DO: generalize this to be able to handle URL or different file locations/naming conventions
     private String generateDataSource(int year){
-        String FileName = "yob" + Integer.toString(year) + ".txt";
+        String FileName = "yob" + year + ".txt";
         String PathName = "C:/Users/alexc/CS307/data_team01/data/ssa_complete/";
         return PathName + FileName;
     }
     //change data structure later
-    public ArrayList<String[]> generateList(int year) {
+    public List<String[]> generateList(int year) {
         // pass the path to the file as a parameter
         File file =
                 new File(generateDataSource(year));
-        ArrayList<String[]> profiles = new ArrayList<>();
+        List<String[]> profiles = new ArrayList<>();
         String[] profile;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));

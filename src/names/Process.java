@@ -1,6 +1,6 @@
 package names;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Process {
     //Constants
@@ -11,7 +11,7 @@ public class Process {
     private final int COUNT_INDEX = 2;
 
     //Variables
-    private ArrayList<String[]> profiles;
+    private List<String[]> profiles;
 
     public Process(int year){
         ReadFileIntoList listGenerator = new ReadFileIntoList();
@@ -23,6 +23,7 @@ public class Process {
             if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) count += 1;
         return count;
     }
+    //these two methods perform the same loop and checks, so need to think of a way to generalize
     public int TotalCount(char letter, String gender) {
         int sum = 0;
         for (String[] profile: profiles) {
