@@ -8,24 +8,24 @@ public class Output {
     /**
      * Start of the program.
      */
-    public String TopRankedNamesForYear(int year){
+    public String topRankedNames(int year){
         Process process = new Process(year);
-        String MaleName = process.TopName("M");
-        String FemaleName = process.TopName("F");
+        String MaleName = process.getName("M", 1);
+        String FemaleName = process.getName("F", 1);
         return "F: " + FemaleName + "\nM: " + MaleName;
     }
-    public String CountBabiesForYearGenderFirstLetter(int year, char letter, String gender){
+    public String countBabies(int year, char letter, String gender){
         Process process = new Process(year);
-        int CountNames = process.NamesStartWith(letter, gender);
-        int TotalBabies = process.TotalCount(letter,gender);
-        return "#OfNames: " + Integer.toString(CountNames) + "\n#OfBabies: " + Integer.toString(TotalBabies);
+        int CountNames = process.namesStartWith(letter, gender);
+        int TotalBabies = process.totalCount(letter,gender);
+        return "#OfNames: " + CountNames + "\n#OfBabies: " + TotalBabies;
     }
     public static void main(String[] args)
     {
         Output Test = new Output();
-        System.out.println(Test.CountBabiesForYearGenderFirstLetter(1900,'Q',"M"));
-        System.out.println(Test.CountBabiesForYearGenderFirstLetter(1900,'Q',"F"));
-        System.out.println(Test.TopRankedNamesForYear(1900));
+        System.out.println(Test.countBabies(1900,'Q',"M"));
+        System.out.println(Test.countBabies(1900,'Q',"F"));
+        System.out.println(Test.topRankedNames(1900));
 
     }
 }

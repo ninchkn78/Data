@@ -11,20 +11,20 @@ public class Process {
     private final int COUNT_INDEX = 2;
 
     //Variables
-    private List<String[]> profiles;
+    private final List<String[]> profiles;
 
     public Process(int year){
         ReadFileIntoList listGenerator = new ReadFileIntoList();
         profiles = listGenerator.generateList(year);
     }
-    public int NamesStartWith (char letter, String gender) {
+    public int namesStartWith (char letter, String gender) {
         int count = 0;
         for (String[] profile : profiles)
             if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) count += 1;
         return count;
     }
     //these two methods perform the same loop and checks, so need to think of a way to generalize
-    public int TotalCount(char letter, String gender) {
+    public int totalCount(char letter, String gender) {
         int sum = 0;
         for (String[] profile: profiles) {
             if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter)
@@ -32,11 +32,11 @@ public class Process {
         }
         return sum;
     }
-
-    //only accounts for gender
-    public String TopName(String gender){
+    //gets name from gender and rank
+    public String getName(String gender, int targetRank){
+        int currRank = 1;
         for (String[] profile: profiles) {
-            if(profile[GENDER_INDEX].equals(gender)) {
+            if(profile[GENDER_INDEX].equals(gender) && currRank == targetRank) {
                 return profile[NAME_INDEX];
             }
         }

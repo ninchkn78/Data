@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadFileIntoList {
-    private String FileName;
+    private String fileName;
 
     //TO-DO: generalize this to be able to handle URL or different file locations/naming conventions
     private void getFileName(int year){
-        FileName = "yob" + year + ".txt";
+        fileName = "yob" + year + ".txt";
     }
     //change data structure later
     public List<String[]> generateList(int year) {
@@ -23,7 +23,7 @@ public class ReadFileIntoList {
         getFileName(year);
 
         try {
-            Path path = Paths.get(ReadFileIntoList.class.getClassLoader().getResource(FileName).toURI());
+            Path path = Paths.get(ReadFileIntoList.class.getClassLoader().getResource(fileName).toURI());
             for (String line : Files.readAllLines(path)) {
                 profile = line.split(",");
                 profiles.add(profile);
