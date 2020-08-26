@@ -7,8 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class ReadFileIntoList {
+public class ReadFiles {
     private String fileName;
 
     //TO-DO: generalize this to be able to handle URL or different file locations/naming conventions
@@ -23,18 +24,15 @@ public class ReadFileIntoList {
         getFileName(year);
 
         try {
-            Path path = Paths.get(ReadFileIntoList.class.getClassLoader().getResource(fileName).toURI());
+            Path path = Paths.get(Objects.requireNonNull(ReadFiles.class.getClassLoader().getResource(fileName)).toURI());
             for (String line : Files.readAllLines(path)) {
                 profile = line.split(",");
                 profiles.add(profile);
             }
             return profiles;
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
     }
-        catch (URISyntaxException e){
-            e.printStackTrace();
-        }
         return profiles;
     }
     /*

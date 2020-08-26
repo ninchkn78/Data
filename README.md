@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 5 hours 45 min
+Hours Spent: 6 hours 15 min
 
 ### Resources Used
 
@@ -40,3 +40,5 @@ Format of text file is "yob" + year + ".txt"
 
 ### Impressions
 
+Do i want start and end year to be in the methods or in the output 
+should i add a function that loops over years 
