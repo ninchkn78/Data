@@ -15,7 +15,7 @@ public class Process {
     //Variables
 
     //ask about declaring as TreeMap
-    private TreeMap<Integer, List> profiles;
+    private final TreeMap<Integer, List> profiles;
 
     public Process(int start, int end){
         profiles = new TreeMap<>();
@@ -25,6 +25,26 @@ public class Process {
             start += 1;
         }
     }
+    //rename
+//    private int sum(char letter, String gender, int iter) {
+//        int count = 0;
+//        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
+//            List<String[]> value = data.getValue();
+//            for (String[] profile : value){
+//                if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
+//                    count += iter;
+//                }
+//            }
+//        }
+//        return count;
+//    }
+//    public int namesStartWith (char letter, String gender) {
+//        return sum(letter, gender, 1);
+//    }
+//
+//    public int totalCount(char letter, String gender) {
+//        return sum(letter, gender, Integer.parseInt(profile[COUNT_INDEX]);
+//    }
     public int namesStartWith (char letter, String gender) {
         int count = 0;
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
@@ -56,16 +76,14 @@ public class Process {
             int currRank = 1;
             List<String[]> value = data.getValue();
             for (String[] profile : value) {
-                if (!profile[GENDER_INDEX].equals(gender)) {
-                    continue;
-                }
-                else if(currRank == targetRank) {
-                    ret.append(year).append(":").append(profile[NAME_INDEX]).append("\n");
-                    break;
-                }
-                else {
-                    currRank += 1;
-                    ret.append("Fewer than ").append(targetRank).append(" babies in ").append(year).append("\n");
+                if (profile[GENDER_INDEX].equals(gender)) {
+                    if (currRank == targetRank) {
+                        ret.append(year).append(":").append(profile[NAME_INDEX]).append("\n");
+                        break;
+                    } else {
+                        currRank += 1;
+                        ret.append("Fewer than ").append(targetRank).append(" babies in ").append(year).append("\n");
+                    }
                 }
             }
             year += 1;
@@ -76,7 +94,6 @@ public class Process {
     //these two methods almost do the same thing
     public String getRank(String name, String gender){
         StringBuilder ret = new StringBuilder();
-
         int year = profiles.firstKey();
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
             int currRank = 1;
