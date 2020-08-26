@@ -39,8 +39,22 @@ public class Process {
             if(profile[GENDER_INDEX].equals(gender) && currRank == targetRank) {
                 return profile[NAME_INDEX];
             }
+            currRank += 1;
+            if(currRank >= targetRank) return "There are not that many names of this gender";
+
         }
         return "No babies of this gender";
+    }
+    //these two methods almost do the same thing
+    public String getRank(String name, String gender){
+        int currRank = 1;
+        for (String[] profile: profiles) {
+            if(profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].equals(name)) {
+                return Integer.toString(currRank);
+            }
+            currRank +=1;
+        }
+        return "Name not found";
     }
 
 }
