@@ -1,8 +1,6 @@
 package names;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Process {
     //Constants
@@ -11,13 +9,16 @@ public class Process {
     private final int NAME_INDEX = 0;
     private final int GENDER_INDEX = 1;
     private final int COUNT_INDEX = 2;
+    private final String GET_NAME_ERROR = "NAME NOT FOUND";
 
     //Variables
 
     //ask about declaring as TreeMap
     private final TreeMap<Integer, List> profiles;
+    private int numOfYears;
 
     public Process(int start, int end){
+        numOfYears = end - start + 1;
         profiles = new TreeMap<>();
         ReadFiles listGenerator = new ReadFiles();
         while (start <= end) {
@@ -69,8 +70,8 @@ public class Process {
         return sum;
     }
     //can't use firstKey if not declared as TreeMap
-    public String getName(String gender, int targetRank) {
-        StringBuilder ret = new StringBuilder();
+    public List<String> getNames(String gender, int targetRank) {
+        List<String> names = new ArrayList<>();
         int year = profiles.firstKey();
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
             int currRank = 1;
@@ -78,12 +79,12 @@ public class Process {
             for (String[] profile : value) {
                 if (profile[GENDER_INDEX].equals(gender)) {
                     if (currRank == targetRank) {
-                        ret.append(profile[NAME_INDEX]).append("\n");
+                        names.add(profile[NAME_INDEX]);
                         break;
                     } else {
                         currRank += 1;
                         if (currRank > targetRank) {
-                            ret.append("Fewer than ").append(targetRank).append(" babies in ").append(year).append("\n");
+                            names.add(GET_NAME_ERROR);
                             break;}
 
                     }
@@ -94,12 +95,12 @@ public class Process {
             year += 1;
 
         }
-        return ret.toString();
+        return names;
     }
 
     //these two methods almost do the same thing
-    public String getRanks(String name, String gender){
-        StringBuilder ret = new StringBuilder();
+    public List<String> getRanks(String name, String gender){
+        List<String> ranks = new ArrayList<>();
         int year = profiles.firstKey();
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
             int currRank = 1;
@@ -109,7 +110,7 @@ public class Process {
                 if (profile[GENDER_INDEX].equals(gender)){
                         if(profile[NAME_INDEX].equals(name)) {
                     //ret.append(year).append(":").append(currRank).append("\n");
-                        ret.append(currRank).append("\n");
+                        ranks.add(Integer.toString(currRank));
                         nameFound = true;
                         break;
                 }
@@ -117,11 +118,64 @@ public class Process {
                             currRank += 1;
                         }
             }}
-            if (!nameFound) ret.append("Name not found in ").append(year).append("\n");
+            if (!nameFound) ranks.add("Not found");
             year += 1;
         }
-        return ret.toString();
+        return ranks;
+
+    }
+    //how should this handle ties?
+    public String mostFrequent(List<String> list){
+        StringBuilder ret = new StringBuilder();
+        List<String> items = new ArrayList<>();
+        List<Integer> counts = new ArrayList<>();
+        for (String name : list){
+            if(name.equals(GET_NAME_ERROR)) {
+                continue;
+            }
+            if (items.contains(name)){
+                int indx = items.indexOf(name);
+                int currCount = counts.get(indx);
+                counts.set(indx, currCount + 1);
+            }
+            else{
+                items.add(name);
+                //want this to add the nameCount call instead
+                counts.add(1);
+            }
+        }
+        if(items.size() == 0) return GET_NAME_ERROR;
 
     }
 
-}
+    public List<String> mostPopularLetter(String gender){
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String[] alphaArray = alphabet.split("");
+        List<String> alphabetList = new ArrayList<String>();
+        List<Integer> counts = new ArrayList<>();
+        int i = 0;
+        while (i < 26){
+            counts.add(namesStartWith(alphabet.charAt(i), gender));
+        }
+        returnMaxOccurences(alphabetList, counts);
+
+
+
+
+
+        }
+    }
+    private List<String> returnMaxOccurences(List<String> items, List<Integer> counts){
+        List<String> ret = new ArrayList<>();
+        int max = Collections.max(counts);
+        for(int i = 0; i < counts.size(); i++){
+            if(counts.get(i) == max){
+                ret.add(items.get(i));
+            }
+        }
+        ret.add(Integer.toString(max));
+        return ret;
+
+
+
+    }
