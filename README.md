@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 6 hours 15 min
+Hours Spent: 7 hours 45 min
 
 ### Resources Used
 
