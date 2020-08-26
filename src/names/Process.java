@@ -78,21 +78,27 @@ public class Process {
             for (String[] profile : value) {
                 if (profile[GENDER_INDEX].equals(gender)) {
                     if (currRank == targetRank) {
-                        ret.append(year).append(":").append(profile[NAME_INDEX]).append("\n");
+                        ret.append(profile[NAME_INDEX]).append("\n");
                         break;
                     } else {
                         currRank += 1;
-                        ret.append("Fewer than ").append(targetRank).append(" babies in ").append(year).append("\n");
+                        if (currRank > targetRank) {
+                            ret.append("Fewer than ").append(targetRank).append(" babies in ").append(year).append("\n");
+                            break;}
+
                     }
                 }
+
+
             }
             year += 1;
 
         }
         return ret.toString();
     }
+
     //these two methods almost do the same thing
-    public String getRank(String name, String gender){
+    public String getRanks(String name, String gender){
         StringBuilder ret = new StringBuilder();
         int year = profiles.firstKey();
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
@@ -100,16 +106,19 @@ public class Process {
             boolean nameFound = false;
             List<String[]> value = data.getValue();
             for (String[] profile : value) {
-                if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].equals(name)) {
-                    ret.append(year).append(":").append(currRank).append("\n");
-                    nameFound = true;
-                    break;
+                if (profile[GENDER_INDEX].equals(gender)){
+                        if(profile[NAME_INDEX].equals(name)) {
+                    //ret.append(year).append(":").append(currRank).append("\n");
+                        ret.append(currRank).append("\n");
+                        nameFound = true;
+                        break;
                 }
-                currRank += 1;
-            }
+                        else {
+                            currRank += 1;
+                        }
+            }}
             if (!nameFound) ret.append("Name not found in ").append(year).append("\n");
             year += 1;
-
         }
         return ret.toString();
 
