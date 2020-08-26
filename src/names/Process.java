@@ -15,10 +15,8 @@ public class Process {
 
     //ask about declaring as TreeMap
     private final TreeMap<Integer, List> profiles;
-    private int numOfYears;
 
     public Process(int start, int end){
-        numOfYears = end - start + 1;
         profiles = new TreeMap<>();
         ReadFiles listGenerator = new ReadFiles();
         while (start <= end) {
@@ -26,6 +24,11 @@ public class Process {
             start += 1;
         }
     }
+    //wrapper
+    public Process(int year){
+        this(year, year);
+    }
+
     //rename
 //    private int sum(char letter, String gender, int iter) {
 //        int count = 0;
@@ -44,7 +47,7 @@ public class Process {
 //    }
 //
 //    public int totalCount(char letter, String gender) {
-//        return sum(letter, gender, Integer.parseInt(profile[COUNT_INDEX]);
+//       return sum(letter, gender, Integer.parseInt(profile[COUNT_INDEX]);
 //    }
     public int namesStartWith (char letter, String gender) {
         int count = 0;
@@ -86,11 +89,8 @@ public class Process {
                         if (currRank > targetRank) {
                             names.add(GET_NAME_ERROR);
                             break;}
-
                     }
                 }
-
-
             }
             year += 1;
 
@@ -126,7 +126,6 @@ public class Process {
     }
     //how should this handle ties?
     public String mostFrequent(List<String> list){
-        StringBuilder ret = new StringBuilder();
         List<String> items = new ArrayList<>();
         List<Integer> counts = new ArrayList<>();
         for (String name : list){
@@ -140,32 +139,35 @@ public class Process {
             }
             else{
                 items.add(name);
-                //want this to add the nameCount call instead
                 counts.add(1);
             }
         }
         if(items.size() == 0) return GET_NAME_ERROR;
+        List<String> ret = maxOccurences(items,counts);
+        StringBuilder sb = new StringBuilder();
+        for (String s : ret) {
+            sb.append(s);
+            sb.append(" ");
+        }
+        String str = sb.toString();
+        return str;
 
     }
 
     public List<String> mostPopularLetter(String gender){
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String[] alphaArray = alphabet.split("");
-        List<String> alphabetList = new ArrayList<String>();
+        List<String> alphabetList = Arrays.asList(alphaArray);
         List<Integer> counts = new ArrayList<>();
         int i = 0;
-        while (i < 26){
+        while (i < 26) {
             counts.add(namesStartWith(alphabet.charAt(i), gender));
+            i++;
         }
-        returnMaxOccurences(alphabetList, counts);
-
-
-
-
-
+        return maxOccurences(alphabetList, counts);
         }
-    }
-    private List<String> returnMaxOccurences(List<String> items, List<Integer> counts){
+
+    private List<String> maxOccurences(List<String> items, List<Integer> counts){
         List<String> ret = new ArrayList<>();
         int max = Collections.max(counts);
         for(int i = 0; i < counts.size(); i++){
@@ -178,4 +180,4 @@ public class Process {
 
 
 
-    }
+    }}
