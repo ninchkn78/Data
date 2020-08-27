@@ -24,7 +24,7 @@ public class ReadFiles {
         getFileName(year);
 
         try {
-            Path path = Paths.get(Objects.requireNonNull(ReadFiles.class.getClassLoader().getResource(fileName)).toURI());
+            Path path = Paths.get(ReadFiles.class.getClassLoader().getResource(fileName).toURI());
             for (String line : Files.readAllLines(path)) {
                 profile = line.split(",");
                 profiles.add(profile);
@@ -32,7 +32,10 @@ public class ReadFiles {
             return profiles;
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
-    }
+    }catch (NullPointerException e) {
+            System.out.println("That year is not in the database");
+            System.exit(0);
+        }
         return profiles;
     }
     /*
