@@ -56,6 +56,8 @@ public class Output {
             Collections.sort(letters);
             return letters;
         }
+        char letter = letters.remove(0).charAt(0);
+        return process.namesStartWith(letter, "F");
 
 
     }
@@ -63,13 +65,14 @@ public class Output {
     public static void main(String[] args)
     {
         Output Test = new Output();
-        //System.out.println(Test.countBabies(1900,1905,'Q',"M"));
-        //System.out.println(Test.countBabies(1900,1905,'Q',"F"));
-        //System.out.println(Test.topNames(1900));
-        //System.out.println(Test.getRanks(1900, 1910, "Mary","F"));
-        //System.out.println((Test.getTodayName(2000, 2001, "Alex", "F")));
-        //System.out.println(Test.mostPopularName(2000,2010,"M"));
+        System.out.println(Test.countBabies(1900,1905,'Q',"M"));
+        System.out.println(Test.countBabies(1900,1905,'Q',"F"));
+        System.out.println(Test.topNames(1900));
+        System.out.println(Test.getRanks(1900, 1910, "Mary","F"));
+        System.out.println((Test.getTodayName(2000, 2001, "Alex", "F")));
+        System.out.println(Test.mostPopularName(2000,2010,"M"));
         System.out.println(Test.mostPopularLetter(1900, 1910));
+        System.out.println(Test.mostPopularLetter(1900,1925));
 
     }
 }
