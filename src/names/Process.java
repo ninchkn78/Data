@@ -143,18 +143,12 @@ public class Process {
             }
         }
         if(items.size() == 0) return GET_NAME_ERROR;
-        List<String> ret = maxOccurences(items,counts);
-        StringBuilder sb = new StringBuilder();
-        for (String s : ret) {
-            sb.append(s);
-            sb.append(" ");
-        }
-        String str = sb.toString();
-        return str;
+        return listToString(maxOccurences(items,counts));
+
 
     }
 
-    public List<String> mostPopularLetter(String gender){
+    public List<String> mostPopularLetters(String gender){
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String[] alphaArray = alphabet.split("");
         List<String> alphabetList = Arrays.asList(alphaArray);
@@ -164,7 +158,9 @@ public class Process {
             counts.add(namesStartWith(alphabet.charAt(i), gender));
             i++;
         }
-        return maxOccurences(alphabetList, counts);
+        List<String> letters = maxOccurences(alphabetList, counts);
+        letters.remove(letters.size() - 1);
+        return letters;
         }
 
     private List<String> maxOccurences(List<String> items, List<Integer> counts){
@@ -177,7 +173,14 @@ public class Process {
         }
         ret.add(Integer.toString(max));
         return ret;
-
-
-
-    }}
+    }
+    private String listToString(List<String>List<String> strings){
+        StringBuilder sb = new StringBuilder();
+        for (String s : ret) {
+            sb.append(s);
+            sb.append(" ");
+        }
+        String str = sb.toString();
+        return str;
+    }
+}

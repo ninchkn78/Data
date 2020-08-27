@@ -11,7 +11,7 @@ public class Output {
      * Start of the program.
      */
     public String topNames(int start){
-        Process process = new Process(start, start);
+        Process process = new Process(start);
         List<String> names = process.getNames("M", 1);
         names.addAll(process.getNames("F", 1));
         return String.join("\n", names);
@@ -27,8 +27,8 @@ public class Output {
         return process.getRanks(name, gender);
     }
     public String getTodayName(int start, int end, String name, String gender){
-        Process process1 = new Process(start,start);
-        Process process2 = new Process(end, end);
+        Process process1 = new Process(start);
+        Process process2 = new Process(end);
         List<String> ranks = process1.getRanks(name, gender);
         String compareRank = ranks.get(0);
         compareRank = compareRank.replaceAll("\n", "");
@@ -48,15 +48,25 @@ public class Output {
         List<String> names = process.getNames(gender, 1);
         return process.mostFrequent(names);
     }
+    public List<String> mostPopularLetter(int start, int end){
+        Process process = new Process(start, end);
+        List<String> letters = process.mostPopularLetters("F");
+        if(letters.size() > 2){
+            return
+        }
+
+    }
+
     public static void main(String[] args)
     {
         Output Test = new Output();
         //System.out.println(Test.countBabies(1900,1905,'Q',"M"));
         //System.out.println(Test.countBabies(1900,1905,'Q',"F"));
-        System.out.println(Test.topNames(1900));
-        System.out.println(Test.getRanks(1900, 1910, "Mary","F"));
-        System.out.println((Test.getTodayName(2000, 2001, "Alex", "F")));
-        System.out.println(Test.mostPopularName(2000,2010,"M"));
+        //System.out.println(Test.topNames(1900));
+        //System.out.println(Test.getRanks(1900, 1910, "Mary","F"));
+        //System.out.println((Test.getTodayName(2000, 2001, "Alex", "F")));
+        //System.out.println(Test.mostPopularName(2000,2010,"M"));
+        System.out.println(Test.mostPopularLetter(1900, 1910));
 
     }
 }
