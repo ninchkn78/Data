@@ -1,6 +1,7 @@
 package names;
 
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class Output {
     }
     public String countBabies(int start, int end, char letter, String gender){
         Process process = new Process(start, end);
-        int CountNames = process.namesStartWith(letter, gender);
+        int CountNames = process.countNames(letter, gender);
         int TotalBabies = process.totalCount(letter,gender);
         return "#OfNames: " + CountNames + "\n#OfBabies: " + TotalBabies;
     }
@@ -51,9 +52,11 @@ public class Output {
     public List<String> mostPopularLetter(int start, int end){
         Process process = new Process(start, end);
         List<String> letters = process.mostPopularLetters("F");
-        if(letters.size() > 2){
-            return
+        if (letters.size() > 2) {
+            Collections.sort(letters);
+            return letters;
         }
+
 
     }
 

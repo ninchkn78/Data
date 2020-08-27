@@ -12,9 +12,7 @@ public class Process {
     private final String GET_NAME_ERROR = "NAME NOT FOUND";
 
     //Variables
-
-    //ask about declaring as TreeMap
-    private final TreeMap<Integer, List> profiles;
+    private final Map<Integer, List> profiles;
 
     public Process(int start, int end){
         profiles = new TreeMap<>();
@@ -49,7 +47,7 @@ public class Process {
 //    public int totalCount(char letter, String gender) {
 //       return sum(letter, gender, Integer.parseInt(profile[COUNT_INDEX]);
 //    }
-    public int namesStartWith (char letter, String gender) {
+    public int countNames (char letter, String gender) {
         int count = 0;
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
             List<String[]> value = data.getValue();
@@ -72,36 +70,44 @@ public class Process {
         }
         return sum;
     }
+    //these three methods all have the same loops ??
+    public List<String> namesStartWith (char letter, String gender) {
+        List<String> names = new ArrayList();
+        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
+            List<String[]> value = data.getValue();
+            for (String[] profile : value){
+                if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
+                    names.add(profile[NAME_INDEX]);
+                }
+            }}
+        return names;
+    }
     //can't use firstKey if not declared as TreeMap
     public List<String> getNames(String gender, int targetRank) {
         List<String> names = new ArrayList<>();
-        int year = profiles.firstKey();
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-            int currRank = 1;
-            List<String[]> value = data.getValue();
-            for (String[] profile : value) {
-                if (profile[GENDER_INDEX].equals(gender)) {
-                    if (currRank == targetRank) {
-                        names.add(profile[NAME_INDEX]);
-                        break;
-                    } else {
-                        currRank += 1;
-                        if (currRank > targetRank) {
-                            names.add(GET_NAME_ERROR);
-                            break;}
-                    }
-                }
-            }
-            year += 1;
-
+            names.add(getName(data.getValue(),gender,targetRank));
         }
         return names;
     }
+    private String getName(List<String[]> yearData, String gender, int targetRank){
+        int currRank = 1;
+        for (String[] profile : yearData) {
+            if (profile[GENDER_INDEX].equals(gender)) {
+                if (currRank == targetRank) {
+                    return profile[NAME_INDEX];
+                } else {
+                    currRank += 1;
+                    if (currRank > targetRank) {
+                        return GET_NAME_ERROR;
+                }
+            }
+        }
 
+    } return GET_NAME_ERROR;}
     //these two methods almost do the same thing
     public List<String> getRanks(String name, String gender){
         List<String> ranks = new ArrayList<>();
-        int year = profiles.firstKey();
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
             int currRank = 1;
             boolean nameFound = false;
@@ -109,17 +115,14 @@ public class Process {
             for (String[] profile : value) {
                 if (profile[GENDER_INDEX].equals(gender)){
                         if(profile[NAME_INDEX].equals(name)) {
-                    //ret.append(year).append(":").append(currRank).append("\n");
                         ranks.add(Integer.toString(currRank));
                         nameFound = true;
                         break;
                 }
                         else {
                             currRank += 1;
-                        }
-            }}
-            if (!nameFound) ranks.add("Not found");
-            year += 1;
+                        } }}
+            if (!nameFound) ranks.add(GET_NAME_ERROR);
         }
         return ranks;
 
@@ -144,10 +147,7 @@ public class Process {
         }
         if(items.size() == 0) return GET_NAME_ERROR;
         return listToString(maxOccurences(items,counts));
-
-
     }
-
     public List<String> mostPopularLetters(String gender){
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String[] alphaArray = alphabet.split("");
@@ -155,7 +155,7 @@ public class Process {
         List<Integer> counts = new ArrayList<>();
         int i = 0;
         while (i < 26) {
-            counts.add(namesStartWith(alphabet.charAt(i), gender));
+            counts.add(countNames(alphabet.charAt(i), gender));
             i++;
         }
         List<String> letters = maxOccurences(alphabetList, counts);
@@ -174,9 +174,9 @@ public class Process {
         ret.add(Integer.toString(max));
         return ret;
     }
-    private String listToString(List<String>List<String> strings){
+    private String listToString(List<String> list){
         StringBuilder sb = new StringBuilder();
-        for (String s : ret) {
+        for (String s : list) {
             sb.append(s);
             sb.append(" ");
         }
