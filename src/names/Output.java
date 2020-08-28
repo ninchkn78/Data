@@ -11,8 +11,17 @@ public class Output {
     /**
      * Start of the program.
      */
-    public String topNames(int start){
-        Process process = new Process(start);
+    //change later to take in an entire source
+
+    private int dataStartYear;
+    private int dataEndYear;
+
+    public Output (int start ,int end) {
+        dataStartYear = start;
+        dataEndYear = end;
+    }
+    public String topNames(int dataStartYear){
+        Process process = new Process(dataStartYear);
         List<String> names = process.getNames("M", 1);
         names.addAll(process.getNames("F", 1));
         return String.join("\n", names);
@@ -27,6 +36,9 @@ public class Output {
         Process process = new Process(start, end);
         return process.getRanks(name, gender);
     }
+    //need to change start and end parameters to handle when
+    //looking for prior year
+    //also need some way to get a database ??
     public String getTodayName(int start, int end, String name, String gender){
         Process process1 = new Process(start);
         Process process2 = new Process(end);
@@ -44,6 +56,7 @@ public class Output {
 
     }
     //how should this handle ties?
+
     public String mostPopularName(int start, int end, String gender){
         Process process = new Process(start,end);
         List<String> names = process.getNames(gender, 1);
@@ -64,15 +77,14 @@ public class Output {
 
     public static void main(String[] args)
     {
-        Output Test = new Output();
-        System.out.println(Test.topNames(0));
-//        System.out.println(Test.countBabies(1900,1905,'Q',"M"));
-//        System.out.println(Test.countBabies(1900,1905,'Q',"F"));
-//        System.out.println(Test.getRanks(1900, 1910, "Mary","F"));
-//        System.out.println((Test.getTodayName(2000, 2001, "Alex", "F")));
-//        System.out.println(Test.mostPopularName(2000,2010,"M"));
-//        System.out.println(Test.mostPopularLetter(1900, 1910));
-//        System.out.println(Test.mostPopularLetter(1900,1925));
-
+        Output Test = new Output(1900, 2000);
+        System.out.println(Test.topNames(1990));
+        System.out.println(Test.countBabies(1985,1985,'R',"M"));
+        System.out.println(Test.countBabies(1900,1905,'Q',"F"));
+        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
+        System.out.println((Test.getTodayName(1965, 2001, "Janet", "F")));
+        System.out.println(Test.mostPopularName(2001,2001,"F"));
+        System.out.println(Test.mostPopularLetter(1900, 1910));
+        System.out.println(Test.mostPopularLetter(1900,1925));
     }
 }
