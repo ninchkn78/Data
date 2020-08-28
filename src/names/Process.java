@@ -9,7 +9,7 @@ public class Process {
     private final int NAME_INDEX = 0;
     private final int GENDER_INDEX = 1;
     private final int COUNT_INDEX = 2;
-    private final String GET_NAME_ERROR = "NAME NOT FOUND";
+    private final String NAME_ERROR = "NAME NOT FOUND";
     private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
     private int dataStartYear;
     private int dataEndYear;
@@ -140,12 +140,12 @@ public class Process {
                 } else {
                     currRank += 1;
                     if (currRank > targetRank) {
-                        return GET_NAME_ERROR;
+                        return NAME_ERROR;
                     }
                 }
             }
         }
-        return GET_NAME_ERROR;
+        return NAME_ERROR;
     }
 
     //these two methods almost do the same thing
@@ -161,7 +161,7 @@ public class Process {
         int currRank = 1;
         List<String[]> yearData = profiles.get(year);
         //checks if year is in dataset
-        if (yearData == null) return YEAR_ERROR;
+        if (yearData == null) return NAME_ERROR;
         for (String[] profile : yearData) {
             if (profile[GENDER_INDEX].equals(gender)) {
                 if (profile[NAME_INDEX].equals(name)) {
@@ -171,7 +171,7 @@ public class Process {
                 }
             }
         }
-        return GET_NAME_ERROR;
+        return NAME_ERROR;
     }
 
     //how should this handle ties?
@@ -179,7 +179,7 @@ public class Process {
         List<String> items = new ArrayList<>();
         List<Integer> counts = new ArrayList<>();
         for (String name : list) {
-            if (name.equals(GET_NAME_ERROR)) {
+            if (name.equals(NAME_ERROR)) {
                 continue;
             }
             if (items.contains(name)) {
@@ -191,7 +191,7 @@ public class Process {
                 counts.add(1);
             }
         }
-        if (items.size() == 0) return GET_NAME_ERROR;
+        if (items.size() == 0) return NAME_ERROR;
         return listToString(maxOccurences(items, counts));
     }
 

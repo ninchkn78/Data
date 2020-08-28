@@ -1,0 +1,10 @@
+Grace,F,10
+Alyssa,F,9
+Mary,F,8
+Megan,F,7
+Miryam,F,6
+Bruce,M,10
+Andy,M,9
+Matt,M,8
+Tom,M,7
+Alex,M,6

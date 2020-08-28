@@ -1,0 +1,8 @@
+Sophie,F,50
+Sarah,F,45
+Elizabeth,F,40
+Miryam,F,35
+Bob,M,50
+Robert,M,45
+Jeffrey,M,40
+Alex,M,35

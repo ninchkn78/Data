@@ -2,14 +2,20 @@ package names;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //ask about having databases be made in the call
 
 class OutputTest {
     Output Test1900 = new Output(1900);
     Output Test1900_1950 = new Output(1900, 1950);
-    Output Empty_File = new Output(2019);
+    Output Empty_File = new Output(0);
+    Output Custom_Test = new Output(1,5);
+
     @Test
     void Basic1YearInSingleYearDataSet() {
         assertEquals("John\nMary", Test1900.topNames(1900));
@@ -38,11 +44,28 @@ class OutputTest {
     }
     @Test
     void Basic2NameNotFound() {
-        assertEquals("Names: 0\nBabies: 0", Empty_File.countNamesAndBabies(2019, 'Y', "M"));
+        assertEquals("Names: 0\nBabies: 0", Empty_File.countNamesAndBabies(0, 'Y', "M"));
     }
 
-    @org.junit.jupiter.api.Test
-    void getRanks() {
+    @Test
+    void Test1FemaleRanks() {
+        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");
+        assertEquals(expectedOutput,Custom_Test.getRanks(1,5,"Miryam","F"));
+    }
+    @Test
+    void Test1MaleRanks() {
+        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");
+        assertEquals(expectedOutput,Custom_Test.getRanks(1,5,"Alex","M"));
+    }
+    @Test
+    void Test1EmptyFile() {
+        List<String> expectedOutput = Collections.singletonList("NAME NOT FOUND");
+        assertEquals(expectedOutput,Empty_File.getRanks(0,0,"Alex","M"));
+    }
+    @Test
+    void Test1NameNotFound() {
+        List<String> expectedOutput = Arrays.asList("NAME NOT FOUND","NAME NOT FOUND","NAME NOT FOUND","NAME NOT FOUND","NAME NOT FOUND");
+        assertEquals(expectedOutput,Custom_Test.getRanks(1,5,"J","M"));
     }
 
     @org.junit.jupiter.api.Test
