@@ -53,7 +53,9 @@ public class Process {
 //    public int totalCount(char letter, String gender) {
 //       return sum(letter, gender, Integer.parseInt(profile[COUNT_INDEX]);
 //    }
-    public int countNames(char letter, String gender) {
+
+    //loops through entire dataset, returns number of names with given gender and starting letter
+    public int countNamesInRange(char letter, String gender) {
         int count = 0;
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
             List<String[]> value = data.getValue();
@@ -65,18 +67,41 @@ public class Process {
         }
         return count;
     }
+    public int countNamesByYear(int year, char letter, String gender) {
+        int count = 0;
+        List<String[]> yearData = profiles.get(year);
+        //checks if year is in dataset
+        if (yearData == null) {
+            System.out.println(YEAR_ERROR);
+            return -1;
+        }
+        for (String[] profile : yearData) {
+            if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
+                count += 1;
+                }
+            }
+
+        return count;
+    }
 
     //these two methods perform the same loop and checks, so need to think of a way to generalize
-    public int countBabies(char letter, String gender) {
+    //loops through entire dataset, returns number of babies with given gender and starting letter
+    public int countBabiesByYear(int year, char letter, String gender) {
         int sum = 0;
-        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-            List<String[]> value = data.getValue();
-            for (String[] profile : value) {
-                if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter)
-                    sum += Integer.parseInt(profile[COUNT_INDEX]);
+        List<String[]> yearData = profiles.get(year);
+        //checks if year is in dataset
+        if (yearData == null) {
+            System.out.println(YEAR_ERROR);
+            return -1;
+        }
+        for (String[] profile : yearData) {
+            if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
+                sum += Integer.parseInt(profile[COUNT_INDEX]);
             }
         }
+
         return sum;
+
     }
 
     //these three methods all have the same loops ??
@@ -97,8 +122,8 @@ public class Process {
     //gets names from entire data set
     public List<String> getNames(String gender, int targetRank) {
         List<String> names = new ArrayList<>();
-        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-            names.add(getName(data.getKey(), gender, targetRank));
+        for(int key : profiles.keySet()) {
+            names.add(getName(key, gender, targetRank));
         }
         return names;
     }
@@ -126,14 +151,17 @@ public class Process {
     //these two methods almost do the same thing
     public List<String> getRanks(String name, String gender) {
         List<String> ranks = new ArrayList<>();
-        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-            ranks.add(getRank(data.getValue(), gender, name));
+        for(int key : profiles.keySet()) {
+            ranks.add(getRank(key, gender, name));
         }
         return ranks;
     }
 
-    private String getRank(List<String[]> yearData, String gender, String name) {
+    private String getRank(int year, String gender, String name) {
         int currRank = 1;
+        List<String[]> yearData = profiles.get(year);
+        //checks if year is in dataset
+        if (yearData == null) return YEAR_ERROR;
         for (String[] profile : yearData) {
             if (profile[GENDER_INDEX].equals(gender)) {
                 if (profile[NAME_INDEX].equals(name)) {
@@ -174,8 +202,11 @@ public class Process {
         List<Integer> counts = new ArrayList<>();
         int i = 0;
         while (i < 26) {
-            counts.add(countBabies(alphabet.charAt(i), gender));
+            for(int key : profiles.keySet()) {
+                counts.add(countBabiesByYear(key, alphabet.charAt(i), gender));
+            }
             i++;
+
         }
         List<String> letters = maxOccurences(alphabetList, counts);
         letters.remove(letters.size() - 1);

@@ -26,17 +26,18 @@ public class Output {
     public Output(int year){
         this(year, year);
     }
+
     public String topNames(int year){
         String maleName = process.getName(year,"M", 1);
         if (maleName.equals((YEAR_ERROR)) )return YEAR_ERROR;
         String femaleName = process.getName(year,"F", 1);
         return maleName + "\n" + femaleName;
     }
-    public String countBabies(char letter, String gender){
-        Process process = new Process(dataStartYear, dataEndYear);
-        int CountNames = process.countNames(letter, gender);
-        int TotalBabies = process.countBabies(letter,gender);
-        return "#OfNames: " + CountNames + "\n#OfBabies: " + TotalBabies;
+    public String countNamesAndBabies(int year, char letter, String gender){
+        int countNames = process.countNamesByYear(year, letter, gender);
+        if (countNames == -1) return YEAR_ERROR;
+        int totalBabies = process.countBabiesByYear(year, letter,gender);
+        return "Names: " + countNames + "\nBabies: " + totalBabies;
     }
     public List<String> getRanks(int start, int end, String name, String gender){
         Process process = new Process(dataStartYear, dataEndYear);
@@ -85,12 +86,12 @@ public class Output {
     {
         Output Test = new Output(1900);
         System.out.println(Test.topNames(1990));
-        System.out.println(Test.countBabies('R',"M"));
-        System.out.println(Test.countBabies('Q',"F"));
+        System.out.println(Test.countNamesAndBabies(1900,'R',"M"));
+        System.out.println(Test.countNamesAndBabies(1900,'Q',"F"));
         System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
         System.out.println((Test.getTodayName(1965, 2001, "Janet", "F")));
         System.out.println(Test.mostPopularName(2001,2001,"F"));
-        System.out.println(Test.mostPopularLetter(1900, 1910));
-        System.out.println(Test.mostPopularLetter(1900,1925));
+        //System.out.println(Test.mostPopularLetter(1900, 1910));
+        //System.out.println(Test.mostPopularLetter(1900,1925));
     }
 }
