@@ -94,20 +94,19 @@ public class Process {
     }
 
     //can't use firstKey if not declared as TreeMap
+    //gets names from entire data set
     public List<String> getNames(String gender, int targetRank) {
         List<String> names = new ArrayList<>();
-        int tempStart = dataStartYear;
-        int tempEnd = dataEndYear;
-        while(tempStart <= tempEnd) {
-            names.add(getName(tempStart, gender, targetRank));
-            tempStart ++;
+        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
+            names.add(getName(data.getKey(), gender, targetRank));
         }
         return names;
     }
-
+    //gets name from a year, returns error if not in the dataset
     public String getName(int year, String gender, int targetRank) {
         int currRank = 1;
         List<String[]> yearData = profiles.get(year);
+        //checks if year is in dataset
         if (yearData == null) return YEAR_ERROR;
         for (String[] profile : yearData) {
             if (profile[GENDER_INDEX].equals(gender)) {
@@ -203,5 +202,8 @@ public class Process {
         }
         String str = sb.toString();
         return str;
+    }
+    private void getDataRange(){
+        //initialize datastart year and data end year
     }
 }
