@@ -35,7 +35,7 @@ public class Output {
     public String countBabies(char letter, String gender){
         Process process = new Process(dataStartYear, dataEndYear);
         int CountNames = process.countNames(letter, gender);
-        int TotalBabies = process.totalCount(letter,gender);
+        int TotalBabies = process.countBabies(letter,gender);
         return "#OfNames: " + CountNames + "\n#OfBabies: " + TotalBabies;
     }
     public List<String> getRanks(int start, int end, String name, String gender){
@@ -85,12 +85,12 @@ public class Output {
     {
         Output Test = new Output(1900);
         System.out.println(Test.topNames(1990));
-//        System.out.println(Test.countBabies(1985,1985,'R',"M"));
-//        System.out.println(Test.countBabies(1900,1905,'Q',"F"));
-//        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
-//        System.out.println((Test.getTodayName(1965, 2001, "Janet", "F")));
-//        System.out.println(Test.mostPopularName(2001,2001,"F"));
-//        System.out.println(Test.mostPopularLetter(1900, 1910));
-//        System.out.println(Test.mostPopularLetter(1900,1925));
+        System.out.println(Test.countBabies('R',"M"));
+        System.out.println(Test.countBabies('Q',"F"));
+        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
+        System.out.println((Test.getTodayName(1965, 2001, "Janet", "F")));
+        System.out.println(Test.mostPopularName(2001,2001,"F"));
+        System.out.println(Test.mostPopularLetter(1900, 1910));
+        System.out.println(Test.mostPopularLetter(1900,1925));
     }
 }

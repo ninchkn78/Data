@@ -67,7 +67,7 @@ public class Process {
     }
 
     //these two methods perform the same loop and checks, so need to think of a way to generalize
-    public int totalCount(char letter, String gender) {
+    public int countBabies(char letter, String gender) {
         int sum = 0;
         for (Map.Entry<Integer, List> data : profiles.entrySet()) {
             List<String[]> value = data.getValue();
@@ -174,7 +174,7 @@ public class Process {
         List<Integer> counts = new ArrayList<>();
         int i = 0;
         while (i < 26) {
-            counts.add(countNames(alphabet.charAt(i), gender));
+            counts.add(countBabies(alphabet.charAt(i), gender));
             i++;
         }
         List<String> letters = maxOccurences(alphabetList, counts);
