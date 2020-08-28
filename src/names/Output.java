@@ -15,25 +15,31 @@ public class Output {
 
     private int dataStartYear;
     private int dataEndYear;
+    private Process process;
+    private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
 
     public Output (int start ,int end) {
         dataStartYear = start;
         dataEndYear = end;
+        process = new Process(dataStartYear, dataEndYear);
     }
-    public String topNames(int dataStartYear){
-        Process process = new Process(dataStartYear);
-        List<String> names = process.getNames("M", 1);
-        names.addAll(process.getNames("F", 1));
-        return String.join("\n", names);
+    public Output(int year){
+        this(year, year);
     }
-    public String countBabies(int start, int end, char letter, String gender){
-        Process process = new Process(start, end);
+    public String topNames(int year){
+        String maleName = process.getName(year,"M", 1);
+        if (maleName.equals((YEAR_ERROR)) )return YEAR_ERROR;
+        String femaleName = process.getName(year,"F", 1);
+        return maleName + "\n" + femaleName;
+    }
+    public String countBabies(char letter, String gender){
+        Process process = new Process(dataStartYear, dataEndYear);
         int CountNames = process.countNames(letter, gender);
         int TotalBabies = process.totalCount(letter,gender);
         return "#OfNames: " + CountNames + "\n#OfBabies: " + TotalBabies;
     }
     public List<String> getRanks(int start, int end, String name, String gender){
-        Process process = new Process(start, end);
+        Process process = new Process(dataStartYear, dataEndYear);
         return process.getRanks(name, gender);
     }
     //need to change start and end parameters to handle when
@@ -77,14 +83,14 @@ public class Output {
 
     public static void main(String[] args)
     {
-        Output Test = new Output(1900, 2000);
+        Output Test = new Output(1900);
         System.out.println(Test.topNames(1990));
-        System.out.println(Test.countBabies(1985,1985,'R',"M"));
-        System.out.println(Test.countBabies(1900,1905,'Q',"F"));
-        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
-        System.out.println((Test.getTodayName(1965, 2001, "Janet", "F")));
-        System.out.println(Test.mostPopularName(2001,2001,"F"));
-        System.out.println(Test.mostPopularLetter(1900, 1910));
-        System.out.println(Test.mostPopularLetter(1900,1925));
+//        System.out.println(Test.countBabies(1985,1985,'R',"M"));
+//        System.out.println(Test.countBabies(1900,1905,'Q',"F"));
+//        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
+//        System.out.println((Test.getTodayName(1965, 2001, "Janet", "F")));
+//        System.out.println(Test.mostPopularName(2001,2001,"F"));
+//        System.out.println(Test.mostPopularLetter(1900, 1910));
+//        System.out.println(Test.mostPopularLetter(1900,1925));
     }
 }

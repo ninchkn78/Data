@@ -10,11 +10,16 @@ public class Process {
     private final int GENDER_INDEX = 1;
     private final int COUNT_INDEX = 2;
     private final String GET_NAME_ERROR = "NAME NOT FOUND";
+    private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
+    private int dataStartYear;
+    private int dataEndYear;
 
     //Variables
-    private final Map<Integer, List> profiles;
+    private Map<Integer, List> profiles;
 
     public Process(int start, int end) {
+        dataStartYear = start;
+        dataEndYear = end;
         profiles = new TreeMap<>();
         ReadFiles listGenerator = new ReadFiles();
         while (start <= end) {
@@ -91,14 +96,19 @@ public class Process {
     //can't use firstKey if not declared as TreeMap
     public List<String> getNames(String gender, int targetRank) {
         List<String> names = new ArrayList<>();
-        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-            names.add(getName(data.getValue(), gender, targetRank));
+        int tempStart = dataStartYear;
+        int tempEnd = dataEndYear;
+        while(tempStart <= tempEnd) {
+            names.add(getName(tempStart, gender, targetRank));
+            tempStart ++;
         }
         return names;
     }
 
-    private String getName(List<String[]> yearData, String gender, int targetRank) {
+    public String getName(int year, String gender, int targetRank) {
         int currRank = 1;
+        List<String[]> yearData = profiles.get(year);
+        if (yearData == null) return YEAR_ERROR;
         for (String[] profile : yearData) {
             if (profile[GENDER_INDEX].equals(gender)) {
                 if (currRank == targetRank) {

@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 //ask about having databases be made in the call
 
 class OutputTest {
-    Output Test = new Output(1900, 2000);
+    Output Test1900 = new Output(1900);
     @Test
     void topNames() {
-        assertEquals("John\nMary", Test.topNames(1900));
+        assertEquals("John\nMary", Test1900.topNames(1901));
     }
 
     @org.junit.jupiter.api.Test

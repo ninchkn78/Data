@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 15 hours min
+Hours Spent: 15 hours 15 min
 
 ### Resources Used
 https://www.netjstech.com/2017/04/reading-all-files-in-folder-java-program.html#:~:text=Java%20Example%20Code%20to%20read,recent%20addition%20in%20Java%208.
