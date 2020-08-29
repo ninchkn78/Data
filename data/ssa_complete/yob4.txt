@@ -1,7 +1,7 @@
-Sophie,F,50
-Sarah,F,45
-Elizabeth,F,40
-Miryam,F,35
+Sophie,F,1500
+Barah,F,1500
+Elizabeth,F,1500
+Miryam,F,1
 Bob,M,50
 Robert,M,45
 Jeffrey,M,40

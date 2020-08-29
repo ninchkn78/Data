@@ -1,6 +1,6 @@
 Lucy,F,3000
-Michelle,F,2500
-Miryam,F,2300
+Giselle,F,3000
+Miryam,F,2999
 Jacob,M,3000
 Albert,M,2500
 Alex,M,2300

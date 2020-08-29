@@ -1,6 +1,7 @@
 package names;
 
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Output {
     private int dataEndYear;
     private Process process;
     private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
+    private final String RANGE_ERROR = "INVALID RANGE";
 
     public Output (int start ,int end) {
         dataStartYear = start;
@@ -57,21 +59,22 @@ public class Output {
     //how should this handle ties?
 
     public String mostPopularName(int start, int end, String gender){
-        Process process = new Process(start,end);
-        List<String> names = process.getNames(gender, 1);
+        if(start < dataStartYear || end > dataEndYear) return RANGE_ERROR;
+        List<String> names = process.getNames(start, end, gender, 1);
         return process.mostFrequent(names);
     }
     public List<String> mostPopularLetter(int start, int end){
-        Process process = new Process(start, end);
-        List<String> letters = process.mostPopularLetters("F");
+        if(start < dataStartYear || end > dataEndYear) return Arrays.asList(RANGE_ERROR);
+        List<String> letters = process.mostPopularLetters(start,end,"F");
         if (letters.size() > 2) {
             Collections.sort(letters);
             return letters;
         }
+        else if (letters.size() == 0){
+            return letters;
+        }
         char letter = letters.remove(0).charAt(0);
-        return process.namesStartWith(letter, "F");
-
-
+        return process.namesStartWith(letter, "F", start, end);
     }
 
     public static void main(String[] args)
@@ -83,7 +86,7 @@ public class Output {
         System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
         System.out.println((Test.getTodayName( 2001, "Janet", "F")));
         System.out.println(Test.mostPopularName(2001,2001,"F"));
-        //System.out.println(Test.mostPopularLetter(1900, 1910));
+        System.out.println(Test.mostPopularLetter(1900, 1910));
         //System.out.println(Test.mostPopularLetter(1900,1925));
     }
 }

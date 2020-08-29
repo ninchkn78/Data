@@ -72,7 +72,6 @@ public class Process {
         List<String[]> yearData = profiles.get(year);
         //checks if year is in dataset
         if (yearData == null) {
-            System.out.println(YEAR_ERROR);
             return -1;
         }
         for (String[] profile : yearData) {
@@ -105,25 +104,31 @@ public class Process {
     }
 
     //these three methods all have the same loops ??
-    public List<String> namesStartWith(char letter, String gender) {
+    //returns alphabeteized list of all names starting with
+    public List<String> namesStartWith(char letter, String gender, int start, int end) {
         List<String> names = new ArrayList();
-        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-            List<String[]> value = data.getValue();
+        while (start <= end){
+            List<String[]> value = profiles.get(start);
             for (String[] profile : value) {
                 if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
                     names.add(profile[NAME_INDEX]);
                 }
             }
+            start++;
         }
+        Collections.sort(names);
+        Set<String> hashSet = new LinkedHashSet<>(names);
+        names = new ArrayList<>(hashSet);
         return names;
     }
 
     //can't use firstKey if not declared as TreeMap
-    //gets names from entire data set
-    public List<String> getNames(String gender, int targetRank) {
+    //gets names from specified years
+    public List<String> getNames(int start, int end, String gender, int targetRank) {
         List<String> names = new ArrayList<>();
-        for(int key : profiles.keySet()) {
-            names.add(getName(key, gender, targetRank));
+        while(start <= end){
+            names.add(getName(start, gender, targetRank));
+            start++;
         }
         return names;
     }
@@ -192,18 +197,22 @@ public class Process {
             }
         }
         if (items.size() == 0) return NAME_ERROR;
-        return listToString(maxOccurences(items, counts));
+        return listToString(maxOccurences(items, counts)).strip();
     }
 
-    public List<String> mostPopularLetters(String gender) {
+    public List<String> mostPopularLetters(int start, int end, String gender) {
+        int tempStart;
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String[] alphaArray = alphabet.split("");
         List<String> alphabetList = Arrays.asList(alphaArray);
-        List<Integer> counts = new ArrayList<>();
+        List<Integer> counts = new ArrayList<>(Collections.nCopies(26, 0));
         int i = 0;
         while (i < 26) {
-            for(int key : profiles.keySet()) {
-                counts.add(countBabiesByYear(key, alphabet.charAt(i), gender));
+            tempStart = start;
+            while (tempStart <= end){
+                int currCount = counts.get(i);
+                counts.set(i, currCount + countBabiesByYear(tempStart, alphabet.charAt(i), gender));
+                tempStart++;
             }
             i++;
 
@@ -216,6 +225,10 @@ public class Process {
     private List<String> maxOccurences(List<String> items, List<Integer> counts) {
         List<String> ret = new ArrayList<>();
         int max = Collections.max(counts);
+        if (max == 0) {
+            ret.add("0");
+            return ret;
+        }
         for (int i = 0; i < counts.size(); i++) {
             if (counts.get(i) == max) {
                 ret.add(items.get(i));
@@ -231,8 +244,7 @@ public class Process {
             sb.append(s);
             sb.append(" ");
         }
-        String str = sb.toString();
-        return str;
+        return sb.toString();
     }
     private void getDataRange(){
         //initialize datastart year and data end year

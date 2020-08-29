@@ -1,8 +1,9 @@
-Miryam,F,1000
+Miryam,F,1001
 Megan,F,900
 Lucy,F,800
-Stacy,F,700
+Btacy,F,700
 Nicole,F,600
+Alyssa,F,1
 Alex,M,1000
 Jerry,M,900
 Prateek,M,800

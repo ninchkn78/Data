@@ -15,8 +15,12 @@ Finish Date:
 Hours Spent: 16 hours 15 min
 
 ### Resources Used
+Reading Files from a Folder
 https://www.netjstech.com/2017/04/reading-all-files-in-folder-java-program.html#:~:text=Java%20Example%20Code%20to%20read,recent%20addition%20in%20Java%208.
-
+Removing Duplicates
+https://devqa.io/java-remove-duplicates-from-list/
+Initializing ArrayList with Zeroes
+https://stackoverflow.com/questions/5600668/how-can-i-initialize-an-arraylist-with-all-zeroes-in-java
 ### Running the Program
 
 Main class:

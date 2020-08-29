@@ -76,8 +76,9 @@ public class ReadFiles {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
-            System.out.println("That year is not in the database");
-            System.exit(0);
+            //System.out.println("That year is not in the database");
+            //System.exit(0);
+            e.printStackTrace();
         }
         return profiles;
     }
