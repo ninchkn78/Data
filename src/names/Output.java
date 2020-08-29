@@ -46,21 +46,13 @@ public class Output {
     //need to change start and end parameters to handle when
     //looking for prior year
     //also need some way to get a database ??
-    public String getTodayName(int start, int end, String name, String gender){
-        Process process1 = new Process(start);
-        Process process2 = new Process(end);
-        List<String> ranks = process1.getRanks(name, gender);
-        String compareRank = ranks.get(0);
+    public String getTodayName(int year, String name, String gender){
+        String compareRank = process.getRank(year,gender, name);
         compareRank = compareRank.replaceAll("\n", "");
         //if getRank couldn't find a name
-        if (compareRank.charAt(0) == 'N'){
-            return "Name not found" + "in year " + start;
-        }
-        else {
-            int rankNum = Integer.parseInt(compareRank);
-            return String.join(" ", process2.getNames(gender,rankNum));
-        }
-
+        if (compareRank.equals("NAME NOT FOUND")) return compareRank;
+        int rankNum = Integer.parseInt(compareRank);
+        return process.getName(dataEndYear,gender,rankNum) + " " + gender;
     }
     //how should this handle ties?
 
@@ -89,7 +81,7 @@ public class Output {
         System.out.println(Test.countNamesAndBabies(1900,'R',"M"));
         System.out.println(Test.countNamesAndBabies(1900,'Q',"F"));
         System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
-        System.out.println((Test.getTodayName(1965, 2001, "Janet", "F")));
+        System.out.println((Test.getTodayName( 2001, "Janet", "F")));
         System.out.println(Test.mostPopularName(2001,2001,"F"));
         //System.out.println(Test.mostPopularLetter(1900, 1910));
         //System.out.println(Test.mostPopularLetter(1900,1925));

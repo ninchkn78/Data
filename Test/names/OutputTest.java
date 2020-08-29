@@ -68,8 +68,22 @@ class OutputTest {
         assertEquals(expectedOutput,Custom_Test.getRanks(1,5,"J","M"));
     }
 
-    @org.junit.jupiter.api.Test
-    void getTodayName() {
+    @Test
+    void Test2FemaleNameInDataSet() {
+        assertEquals("Grace F", Custom_Test.getTodayName(1,"Miryam","F"));
+    }
+    @Test
+    void Test2MaleNameInDataSet() {
+        assertEquals("Matt M", Custom_Test.getTodayName(3,"Alex","M"));
+    }
+    @Test
+    void Test2NameNotInDataSet() {
+        assertEquals("NAME NOT FOUND", Custom_Test.getTodayName(3,"Jackie","M"));
+        assertEquals("NAME NOT FOUND", Custom_Test.getTodayName(3,"Jackie","F"));
+    }
+    @Test
+    void Test2YearNotInDataSet() {
+        assertEquals("NAME NOT FOUND", Custom_Test.getTodayName(7,"Miryam","F"));
     }
 
     @org.junit.jupiter.api.Test

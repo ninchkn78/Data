@@ -157,7 +157,7 @@ public class Process {
         return ranks;
     }
 
-    private String getRank(int year, String gender, String name) {
+    public String getRank(int year, String gender, String name) {
         int currRank = 1;
         List<String[]> yearData = profiles.get(year);
         //checks if year is in dataset
