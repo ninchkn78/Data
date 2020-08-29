@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 16 hours 15 min
+Hours Spent: 17 hours 15 min
 
 ### Resources Used
 Reading Files from a Folder
