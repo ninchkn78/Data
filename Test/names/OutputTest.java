@@ -119,7 +119,7 @@ class OutputTest {
 
     @Test
     void Test4TiesAmongYears() {
-        List<String> expectedOutput = Arrays.asList("G", "L", "M");
+        List<String> expectedOutput = Arrays.asList("Giselle");
         assertEquals(expectedOutput, Custom_Test.mostPopularLetter(3, 4));
     }
     @Test

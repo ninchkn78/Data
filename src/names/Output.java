@@ -66,11 +66,7 @@ public class Output {
     public List<String> mostPopularLetter(int start, int end){
         if(start < dataStartYear || end > dataEndYear) return Arrays.asList(RANGE_ERROR);
         List<String> letters = process.mostPopularLetters(start,end,"F");
-        if (letters.size() > 2) {
-            Collections.sort(letters);
-            return letters;
-        }
-        else if (letters.size() == 0){
+        if (letters.size() == 0){
             return letters;
         }
         char letter = letters.remove(0).charAt(0);

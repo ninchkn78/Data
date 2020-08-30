@@ -219,6 +219,7 @@ public class Process {
         }
         List<String> letters = maxOccurences(alphabetList, counts);
         letters.remove(letters.size() - 1);
+        Collections.sort(letters);
         return letters;
     }
 
