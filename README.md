@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 19 hours 45 min
+Hours Spent: 20 hours
 
 ### Resources Used
 Getting Integers from a string
