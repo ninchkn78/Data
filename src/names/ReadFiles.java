@@ -14,7 +14,6 @@ public class ReadFiles {
     private String fileName;
 
     private int getYear(String path) {
-
         return Integer.parseInt(path.substring(3, 7));
     }
 

@@ -15,12 +15,11 @@ public class Process {
     private int dataEndYear;
 
     //Variables
-    private Map<Integer, List> profiles;
+    private Map<Integer, List> profiles = new TreeMap<>();
 
     public Process(int start, int end) {
         dataStartYear = start;
         dataEndYear = end;
-        profiles = new TreeMap<>();
         ReadFiles listGenerator = new ReadFiles();
         while (start <= end) {
             profiles.put(start, listGenerator.generateList(start));
@@ -54,19 +53,6 @@ public class Process {
 //       return sum(letter, gender, Integer.parseInt(profile[COUNT_INDEX]);
 //    }
 
-    //loops through entire dataset, returns number of names with given gender and starting letter
-    public int countNamesInRange(char letter, String gender) {
-        int count = 0;
-        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-            List<String[]> value = data.getValue();
-            for (String[] profile : value) {
-                if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
-                    count += 1;
-                }
-            }
-        }
-        return count;
-    }
     public int countNamesByYear(int year, char letter, String gender) {
         int count = 0;
         List<String[]> yearData = profiles.get(year);
@@ -79,7 +65,6 @@ public class Process {
                 count += 1;
                 }
             }
-
         return count;
     }
 

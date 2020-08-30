@@ -12,7 +12,7 @@ public class Output {
     /**
      * Start of the program.
      */
-    //change later to take in an entire source
+    //change later to take in a folder
 
     private int dataStartYear;
     private int dataEndYear;
@@ -45,9 +45,7 @@ public class Output {
         Process process = new Process(dataStartYear, dataEndYear);
         return process.getRanks(name, gender);
     }
-    //need to change start and end parameters to handle when
-    //looking for prior year
-    //also need some way to get a database ??
+
     public String getTodayName(int year, String name, String gender){
         String compareRank = process.getRank(year,gender, name);
         compareRank = compareRank.replaceAll("\n", "");
