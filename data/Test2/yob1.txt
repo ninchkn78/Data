@@ -1,0 +1,11 @@
+Miryam,F,1001
+Megan,F,900
+Lucy,F,800
+Btacy,F,700
+Nicole,F,600
+Alyssa,F,1
+Alex,M,1000
+Jerry,M,900
+Prateek,M,800
+Symon,M,700
+John,M,600

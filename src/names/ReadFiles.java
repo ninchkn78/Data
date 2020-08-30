@@ -1,20 +1,30 @@
 package names;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
+
 
 public class ReadFiles {
     private String fileName;
 
+
+
     private int getYear(String path) {
-        return Integer.parseInt(path.substring(3, 7));
+        // Replacing every non-digit number
+        // with a space(" ")
+
+        path = path.replaceAll("[^\\d]", "");
+
+        if (path.equals("")) return -1;
+
+        return Integer.parseInt(path);
     }
 
     //    public Map<Integer, List> listAllFiles(String path){
@@ -59,33 +69,40 @@ public class ReadFiles {
 //        return profiles;
 //    }
 
-    public List<String[]> generateList(int year) {
-        List<String[]> profiles = new ArrayList<>();
-        String[] profile;
-
-        getFileName(year);
-
+    public Map<Integer, List<String[]>> generateMap(String folderName) {
+        int year;
+        Map<Integer, List<String[]>> dataSet = new TreeMap<>();
         try {
-            Path path = Paths.get(ReadFiles.class.getClassLoader().getResource(fileName).toURI());
-            for (String line : Files.readAllLines(path)) {
-                profile = line.split(",");
-                profiles.add(profile);
+            Path path = Paths.get(Objects.requireNonNull(ReadFiles.class.getClassLoader().getResource(folderName)).toURI());
+            File folder = new File(String.valueOf(path));
+            File[] textFiles = folder.listFiles();
+            for (File file : textFiles) {
+                year = getYear(file.getName());
+                dataSet.put(year, generateList(file));
             }
-            return profiles;
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
-        } catch (NullPointerException e) {
-            //System.out.println("That year is not in the database");
-            //System.exit(0);
-            e.printStackTrace();
         }
+
+        return dataSet;
+    }
+    private List<String[]> generateList(File textFile) throws FileNotFoundException {
+        List<String[]> profiles = new ArrayList<>();
+        String[] profile;
+        Scanner scan = new Scanner(textFile);
+        while (scan.hasNextLine()) {
+            profile = scan.nextLine().split(",");
+            profiles.add(profile);
+                }
         return profiles;
     }
+
+    public static void main(String[] args) throws Exception{
+
+        ReadFiles test = new ReadFiles();
+        test.generateMap("ssa_2000s");
+
+
+    }
 }
-//    public static void main(String[] args) throws Exception{
-//        String folderPath = "C:/Users/alexc/CS307/data_team01/data/ssa_2000s";
-//        listAllFiles(folderPath);
-//
-//    }
-//}
-//
+

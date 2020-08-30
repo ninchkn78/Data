@@ -11,26 +11,25 @@ public class Process {
     private final int COUNT_INDEX = 2;
     private final String NAME_ERROR = "NAME NOT FOUND";
     private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
-    private int dataStartYear;
-    private int dataEndYear;
+
 
     //Variables
-    private Map<Integer, List> profiles = new TreeMap<>();
 
-    public Process(int start, int end) {
-        dataStartYear = start;
-        dataEndYear = end;
-        ReadFiles listGenerator = new ReadFiles();
-        while (start <= end) {
-            profiles.put(start, listGenerator.generateList(start));
-            start += 1;
+    //need to declare this as TreeMap so can use firstKey and lastKey
+    private TreeMap<Integer, List<String[]>> dataSet = new TreeMap<>();
+
+    public int getStartYear() {
+        return dataSet.firstKey();
+    }
+    public int getEndYear() {
+        return dataSet.lastKey();
+    }
+    public Process(String folderName) {
+        ReadFiles readFiles = new ReadFiles();
+        dataSet = (TreeMap<Integer, List<String[]>>) readFiles.generateMap(folderName);
         }
-    }
 
-    //wrapper
-    public Process(int year) {
-        this(year, year);
-    }
+
 
     //rename
 //    private int sum(char letter, String gender, int iter) {
@@ -55,7 +54,7 @@ public class Process {
 
     public int countNamesByYear(int year, char letter, String gender) {
         int count = 0;
-        List<String[]> yearData = profiles.get(year);
+        List<String[]> yearData = dataSet.get(year);
         //checks if year is in dataset
         if (yearData == null) {
             return -1;
@@ -72,7 +71,7 @@ public class Process {
     //loops through entire dataset, returns number of babies with given gender and starting letter
     public int countBabiesByYear(int year, char letter, String gender) {
         int sum = 0;
-        List<String[]> yearData = profiles.get(year);
+        List<String[]> yearData = dataSet.get(year);
         //checks if year is in dataset
         if (yearData == null) {
             System.out.println(YEAR_ERROR);
@@ -93,7 +92,7 @@ public class Process {
     public List<String> namesStartWith(char letter, String gender, int start, int end) {
         List<String> names = new ArrayList();
         while (start <= end){
-            List<String[]> value = profiles.get(start);
+            List<String[]> value = dataSet.get(start);
             for (String[] profile : value) {
                 if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
                     names.add(profile[NAME_INDEX]);
@@ -120,7 +119,7 @@ public class Process {
     //gets name from a year, returns error if not in the dataset
     public String getName(int year, String gender, int targetRank) {
         int currRank = 1;
-        List<String[]> yearData = profiles.get(year);
+        List<String[]> yearData = dataSet.get(year);
         //checks if year is in dataset
         if (yearData == null) return YEAR_ERROR;
         for (String[] profile : yearData) {
@@ -141,7 +140,7 @@ public class Process {
     //these two methods almost do the same thing
     public List<String> getRanks(String name, String gender) {
         List<String> ranks = new ArrayList<>();
-        for(int key : profiles.keySet()) {
+        for(int key : dataSet.keySet()) {
             ranks.add(getRank(key, gender, name));
         }
         return ranks;
@@ -149,7 +148,7 @@ public class Process {
 
     public String getRank(int year, String gender, String name) {
         int currRank = 1;
-        List<String[]> yearData = profiles.get(year);
+        List<String[]> yearData = dataSet.get(year);
         //checks if year is in dataset
         if (yearData == null) return NAME_ERROR;
         for (String[] profile : yearData) {
@@ -184,7 +183,7 @@ public class Process {
         if (items.size() == 0) return NAME_ERROR;
         return listToString(maxOccurences(items, counts)).strip();
     }
-
+    //this one increments by total babies not by 1
     public List<String> mostPopularLetters(int start, int end, String gender) {
         int tempStart;
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

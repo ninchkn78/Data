@@ -19,19 +19,20 @@ public class Output {
     private Process process;
     private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
     private final String RANGE_ERROR = "INVALID RANGE";
+    private final String NAME_ERROR = "NAME NOT FOUND";
 
-    public Output (int start ,int end) {
-        dataStartYear = start;
-        dataEndYear = end;
-        process = new Process(dataStartYear, dataEndYear);
+    public Output (String folderName) {
+        process = new Process(folderName);
+        dataStartYear = process.getStartYear();
+        dataEndYear = process.getEndYear();
     }
-    public Output(int year){
-        this(year, year);
-    }
+
+
 
     public String topNames(int year){
         String maleName = process.getName(year,"M", 1);
-        if (maleName.equals((YEAR_ERROR)) )return YEAR_ERROR;
+        if (maleName.equals(NAME_ERROR)) return NAME_ERROR;
+        if (maleName.equals(YEAR_ERROR)) return YEAR_ERROR;
         String femaleName = process.getName(year,"F", 1);
         return maleName + "\n" + femaleName;
     }
@@ -41,10 +42,10 @@ public class Output {
         int totalBabies = process.countBabiesByYear(year, letter,gender);
         return "Names: " + countNames + "\nBabies: " + totalBabies;
     }
-    public List<String> getRanks(int start, int end, String name, String gender){
-        Process process = new Process(dataStartYear, dataEndYear);
-        return process.getRanks(name, gender);
-    }
+//    public List<String> getRanks(int start, int end, String name, String gender){
+//        Process process = new Process(dataStartYear, dataEndYear);
+//        return process.getRanks(name, gender);
+//    }
 
     public String getTodayName(int year, String name, String gender){
         String compareRank = process.getRank(year,gender, name);
@@ -73,11 +74,11 @@ public class Output {
 
     public static void main(String[] args)
     {
-        Output Test = new Output(1900);
+        Output Test = new Output("Test");
         System.out.println(Test.topNames(1990));
         System.out.println(Test.countNamesAndBabies(1900,'R',"M"));
         System.out.println(Test.countNamesAndBabies(1900,'Q',"F"));
-        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
+        //System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
         System.out.println((Test.getTodayName( 2001, "Janet", "F")));
         System.out.println(Test.mostPopularName(2001,2001,"F"));
         System.out.println(Test.mostPopularLetter(1900, 1910));

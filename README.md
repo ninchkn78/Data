@@ -15,6 +15,8 @@ Finish Date:
 Hours Spent: 18 hours 15 min
 
 ### Resources Used
+Getting Integers from a string
+https://www.geeksforgeeks.org/extract-all-integers-from-the-given-string-in-java/
 Reading Files from a Folder
 https://www.netjstech.com/2017/04/reading-all-files-in-folder-java-program.html#:~:text=Java%20Example%20Code%20to%20read,recent%20addition%20in%20Java%208.
 Removing Duplicates
@@ -39,10 +41,12 @@ Extra credit:
 ### Notes/Assumptions
 Lines are in the format Name, Gender as M/F, Occurences 
 Lines are sorted in decreasing order by occurences 
-Format of text file is "yob" + year + ".txt"
+Name of text files only contain numbers that are the year 
 
 
 ### Impressions
 
 Do i want start and end year to be in the methods or in the output 
 should i add a function that loops over years 
+
+having readfiles in its own class allows it to access different data
