@@ -44,29 +44,29 @@ class OutputTest {
         assertEquals("Names: 0\nBabies: 0", Test.countNamesAndBabies(0, 'Y', "M"));
     }
 
-//    @Test
-//    void Test1FemaleRanks() {
-//        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");
-//        assertEquals(expectedOutput, Test.getRanks(1, 5, "Miryam", "F"));
-//    }
-//
-//    @Test
-//    void Test1MaleRanks() {
-//        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");
-//        assertEquals(expectedOutput, Custom_Test.getRanks(1, 5, "Alex", "M"));
-//    }
-//
-//    @Test
-//    void Test1EmptyFile() {
-//        List<String> expectedOutput = Collections.singletonList("NAME NOT FOUND");
-//        assertEquals(expectedOutput, Empty_File.getRanks(0, 0, "Alex", "M"));
-//    }
-//
-//    @Test
-//    void Test1NameNotFound() {
-//        List<String> expectedOutput = Arrays.asList("NAME NOT FOUND", "NAME NOT FOUND", "NAME NOT FOUND", "NAME NOT FOUND", "NAME NOT FOUND");
-//        assertEquals(expectedOutput, Custom_Test.getRanks(1, 5, "J", "M"));
-//    }
+    @Test
+    void Test1FemaleRanks() {
+        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");
+        assertEquals(expectedOutput, Test.getRanks(1, 5, "Miryam", "F"));
+    }
+
+    @Test
+    void Test1MaleRanks() {
+        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");
+        assertEquals(expectedOutput,Test.getRanks(1, 5, "Alex", "M"));
+    }
+
+    @Test
+    void Test1EmptyFile() {
+        List<String> expectedOutput = Collections.singletonList("NAME NOT FOUND");
+        assertEquals(expectedOutput, Test.getRanks(0, 0, "Alex", "M"));
+    }
+
+    @Test
+    void Test1NameNotFound() {
+        List<String> expectedOutput = Arrays.asList("NAME NOT FOUND", "NAME NOT FOUND", "NAME NOT FOUND", "NAME NOT FOUND", "NAME NOT FOUND");
+        assertEquals(expectedOutput, Test.getRanks(1, 5, "J", "M"));
+    }
 
     @Test
     void Test2FemaleNameInDataSet() {

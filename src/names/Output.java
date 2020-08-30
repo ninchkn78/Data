@@ -42,10 +42,9 @@ public class Output {
         int totalBabies = process.countBabiesByYear(year, letter,gender);
         return "Names: " + countNames + "\nBabies: " + totalBabies;
     }
-//    public List<String> getRanks(int start, int end, String name, String gender){
-//        Process process = new Process(dataStartYear, dataEndYear);
-//        return process.getRanks(name, gender);
-//    }
+    public List<String> getRanks(int start, int end, String name, String gender){
+        return process.getRanks(start, end, name, gender);
+    }
 
     public String getTodayName(int year, String name, String gender){
         String compareRank = process.getRank(year,gender, name);

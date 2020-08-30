@@ -16,7 +16,7 @@ public class Process {
     //Variables
 
     //need to declare this as TreeMap so can use firstKey and lastKey
-    private TreeMap<Integer, List<String[]>> dataSet = new TreeMap<>();
+    private TreeMap<Integer, List<String[]>> dataSet;
 
     public int getStartYear() {
         return dataSet.firstKey();
@@ -138,10 +138,11 @@ public class Process {
     }
 
     //these two methods almost do the same thing
-    public List<String> getRanks(String name, String gender) {
+    public List<String> getRanks(int start, int end, String name, String gender) {
         List<String> ranks = new ArrayList<>();
-        for(int key : dataSet.keySet()) {
-            ranks.add(getRank(key, gender, name));
+        while(start <= end){
+            ranks.add(getRank(start, gender, name));
+            start++;
         }
         return ranks;
     }
@@ -229,7 +230,5 @@ public class Process {
         }
         return sb.toString();
     }
-    private void getDataRange(){
-        //initialize datastart year and data end year
-    }
+
 }
