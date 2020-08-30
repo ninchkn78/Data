@@ -111,7 +111,7 @@ class OutputTest {
 
     @Test
     void Test4TiesAmongYears() {
-        List<String> expectedOutput = Arrays.asList("Giselle");
+        List<String> expectedOutput = Collections.singletonList("Giselle");
         assertEquals(expectedOutput, Test.mostPopularLetter(3, 4));
     }
     @Test
@@ -121,16 +121,16 @@ class OutputTest {
     }
     @Test
     void Test4SingleNameAmongYears() {
-        List<String> expectedOutput = Arrays.asList("Sophie");
+        List<String> expectedOutput = Collections.singletonList("Sophie");
         assertEquals(expectedOutput, Test.mostPopularLetter(1, 5));
     }
     @Test
     void Test4NoNames() {
-        List<String> expectedOutput = Arrays.asList();
+        List<String> expectedOutput = Collections.emptyList();
         assertEquals(expectedOutput, Test.mostPopularLetter(0, 0));
     }
     @Test
     void Test4YearNotInDataset() {
-        assertEquals(Arrays.asList("INVALID RANGE"), Test.mostPopularLetter(1, 6));
+        assertEquals(Collections.singletonList("INVALID RANGE"), Test.mostPopularLetter(1, 6));
     }
 }

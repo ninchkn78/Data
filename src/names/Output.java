@@ -1,7 +1,6 @@
 package names;
 
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,9 +13,9 @@ public class Output {
      */
     //change later to take in a folder
 
-    private int dataStartYear;
-    private int dataEndYear;
-    private Process process;
+    private final int dataStartYear;
+    private final int dataEndYear;
+    private final Process process;
     private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
     private final String RANGE_ERROR = "INVALID RANGE";
     private final String NAME_ERROR = "NAME NOT FOUND";
@@ -26,8 +25,6 @@ public class Output {
         dataStartYear = process.getStartYear();
         dataEndYear = process.getEndYear();
     }
-
-
 
     public String topNames(int year){
         String maleName = process.getName(year,"M", 1);
@@ -45,7 +42,6 @@ public class Output {
     public List<String> getRanks(int start, int end, String name, String gender){
         return process.getRanks(start, end, name, gender);
     }
-
     public String getTodayName(int year, String name, String gender){
         String compareRank = process.getRank(year,gender, name);
         compareRank = compareRank.replaceAll("\n", "");
@@ -55,14 +51,13 @@ public class Output {
         return process.getName(dataEndYear,gender,rankNum) + " " + gender;
     }
     //how should this handle ties?
-
     public String mostPopularName(int start, int end, String gender){
         if(start < dataStartYear || end > dataEndYear) return RANGE_ERROR;
         List<String> names = process.getNames(start, end, gender, 1);
         return process.mostFrequent(names);
     }
     public List<String> mostPopularLetter(int start, int end){
-        if(start < dataStartYear || end > dataEndYear) return Arrays.asList(RANGE_ERROR);
+        if(start < dataStartYear || end > dataEndYear) return Collections.singletonList(RANGE_ERROR);
         List<String> letters = process.mostPopularLetters(start,end,"F");
         if (letters.size() == 0){
             return letters;

@@ -16,7 +16,7 @@ public class Process {
     //Variables
 
     //need to declare this as TreeMap so can use firstKey and lastKey
-    private TreeMap<Integer, List<String[]>> dataSet;
+    private final TreeMap<Integer, List<String[]>> dataSet;
 
     public int getStartYear() {
         return dataSet.firstKey();

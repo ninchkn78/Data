@@ -6,7 +6,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 
 public class ReadFiles {
@@ -32,7 +37,6 @@ public class ReadFiles {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-
         return dataSet;
     }
     private List<String[]> generateList(File textFile) throws FileNotFoundException {
@@ -45,7 +49,5 @@ public class ReadFiles {
                 }
         return profiles;
     }
-
-
 }
 
