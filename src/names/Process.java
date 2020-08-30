@@ -29,29 +29,6 @@ public class Process {
         dataSet = (TreeMap<Integer, List<String[]>>) readFiles.generateMap(folderName);
         }
 
-
-
-    //rename
-//    private int sum(char letter, String gender, int iter) {
-//        int count = 0;
-//        for (Map.Entry<Integer, List> data : profiles.entrySet()) {
-//            List<String[]> value = data.getValue();
-//            for (String[] profile : value){
-//                if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
-//                    count += iter;
-//                }
-//            }
-//        }
-//        return count;
-//    }
-//    public int namesStartWith (char letter, String gender) {
-//        return sum(letter, gender, 1);
-//    }
-//
-//    public int totalCount(char letter, String gender) {
-//       return sum(letter, gender, Integer.parseInt(profile[COUNT_INDEX]);
-//    }
-
     public int countNamesByYear(int year, char letter, String gender) {
         int count = 0;
         List<String[]> yearData = dataSet.get(year);
