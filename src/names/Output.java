@@ -39,8 +39,8 @@ public class Output {
         int totalBabies = process.countBabiesByYear(year, letter,gender);
         return "Names: " + countNames + "\nBabies: " + totalBabies;
     }
-    public List<String> getRanks(int start, int end, String name, String gender){
-        return process.getRanks(start, end, name, gender);
+    public List<String> getRanks(String name, String gender){
+        return process.getRanks(dataStartYear, dataEndYear, name, gender);
     }
     public String getTodayName(int year, String name, String gender){
         String compareRank = process.getRank(year,gender, name);
@@ -72,7 +72,7 @@ public class Output {
         System.out.println(Test.topNames(1990));
         System.out.println(Test.countNamesAndBabies(1900,'R',"M"));
         System.out.println(Test.countNamesAndBabies(1900,'Q',"F"));
-        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
+        System.out.println(Test.getRanks( "Alex","M"));
         System.out.println((Test.getTodayName( 2001, "Janet", "F")));
         System.out.println(Test.mostPopularName(2001,2001,"F"));
         System.out.println(Test.mostPopularLetter(1900, 1910));

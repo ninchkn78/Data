@@ -50,3 +50,5 @@ Do i want start and end year to be in the methods or in the output
 should i add a function that loops over years 
 
 having readfiles in its own class allows it to access different data
+
+CHANGES: READFILES taking in year, then year range, then data folder 

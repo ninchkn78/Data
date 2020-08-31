@@ -163,6 +163,7 @@ public class Process {
         return listToString(maxOccurences(items, counts)).strip();
     }
     //this one increments by total babies not by 1
+    //can it be a dictionary instead?
     public List<String> mostPopularLetters(int start, int end, String gender) {
         int tempStart;
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
