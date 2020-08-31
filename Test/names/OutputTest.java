@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //ask about having databases be made in the call
 
 class OutputTest {
+
+    //don't have a beforeEach because none of my methods being tested
+    //change the state of any of the instance variables
     Output Test = new Output("Test");
 
     @Test
