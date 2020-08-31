@@ -6,11 +6,11 @@ public class Process {
     //Constants
 
     //in case format of lines are different
-    private final int NAME_INDEX = 0;
-    private final int GENDER_INDEX = 1;
-    private final int COUNT_INDEX = 2;
-    private final String NAME_ERROR = "NAME NOT FOUND";
-    private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
+    private final static int NAME_INDEX = 0;
+    private final static int GENDER_INDEX = 1;
+    private final static int COUNT_INDEX = 2;
+    private final static String NAME_ERROR = "NAME NOT FOUND";
+    private final static String YEAR_ERROR = "YEAR NOT IN DATABASE";
 
 
     //Variables
@@ -94,6 +94,7 @@ public class Process {
         return names;
     }
     //gets name from a year, returns error if not in the dataset
+    //the above comment is incorrect 
     public String getName(int year, String gender, int targetRank) {
         int currRank = 1;
         List<String[]> yearData = dataSet.get(year);

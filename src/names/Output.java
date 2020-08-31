@@ -16,9 +16,9 @@ public class Output {
     private final int dataStartYear;
     private final int dataEndYear;
     private final Process process;
-    private final String YEAR_ERROR = "YEAR NOT IN DATABASE";
-    private final String RANGE_ERROR = "INVALID RANGE";
-    private final String NAME_ERROR = "NAME NOT FOUND";
+    private final static String YEAR_ERROR = "YEAR NOT IN DATABASE";
+    private final static String RANGE_ERROR = "INVALID RANGE";
+    private final static String NAME_ERROR = "NAME NOT FOUND";
 
     public Output (String folderName) {
         process = new Process(folderName);
@@ -68,14 +68,14 @@ public class Output {
 
     public static void main(String[] args)
     {
-        Output Test = new Output("Test");
+        Output Test = new Output("ssa_complete");
         System.out.println(Test.topNames(1990));
         System.out.println(Test.countNamesAndBabies(1900,'R',"M"));
         System.out.println(Test.countNamesAndBabies(1900,'Q',"F"));
-        //System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
+        System.out.println(Test.getRanks(2001, 2001, "Alex","M"));
         System.out.println((Test.getTodayName( 2001, "Janet", "F")));
         System.out.println(Test.mostPopularName(2001,2001,"F"));
         System.out.println(Test.mostPopularLetter(1900, 1910));
-        //System.out.println(Test.mostPopularLetter(1900,1925));
+        System.out.println(Test.mostPopularLetter(1900,1925));
     }
 }
