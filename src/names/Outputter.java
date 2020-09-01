@@ -101,7 +101,7 @@ public class Outputter {
 
   //fixes format of name to be same as dataset
   //assumed to be capital first letter lowercase rest of letters
-  public String validateName(String name){
+  private String validateName(String name){
     return name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
   }
 
