@@ -1,6 +1,7 @@
 package names;
 
 import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class Outputter {
   private final static String YEAR_ERROR = "YEAR NOT IN DATABASE";
   private final static String RANGE_ERROR = "INVALID RANGE";
   private final static String NAME_ERROR = "NAME NOT FOUND";
+  private final static String GENDER_ERROR = "INVALID GENDER";
+  private final static List<String> GENDERS = Arrays.asList("M", "F");
 
   public Outputter(String folderName) {
     process = new DataProcessor(folderName);
@@ -90,16 +93,30 @@ public class Outputter {
       throw new InvalidParameterException(RANGE_ERROR);
     }
   }
+  public void validateGender(String gender){
+    if (!GENDERS.contains(gender.toUpperCase())) {
+      throw new InvalidParameterException(GENDER_ERROR);
+    }
+  }
+
+  //fixes format of name to be same as dataset
+  //assumed to be capital first letter lowercase rest of letters
+  public String validateName(String name){
+    return name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+  }
 
   public static void main(String[] args) {
-    Outputter Test = new Outputter("ssa_complete");
-    System.out.println(Test.topNames(1990));
-    System.out.println(Test.countNamesAndBabies(1900, 'R', "M"));
-    System.out.println(Test.countNamesAndBabies(1900, 'Q', "F"));
-    System.out.println(Test.getRanks("Alex", "M"));
-    System.out.println((Test.getTodayName(2001, "Janet", "F")));
-    System.out.println(Test.mostPopularName(2001, 2001, "F"));
-    System.out.println(Test.mostPopularLetter(1900, 1910));
-    System.out.println(Test.mostPopularLetter(1900, 1925));
+    Outputter Test = new Outputter("ssa_2000s");
+    System.out.println(Test.validateName("bob"));
+    System.out.println(Test.validateName("niCoHlAS"));
+    System.out.println(Test.validateName("Jake"));
+//    System.out.println(Test.topNames(1990));
+//    System.out.println(Test.countNamesAndBabies(1900, 'R', "M"));
+//    System.out.println(Test.countNamesAndBabies(1900, 'Q', "F"));
+//    System.out.println(Test.getRanks("Alex", "M"));
+//    System.out.println((Test.getTodayName(2001, "Janet", "F")));
+//    System.out.println(Test.mostPopularName(2001, 2001, "F"));
+//    System.out.println(Test.mostPopularLetter(1900, 1910));
+//    System.out.println(Test.mostPopularLetter(1900, 1925));
   }
 }

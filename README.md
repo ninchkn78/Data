@@ -15,6 +15,8 @@ Finish Date:
 Hours Spent: 20 hours
 
 ### Resources Used
+Make first letter capital 
+https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
 Getting Integers from a string
 https://www.geeksforgeeks.org/extract-all-integers-from-the-given-string-in-java/
 Reading Files from a Folder
