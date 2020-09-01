@@ -18,8 +18,7 @@ public class Process {
   private final TreeMap<Integer, List<String[]>> dataSet;
 
   public Process(String folderName) {
-    ReadFiles readFiles = new ReadFiles();
-    dataSet = (TreeMap<Integer, List<String[]>>) readFiles.generateMap(folderName);
+    dataSet = (TreeMap<Integer, List<String[]>>) ReadFiles.generateMap(folderName);
   }
   public int getStartYear() {
     return dataSet.firstKey();
