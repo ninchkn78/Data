@@ -1,6 +1,13 @@
 package names;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+
 
 public class Process {
   //Constants
@@ -18,7 +25,7 @@ public class Process {
   private final TreeMap<Integer, List<String[]>> dataSet;
 
   public Process(String folderName) {
-    dataSet = (TreeMap<Integer, List<String[]>>) ReadFiles.generateMap(folderName);
+    dataSet = (TreeMap<Integer, List<String[]>>) FileReader.generateMap(folderName);
   }
   public int getStartYear() {
     return dataSet.firstKey();

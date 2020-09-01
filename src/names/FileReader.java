@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-public class ReadFiles {
+public class FileReader {
 
   private static int getYear(String path) {
     // Replacing every non-digit number
@@ -29,7 +29,7 @@ public class ReadFiles {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     try {
       Path path = Paths.get(
-          Objects.requireNonNull(ReadFiles.class.getClassLoader().getResource(folderName)).toURI());
+          Objects.requireNonNull(FileReader.class.getClassLoader().getResource(folderName)).toURI());
       File folder = new File(String.valueOf(path));
       File[] textFiles = folder.listFiles();
       for (File file : textFiles) {
