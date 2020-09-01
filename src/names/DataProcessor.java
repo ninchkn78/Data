@@ -161,7 +161,7 @@ public class DataProcessor {
     List<String[]> yearData = dataSet.get(year);
     //checks if year is in dataset
     if (yearData == null) {
-      return -1;
+      return 0;
     }
     Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
     for (int key : rankNameMap.keySet()){
@@ -169,7 +169,7 @@ public class DataProcessor {
         return key;
       }
     }
-    return -1;
+    return 0;
   }
   //how should this handle ties?
   public String mostFrequent(List<String> list) {

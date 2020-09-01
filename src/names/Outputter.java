@@ -60,7 +60,7 @@ public class Outputter {
     int rank = process.getRank(year, gender, name);
    // compareRank = compareRank.replaceAll("\n", "");
     //if getRank couldn't find a name
-      if (rank == -1) {
+      if (rank == 0) {
         return NAME_ERROR;
       }
     return process.getName(dataEndYear, gender, rank) + " " + gender;

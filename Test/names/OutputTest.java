@@ -49,13 +49,13 @@ class OutputTest {
 
   @Test
   void Basic1FemaleRanks() {
-    List<Integer> expectedOutput = Arrays.asList(-1,1,2,3,4,5);
+    List<Integer> expectedOutput = Arrays.asList(0,1,2,3,4,5);
     assertEquals(expectedOutput, Test.getRanks("Miryam", "F"));
   }
 
   @Test
   void Basic1MaleRanks() {
-    List<Integer> expectedOutput = Arrays.asList(-1,1,2,3,4,5);
+    List<Integer> expectedOutput = Arrays.asList(0,1,2,3,4,5);
     assertEquals(expectedOutput, Test.getRanks("Alex", "M"));
   }
 
@@ -68,7 +68,7 @@ class OutputTest {
   @Test
   void Basic1NameNotFound() {
     List<Integer> expectedOutput = Arrays
-        .asList(-1,-1,-1,-1,-1,-1);
+        .asList(0,0,0,0,0,0);
     assertEquals(expectedOutput, Test.getRanks("J", "M"));
   }
 
