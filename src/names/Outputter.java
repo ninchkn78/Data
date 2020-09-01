@@ -52,19 +52,18 @@ public class Outputter {
     return "Names: " + countNames + "\nBabies: " + totalBabies;
   }
 
-  public List<String> getRanks(String name, String gender) {
+  public List<Integer> getRanks(String name, String gender) {
     return process.getRanks(dataStartYear, dataEndYear, name, gender);
   }
 
   public String getTodayName(int year, String name, String gender) {
-    String compareRank = process.getRank(year, gender, name);
+    int rank = process.getRank(year, gender, name);
    // compareRank = compareRank.replaceAll("\n", "");
     //if getRank couldn't find a name
-      if (compareRank.equals("NAME NOT FOUND")) {
-          return compareRank;
+      if (rank == -1) {
+        return NAME_ERROR;
       }
-    int rankNum = Integer.parseInt(compareRank);
-    return process.getName(dataEndYear, gender, rankNum) + " " + gender;
+    return process.getName(dataEndYear, gender, rank) + " " + gender;
   }
 
   //how should this handle ties?

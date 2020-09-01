@@ -55,6 +55,7 @@ having readfiles in its own class allows it to access different data
 
 CHANGES: READFILES taking in year, then year range, then data folder 
 change getName and getRank by taking in a dictionary instead 
+generalized starting letter to also be able to take starting stirn g
 
 even though there's more questions at the end, lots of thinking in the beginning to make
 the end easier

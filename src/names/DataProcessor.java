@@ -48,7 +48,7 @@ public class DataProcessor {
       String name = profile[NAME_INDEX];
       if (profile[GENDER_INDEX].equals(gender)) {
         if (name.length() >= startsWith.length()) {
-          if (name.substring(0, startsWith.length()).equals(startsWith)) {
+          if (name.startsWith(startsWith)) {
 
             count += 1;
           }
@@ -73,7 +73,7 @@ public class DataProcessor {
       String name = profile[NAME_INDEX];
       if (profile[GENDER_INDEX].equals(gender)) {
         if (name.length() >= startsWith.length()) {
-          if (name.substring(0, startsWith.length()).equals(startsWith)) {
+          if (name.startsWith(startsWith)) {
             sum += Integer.parseInt(profile[COUNT_INDEX]);
           }
         }
@@ -91,7 +91,7 @@ public class DataProcessor {
         String name = profile[NAME_INDEX];
         if (profile[GENDER_INDEX].equals(gender)) {
           if(name.length() >= startsWith.length()){
-            if (name.substring(0, startsWith.length()).equals(startsWith)) {
+            if (name.startsWith(startsWith)) {
               names.add(name);
             }
           }
@@ -147,8 +147,8 @@ public class DataProcessor {
   }
 
   //getRanks and getNames
-  public List<String> getRanks(int start, int end, String name, String gender) {
-    List<String> ranks = new ArrayList<>();
+  public List<Integer> getRanks(int start, int end, String name, String gender) {
+    List<Integer> ranks = new ArrayList<>();
     while (start <= end) {
       ranks.add(getRank(start, gender, name));
       start++;
@@ -156,20 +156,20 @@ public class DataProcessor {
     return ranks;
   }
 
-  public String getRank(int year, String gender, String name) {
+  public int getRank(int year, String gender, String name) {
     //this repeats in getRank because want a way to return YEAR_ERROR
     List<String[]> yearData = dataSet.get(year);
     //checks if year is in dataset
     if (yearData == null) {
-      return NAME_ERROR;
+      return -1;
     }
     Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
     for (int key : rankNameMap.keySet()){
       if(rankNameMap.get(key).equals(name)){
-        return Integer.toString(key);
+        return key;
       }
     }
-    return NAME_ERROR;
+    return -1;
   }
   //how should this handle ties?
   public String mostFrequent(List<String> list) {
