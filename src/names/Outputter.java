@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -57,7 +58,7 @@ public class Outputter {
 
   public String getTodayName(int year, String name, String gender) {
     String compareRank = process.getRank(year, gender, name);
-    compareRank = compareRank.replaceAll("\n", "");
+   // compareRank = compareRank.replaceAll("\n", "");
     //if getRank couldn't find a name
       if (compareRank.equals("NAME NOT FOUND")) {
           return compareRank;
@@ -110,13 +111,13 @@ public class Outputter {
     System.out.println(Test.validateName("bob"));
     System.out.println(Test.validateName("niCoHlAS"));
     System.out.println(Test.validateName("Jake"));
-//    System.out.println(Test.topNames(1990));
-//    System.out.println(Test.countNamesAndBabies(1900, 'R', "M"));
-//    System.out.println(Test.countNamesAndBabies(1900, 'Q', "F"));
-//    System.out.println(Test.getRanks("Alex", "M"));
-//    System.out.println((Test.getTodayName(2001, "Janet", "F")));
-//    System.out.println(Test.mostPopularName(2001, 2001, "F"));
-//    System.out.println(Test.mostPopularLetter(1900, 1910));
-//    System.out.println(Test.mostPopularLetter(1900, 1925));
+    System.out.println(Test.topNames(1990));
+    System.out.println(Test.countNamesAndBabies(1900, 'R', "M"));
+    System.out.println(Test.countNamesAndBabies(1900, 'Q', "F"));
+    System.out.println(Test.getRanks("Alex", "M"));
+    System.out.println((Test.getTodayName(2001, "Janet", "F")));
+    System.out.println(Test.mostPopularName(2001, 2001, "F"));
+    System.out.println(Test.mostPopularLetter(1900, 1910));
+    System.out.println(Test.mostPopularLetter(1900, 1925));
   }
 }

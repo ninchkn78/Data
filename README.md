@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 20 hours
+Hours Spent: 22 hours
 
 ### Resources Used
 Make first letter capital 
@@ -54,6 +54,7 @@ should i add a function that loops over years
 having readfiles in its own class allows it to access different data
 
 CHANGES: READFILES taking in year, then year range, then data folder 
+change getName and getRank by taking in a dictionary instead 
 
 even though there's more questions at the end, lots of thinking in the beginning to make
 the end easier

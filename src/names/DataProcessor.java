@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -99,28 +100,33 @@ public class DataProcessor {
   }
 
 
+  private Map<Integer, String> rankNameMap(List<String[]> yearData, String gender) {
+    Map<Integer, String> rankMap = new TreeMap<>();
+    int rank = 1;
+    for (String[] profile : yearData) {
+      if (profile[GENDER_INDEX].equals(gender)) {
+        rankMap.put(rank, profile[NAME_INDEX]);
+        rank++;
+      }
+    }
+    return rankMap;
+  }
+
   //gets name from a year, returns error if not in the dataset
   //the above comment is incorrect
   public String getName(int year, String gender, int targetRank) {
-    int currRank = 1;
+    //this repeats in getRank because want a way to return YEAR_ERROR
     List<String[]> yearData = dataSet.get(year);
     //checks if year is in dataset
       if (yearData == null) {
           return YEAR_ERROR;
       }
-    for (String[] profile : yearData) {
-      if (profile[GENDER_INDEX].equals(gender)) {
-        if (currRank == targetRank) {
-          return profile[NAME_INDEX];
-        } else {
-          currRank += 1;
-          if (currRank > targetRank) {
-            return NAME_ERROR;
-          }
-        }
+      Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
+      String name = rankNameMap.get(targetRank);
+      if(name == null){
+        return NAME_ERROR;
       }
-    }
-    return NAME_ERROR;
+    return name;
   }
 
   //getRanks and getNames
@@ -134,24 +140,20 @@ public class DataProcessor {
   }
 
   public String getRank(int year, String gender, String name) {
-    int currRank = 1;
+    //this repeats in getRank because want a way to return YEAR_ERROR
     List<String[]> yearData = dataSet.get(year);
     //checks if year is in dataset
-      if (yearData == null) {
-          return NAME_ERROR;
-      }
-    for (String[] profile : yearData) {
-      if (profile[GENDER_INDEX].equals(gender)) {
-        if (profile[NAME_INDEX].equals(name)) {
-          return Integer.toString(currRank);
-        } else {
-          currRank += 1;
-        }
+    if (yearData == null) {
+      return NAME_ERROR;
+    }
+    Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
+    for (int key : rankNameMap.keySet()){
+      if(rankNameMap.get(key).equals(name)){
+        return Integer.toString(key);
       }
     }
     return NAME_ERROR;
   }
-
   //how should this handle ties?
   public String mostFrequent(List<String> list) {
     List<String> items = new ArrayList<>();
