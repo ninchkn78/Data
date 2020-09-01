@@ -36,7 +36,7 @@ public class DataProcessor {
     return dataSet.lastKey();
   }
 
-  public int countNamesByYear(int year, char letter, String gender) {
+  public int countNamesByYear(int year, String startsWith, String gender) {
     int count = 0;
     List<String[]> yearData = dataSet.get(year);
     //checks if year is in dataset
@@ -44,16 +44,24 @@ public class DataProcessor {
       return -1;
     }
     for (String[] profile : yearData) {
-      if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
-        count += 1;
+
+      String name = profile[NAME_INDEX];
+      if (profile[GENDER_INDEX].equals(gender)) {
+        if (name.length() >= startsWith.length()) {
+          if (name.substring(0, startsWith.length()).equals(startsWith)) {
+
+            count += 1;
+          }
+        }
       }
+
     }
     return count;
   }
 
   //these two methods perform the same loop and checks, so need to think of a way to generalize
   //loops through entire dataset, returns number of babies with given gender and starting letter
-  public int countBabiesByYear(int year, char letter, String gender) {
+  public int countBabiesByYear(int year, String startsWith, String gender) {
     int sum = 0;
     List<String[]> yearData = dataSet.get(year);
     //checks if year is in dataset
@@ -62,24 +70,33 @@ public class DataProcessor {
       return -1;
     }
     for (String[] profile : yearData) {
-      if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
-        sum += Integer.parseInt(profile[COUNT_INDEX]);
+      String name = profile[NAME_INDEX];
+      if (profile[GENDER_INDEX].equals(gender)) {
+        if (name.length() >= startsWith.length()) {
+          if (name.substring(0, startsWith.length()).equals(startsWith)) {
+            sum += Integer.parseInt(profile[COUNT_INDEX]);
+          }
+        }
       }
-    }
-    return sum;
+    }return sum;
   }
 
   //these three methods all have the same loops ??
   //returns alphabeteized list of all names starting with
-  public List<String> namesStartingWith(char letter, String gender, int start, int end) {
+  public List<String> namesStartingWith(String startsWith, String gender, int start, int end) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
       List<String[]> value = dataSet.get(start);
       for (String[] profile : value) {
-        if (profile[GENDER_INDEX].equals(gender) && profile[NAME_INDEX].charAt(0) == letter) {
-          names.add(profile[NAME_INDEX]);
-        }
-      }
+        String name = profile[NAME_INDEX];
+        if (profile[GENDER_INDEX].equals(gender)) {
+          if(name.length() >= startsWith.length()){
+            if (name.substring(0, startsWith.length()).equals(startsWith)) {
+              names.add(name);
+            }
+          }
+
+      }}
       start++;
     }
     Collections.sort(names);
@@ -190,7 +207,7 @@ public class DataProcessor {
       tempStart = start;
       while (tempStart <= end) {
         int currCount = counts.get(i);
-        counts.set(i, currCount + countBabiesByYear(tempStart, alphabet.charAt(i), gender));
+        counts.set(i, currCount + countBabiesByYear(tempStart, alphabet.substring(i,i + 1), gender));
         tempStart++;
       }
       i++;

@@ -34,17 +34,17 @@ class OutputTest {
 
   @Test
   void Test2YearNotInDataSet() {
-    assertEquals("YEAR NOT IN DATABASE", Test.countNamesAndBabies(1899, 'A', "M"));
+    assertEquals("YEAR NOT IN DATABASE", Test.countNamesAndBabies(1899, "A", "M"));
   }
 
   @Test
   void Test2YearInDataSet() {
-    assertEquals("Names: 2\nBabies: 4800", Test.countNamesAndBabies(3, 'A', "M"));
+    assertEquals("Names: 2\nBabies: 4800", Test.countNamesAndBabies(3, "A", "M"));
   }
 
   @Test
   void Test2NameNotFound() {
-    assertEquals("Names: 0\nBabies: 0", Test.countNamesAndBabies(0, 'Y', "M"));
+    assertEquals("Names: 0\nBabies: 0", Test.countNamesAndBabies(0, "Y", "M"));
   }
 
   @Test
