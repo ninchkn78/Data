@@ -52,3 +52,10 @@ should i add a function that loops over years
 having readfiles in its own class allows it to access different data
 
 CHANGES: READFILES taking in year, then year range, then data folder 
+
+even though there's more questions at the end, lots of thinking in the beginning to make
+the end easier
+
+check for when years are missing based off of the get 
+
+prefix is counting names, could adapt get top names method? 
