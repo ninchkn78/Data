@@ -65,13 +65,17 @@ public class Outputter {
 
   //how should this handle ties?
   public String mostPopularName(int start, int end, String gender) {
-    validateRange(start,end);
+      if (start < dataStartYear || end > dataEndYear) {
+          return RANGE_ERROR;
+      }
     List<String> names = process.getNames(start, end, gender, 1);
     return process.mostFrequent(names);
   }
 
   public List<String> mostPopularLetter(int start, int end) {
-    validateRange(start,end);
+      if (start < dataStartYear || end > dataEndYear) {
+          return Collections.singletonList(RANGE_ERROR);
+      }
     List<String> letters = process.mostPopularLetters(start, end, "F");
     if (letters.size() == 0) {
       return letters;

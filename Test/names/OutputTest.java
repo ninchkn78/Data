@@ -143,8 +143,11 @@ class OutputTest {
     assertEquals(Collections.singletonList("INVALID RANGE"), Test.mostPopularLetter(1, 6));
   }
 
-  @Test
-  void Validate
+ //have one test that checks all the errors
+  //make a note about how the funciton doesn't matter since it's
+  //the first thing that happens
+
+
 //    @Test
 //    void Test1FemaleRanks() {
 //        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");
