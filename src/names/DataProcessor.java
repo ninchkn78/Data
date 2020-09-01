@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 
-public class Process {
+public class DataProcessor {
   //Constants
 
   //in case format of lines are different
@@ -24,14 +24,14 @@ public class Process {
   //need to declare this as TreeMap so can use firstKey and lastKey
   private final TreeMap<Integer, List<String[]>> dataSet;
 
-  public Process(String folderName) {
+  public DataProcessor(String folderName) {
     dataSet = (TreeMap<Integer, List<String[]>>) FileReader.generateMap(folderName);
   }
-  public int getStartYear() {
+  public int getDataFirstYear() {
     return dataSet.firstKey();
   }
 
-  public int getEndYear() {
+  public int getDataLastYear() {
     return dataSet.lastKey();
   }
 
@@ -70,7 +70,7 @@ public class Process {
 
   //these three methods all have the same loops ??
   //returns alphabeteized list of all names starting with
-  public List<String> namesStartWith(char letter, String gender, int start, int end) {
+  public List<String> namesStartingWith(char letter, String gender, int start, int end) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
       List<String[]> value = dataSet.get(start);
@@ -122,7 +122,7 @@ public class Process {
     return NAME_ERROR;
   }
 
-  //these two methods almost do the same thing
+  //getRanks and getNames
   public List<String> getRanks(int start, int end, String name, String gender) {
     List<String> ranks = new ArrayList<>();
     while (start <= end) {

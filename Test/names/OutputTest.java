@@ -14,7 +14,7 @@ class OutputTest {
 
   //don't have a beforeEach because none of my methods being tested
   //change the state of any of the instance variables
-  Output Test = new Output("Test");
+  Outputter Test = new Outputter("Test");
 
   @Test
   void Test1EmptyDataSet() {
@@ -142,6 +142,9 @@ class OutputTest {
   void Basic4YearNotInDataset() {
     assertEquals(Collections.singletonList("INVALID RANGE"), Test.mostPopularLetter(1, 6));
   }
+
+  @Test
+  void Validate
 //    @Test
 //    void Test1FemaleRanks() {
 //        List<String> expectedOutput = Arrays.asList("1", "2", "3", "4", "5");

@@ -1,13 +1,13 @@
 package names;
 
-
+import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Feel free to completely change this code or delete it entirely.
  */
-public class Output {
+public class Outputter {
 
   /**
    * Start of the program.
@@ -16,15 +16,15 @@ public class Output {
 
   private final int dataStartYear;
   private final int dataEndYear;
-  private final Process process;
+  private final DataProcessor process;
   private final static String YEAR_ERROR = "YEAR NOT IN DATABASE";
   private final static String RANGE_ERROR = "INVALID RANGE";
   private final static String NAME_ERROR = "NAME NOT FOUND";
 
-  public Output(String folderName) {
-    process = new Process(folderName);
-    dataStartYear = process.getStartYear();
-    dataEndYear = process.getEndYear();
+  public Outputter(String folderName) {
+    process = new DataProcessor(folderName);
+    dataStartYear = process.getDataFirstYear();
+    dataEndYear = process.getDataLastYear();
   }
 
   public String topNames(int year) {
@@ -65,27 +65,30 @@ public class Output {
 
   //how should this handle ties?
   public String mostPopularName(int start, int end, String gender) {
-      if (start < dataStartYear || end > dataEndYear) {
-          return RANGE_ERROR;
-      }
+    validateRange(start,end);
     List<String> names = process.getNames(start, end, gender, 1);
     return process.mostFrequent(names);
   }
 
   public List<String> mostPopularLetter(int start, int end) {
-      if (start < dataStartYear || end > dataEndYear) {
-          return Collections.singletonList(RANGE_ERROR);
-      }
+    validateRange(start,end);
     List<String> letters = process.mostPopularLetters(start, end, "F");
     if (letters.size() == 0) {
       return letters;
     }
     char letter = letters.remove(0).charAt(0);
-    return process.namesStartWith(letter, "F", start, end);
+    return process.namesStartingWith(letter, "F", start, end);
+  }
+
+  //validate data range input
+  private void validateRange(int start, int end) {
+    if((start > end) || (start < dataStartYear) || (end > dataEndYear)) {
+      throw new InvalidParameterException(RANGE_ERROR);
+    }
   }
 
   public static void main(String[] args) {
-    Output Test = new Output("ssa_complete");
+    Outputter Test = new Outputter("ssa_complete");
     System.out.println(Test.topNames(1990));
     System.out.println(Test.countNamesAndBabies(1900, 'R', "M"));
     System.out.println(Test.countNamesAndBabies(1900, 'Q', "F"));
