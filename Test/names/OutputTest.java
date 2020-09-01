@@ -22,23 +22,23 @@ class OutputTest {
   }
 
   @Test
-  void Test1YearNotInSingleYearDataSet() {
+  void Test1YearNotInDataSet() {
     assertEquals("YEAR NOT IN DATABASE", Test.topNames(8));
   }
 
   @Test
-  void Test1YearInMultiYearDataSet() {
+  void Test1YearInDataSet() {
     assertEquals("Alex\nMiryam", Test.topNames(1));
   }
 
 
   @Test
-  void Test2YearNotInSingleYearDataSet() {
+  void Test2YearNotInDataSet() {
     assertEquals("YEAR NOT IN DATABASE", Test.countNamesAndBabies(1899, 'A', "M"));
   }
 
   @Test
-  void Test2YearMultiYearDataSet() {
+  void Test2YearInDataSet() {
     assertEquals("Names: 2\nBabies: 4800", Test.countNamesAndBabies(3, 'A', "M"));
   }
 

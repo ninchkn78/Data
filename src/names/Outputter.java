@@ -71,7 +71,7 @@ public class Outputter {
       if (start < dataStartYear || end > dataEndYear) {
           return RANGE_ERROR;
       }
-    List<String> names = process.getNames(start, end, gender, 1);
+    List<String> names = process.getNamesRank(start, end, gender, 1);
     return process.mostFrequent(names);
   }
 

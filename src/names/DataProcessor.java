@@ -89,7 +89,7 @@ public class DataProcessor {
 
   //can't use firstKey if not declared as TreeMap
   //gets names from specified years
-  public List<String> getNames(int start, int end, String gender, int targetRank) {
+  public List<String> getNamesRank(int start, int end, String gender, int targetRank) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
       names.add(getName(start, gender, targetRank));
@@ -97,6 +97,7 @@ public class DataProcessor {
     }
     return names;
   }
+
 
   //gets name from a year, returns error if not in the dataset
   //the above comment is incorrect
