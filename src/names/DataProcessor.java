@@ -169,7 +169,6 @@ public class DataProcessor {
     return sb.toString().strip();
   }
 
-
   //given a list of ranked names, returns key value pairs
   //where key is rank and value is name associated with that rank
   private Map<Integer, String> makeRankNameMap(List<String[]> yearData, String gender) {
@@ -220,6 +219,8 @@ public class DataProcessor {
     mostFrequentStrings.add(Integer.toString(max));
     return mostFrequentStrings;
   }
+
+  //gets yearData from a year and filters out names of incorrect gender or starting String
   private List<String[]> getProfilesStartingWith(String startsWith, String gender, int start) {
     List<String[]> yearData = getYearData(start);
     List<String[]> profiles = new ArrayList<>();
