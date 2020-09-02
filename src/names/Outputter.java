@@ -44,7 +44,7 @@ public class Outputter {
   }
 
   public String countNamesAndBabies(int year, String startsWith, String gender) {
-    int countNames = process.countNamesByYear(year, startsWith, gender);
+    int countNames = process.countNamesStartingWith(year, startsWith, gender);
       if (countNames == -1) {
           return YEAR_ERROR;
       }

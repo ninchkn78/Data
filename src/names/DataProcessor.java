@@ -8,16 +8,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-
 public class DataProcessor {
   //Constants
 
+  private final static String NAME_ERROR = "NAME NOT FOUND";
+  private final static String YEAR_ERROR = "YEAR NOT IN DATABASE";
   //in case format of lines are different
   private final static int NAME_INDEX = 0;
   private final static int GENDER_INDEX = 1;
   private final static int COUNT_INDEX = 2;
-  private final static String NAME_ERROR = "NAME NOT FOUND";
-  private final static String YEAR_ERROR = "YEAR NOT IN DATABASE";
 
   //Variables
 
@@ -28,6 +27,7 @@ public class DataProcessor {
     dataSet = (TreeMap<Integer, List<String[]>>) FileReader.generateMap(folderName);
   }
 
+
   public int getDataFirstYear() {
     return dataSet.firstKey();
   }
@@ -36,37 +36,32 @@ public class DataProcessor {
     return dataSet.lastKey();
   }
 
-  public int countNamesByYear(int year, String startsWith, String gender) {
+  //counts number of names with given gender and starting string in a given year
+  public int countNamesStartingWith(int year, String startsWith, String gender) {
     int count = 0;
     List<String[]> yearData = getYearData(year);
-    //checks if year is in dataset
     if (yearData == null) {
       return -1;
     }
     for (String[] profile : yearData) {
-
       String name = profile[NAME_INDEX];
       if (profile[GENDER_INDEX].equals(gender)) {
         if (name.length() >= startsWith.length()) {
           if (name.startsWith(startsWith)) {
-
             count += 1;
           }
         }
       }
-
     }
     return count;
   }
 
-  //these two methods perform the same loop and checks, so need to think of a way to generalize
-  //loops through entire dataset, returns number of babies with given gender and starting letter
+  //counts number of babies with given gender and starting string in a given year
   public int countBabiesByYear(int year, String startsWith, String gender) {
     int sum = 0;
     List<String[]> yearData = getYearData(year);
     //checks if year is in dataset
     if (yearData == null) {
-      System.out.println(YEAR_ERROR);
       return -1;
     }
     for (String[] profile : yearData) {
@@ -82,8 +77,7 @@ public class DataProcessor {
     return sum;
   }
 
-  //these three methods all have the same loops ??
-  //returns alphabetized list of all names starting with
+  //returns alphabetized list of all names in a given range of given gender and with starting string
   public List<String> getNamesStartingWith(String startsWith, String gender, int start, int end) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
@@ -100,18 +94,11 @@ public class DataProcessor {
       }
       start++;
     }
-    Collections.sort(names);
-    Set<String> hashSet = new LinkedHashSet<>(names);
-    names = new ArrayList<>(hashSet);
+    names = sortRemoveDuplicates(names);
     return names;
   }
 
-  private List<String[]> getYearData(int start) {
-    return dataSet.get(start);
-  }
-
-  //can't use firstKey if not declared as TreeMap
-  //gets names from specified years
+  //returns all names of rank in range with gender
   public List<String> getNamesFromRank(int start, int end, String gender, int targetRank) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
@@ -121,28 +108,13 @@ public class DataProcessor {
     return names;
   }
 
-
-  private Map<Integer, String> rankNameMap(List<String[]> yearData, String gender) {
-    Map<Integer, String> rankMap = new TreeMap<>();
-    int rank = 1;
-    for (String[] profile : yearData) {
-      if (profile[GENDER_INDEX].equals(gender)) {
-        rankMap.put(rank, profile[NAME_INDEX]);
-        rank++;
-      }
-    }
-    return rankMap;
-  }
-
-  //gets name of specified rank and year
+  //gets name given rank year and gender
   public String getNameFromRank(int year, String gender, int targetRank) {
-    //this repeats in getRank because want a way to return YEAR_ERROR
     List<String[]> yearData = getYearData(year);
-    //checks if year is in dataset
     if (yearData == null) {
       return YEAR_ERROR;
     }
-    Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
+    Map<Integer, String> rankNameMap = makeRankNameMap(yearData, gender);
     String name = rankNameMap.get(targetRank);
     if (name == null) {
       return NAME_ERROR;
@@ -159,14 +131,13 @@ public class DataProcessor {
     return ranks;
   }
 
+  //gets rank of name/gender pair in given year
   public int getRank(int year, String gender, String name) {
-    //this repeats in getRank because want a way to return YEAR_ERROR
     List<String[]> yearData = getYearData(year);
-    //checks if year is in dataset
     if (yearData == null) {
       return 0;
     }
-    Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
+    Map<Integer, String> rankNameMap = makeRankNameMap(yearData, gender);
     for (int key : rankNameMap.keySet()) {
       if (rankNameMap.get(key).equals(name)) {
         return key;
@@ -200,6 +171,41 @@ public class DataProcessor {
     List<String> letters = maxOccurrences(letterCountMap);
     letters.remove(letters.size() - 1);
     return letters;
+  }
+
+  private List<String[]> getYearData(int start) {
+    return dataSet.get(start);
+  }
+
+  private List<String> sortRemoveDuplicates(List<String> names) {
+    Collections.sort(names);
+    Set<String> hashSet = new LinkedHashSet<>(names);
+    names = new ArrayList<>(hashSet);
+    return names;
+  }
+
+  private String listToString(List<String> list) {
+    StringBuilder sb = new StringBuilder();
+    for (String s : list) {
+      sb.append(s);
+      sb.append(" ");
+    }
+    return sb.toString().strip();
+  }
+
+
+  //given a list of ranked names, returns key value pairs
+  //where key is rank and value is name associated with that rank
+  private Map<Integer, String> makeRankNameMap(List<String[]> yearData, String gender) {
+    Map<Integer, String> rankMap = new TreeMap<>();
+    int rank = 1;
+    for (String[] profile : yearData) {
+      if (profile[GENDER_INDEX].equals(gender)) {
+        rankMap.put(rank, profile[NAME_INDEX]);
+        rank++;
+      }
+    }
+    return rankMap;
   }
 
   //returns key value pairs where key is a letter and value is number of baby names
@@ -238,14 +244,4 @@ public class DataProcessor {
     mostFrequentStrings.add(Integer.toString(max));
     return mostFrequentStrings;
   }
-
-  private String listToString(List<String> list) {
-    StringBuilder sb = new StringBuilder();
-    for (String s : list) {
-      sb.append(s);
-      sb.append(" ");
-    }
-    return sb.toString().strip();
-  }
-
 }
