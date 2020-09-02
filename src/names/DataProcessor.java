@@ -1,8 +1,6 @@
 package names;
 
-import com.sun.source.tree.Tree;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -29,6 +27,7 @@ public class DataProcessor {
   public DataProcessor(String folderName) {
     dataSet = (TreeMap<Integer, List<String[]>>) FileReader.generateMap(folderName);
   }
+
   public int getDataFirstYear() {
     return dataSet.firstKey();
   }
@@ -79,25 +78,26 @@ public class DataProcessor {
           }
         }
       }
-    }return sum;
+    }
+    return sum;
   }
 
   //these three methods all have the same loops ??
-  //returns alphabeteized list of all names starting with
-  public List<String> namesStartingWith(String startsWith, String gender, int start, int end) {
+  //returns alphabetized list of all names starting with
+  public List<String> getNamesStartingWith(String startsWith, String gender, int start, int end) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
-      List<String[]> value = getYearData(start);
-      for (String[] profile : value) {
+      List<String[]> yearData = getYearData(start);
+      for (String[] profile : yearData) {
         String name = profile[NAME_INDEX];
         if (profile[GENDER_INDEX].equals(gender)) {
-          if(name.length() >= startsWith.length()){
+          if (name.length() >= startsWith.length()) {
             if (name.startsWith(startsWith)) {
               names.add(name);
             }
           }
-
-      }}
+        }
+      }
       start++;
     }
     Collections.sort(names);
@@ -112,10 +112,10 @@ public class DataProcessor {
 
   //can't use firstKey if not declared as TreeMap
   //gets names from specified years
-  public List<String> getNamesRank(int start, int end, String gender, int targetRank) {
+  public List<String> getNamesFromRank(int start, int end, String gender, int targetRank) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
-      names.add(getName(start, gender, targetRank));
+      names.add(getNameFromRank(start, gender, targetRank));
       start++;
     }
     return names;
@@ -134,23 +134,21 @@ public class DataProcessor {
     return rankMap;
   }
 
-  //gets name from a year, returns error if not in the dataset
-  //the above comment is incorrect
-  public String getName(int year, String gender, int targetRank) {
+  //gets name of specified rank and year
+  public String getNameFromRank(int year, String gender, int targetRank) {
     //this repeats in getRank because want a way to return YEAR_ERROR
     List<String[]> yearData = getYearData(year);
     //checks if year is in dataset
-      if (yearData == null) {
-          return YEAR_ERROR;
-      }
-      Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
-      String name = rankNameMap.get(targetRank);
-      if(name == null){
-        return NAME_ERROR;
-      }
+    if (yearData == null) {
+      return YEAR_ERROR;
+    }
+    Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
+    String name = rankNameMap.get(targetRank);
+    if (name == null) {
+      return NAME_ERROR;
+    }
     return name;
   }
-
   //getRanks and getNames
   public List<Integer> getRanks(int start, int end, String name, String gender) {
     List<Integer> ranks = new ArrayList<>();
@@ -169,15 +167,16 @@ public class DataProcessor {
       return 0;
     }
     Map<Integer, String> rankNameMap = rankNameMap(yearData, gender);
-    for (int key : rankNameMap.keySet()){
-      if(rankNameMap.get(key).equals(name)){
+    for (int key : rankNameMap.keySet()) {
+      if (rankNameMap.get(key).equals(name)) {
         return key;
       }
     }
     return 0;
   }
+
   //how should this handle ties?
-  //returns most frequently occuring name in non unique list of strings
+  //returns most frequently occurring name in non unique list of strings
   public String mostFrequentNames(List<String> names) {
     int currCount;
     Map<String, Integer> nameCountMap = new TreeMap<>();
@@ -188,15 +187,24 @@ public class DataProcessor {
       currCount = nameCountMap.getOrDefault(name, 0);
       nameCountMap.put(name, currCount + 1);
     }
-      if (nameCountMap.isEmpty()) {
-          return NAME_ERROR;
-      }
-    return listToString(maxOccurences(nameCountMap)).strip();
+    if (nameCountMap.isEmpty()) {
+      return NAME_ERROR;
+    }
+    return listToString(maxOccurrences(nameCountMap));
   }
 
   //this one increments by total babies not by 1
   //can it be a dictionary instead?
   public List<String> mostPopularLetters(int start, int end, String gender) {
+    Map<String, Integer> letterCountMap = countBabiesByLetter(start, end, gender);
+    List<String> letters = maxOccurrences(letterCountMap);
+    letters.remove(letters.size() - 1);
+    return letters;
+  }
+
+  //returns key value pairs where key is a letter and value is number of baby names
+  //in the range starting with that letter of specified gender
+  private Map<String, Integer> countBabiesByLetter(int start, int end, String gender) {
     int year;
     int currCount;
     String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -210,14 +218,12 @@ public class DataProcessor {
         year++;
       }
     }
-    List<String> letters = maxOccurences(letterCountMap);
-    letters.remove(letters.size() - 1);
-    return letters;
+    return letterCountMap;
   }
 
-  //given a map of Integer String key value pairs
+  //given a map of String Integer key value pairs
   // returns keys with max value in values
-  private List<String> maxOccurences(Map<String, Integer> stringIntMap) {
+  private List<String> maxOccurrences(Map<String, Integer> stringIntMap) {
     List<String> mostFrequentStrings = new ArrayList<>();
     int max = Collections.max(stringIntMap.values());
     if (max == 0) {
@@ -239,7 +245,7 @@ public class DataProcessor {
       sb.append(s);
       sb.append(" ");
     }
-    return sb.toString();
+    return sb.toString().strip();
   }
 
 }

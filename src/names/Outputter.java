@@ -71,7 +71,7 @@ public class Outputter {
       if (start < dataStartYear || end > dataEndYear) {
           return RANGE_ERROR;
       }
-    List<String> names = process.getNamesRank(start, end, gender, 1);
+    List<String> names = process.getNamesFromRank(start, end, gender, 1);
     return process.mostFrequentNames(names);
   }
 
@@ -84,7 +84,7 @@ public class Outputter {
       return letters;
     }
     String letter = letters.remove(0).substring(0,1);
-    return process.namesStartingWith(letter, "F", start, end);
+    return process.getNamesStartingWith(letter, "F", start, end);
   }
 
   //validate data range input
