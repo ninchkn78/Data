@@ -38,41 +38,23 @@ public class DataProcessor {
 
   //counts number of names with given gender and starting string in a given year
   public int countNamesStartingWith(int year, String startsWith, String gender) {
-    int count = 0;
-    List<String[]> yearData = getYearData(year);
-    if (yearData == null) {
+    if (getYearData(year) == null){
       return -1;
     }
-    for (String[] profile : yearData) {
-      String name = profile[NAME_INDEX];
-      if (profile[GENDER_INDEX].equals(gender)) {
-        if (name.length() >= startsWith.length()) {
-          if (name.startsWith(startsWith)) {
-            count += 1;
-          }
-        }
-      }
-    }
-    return count;
+    List<String[]> yearData = getProfilesStartingWith(startsWith, gender, year);
+    return yearData.size();
   }
 
   //counts number of babies with given gender and starting string in a given year
   public int countBabiesByYear(int year, String startsWith, String gender) {
     int sum = 0;
-    List<String[]> yearData = getYearData(year);
+    List<String[]> yearData = getProfilesStartingWith(startsWith, gender, year);
     //checks if year is in dataset
-    if (yearData == null) {
-      return -1;
+    if (yearData.isEmpty()) {
+      return 0;
     }
     for (String[] profile : yearData) {
-      String name = profile[NAME_INDEX];
-      if (profile[GENDER_INDEX].equals(gender)) {
-        if (name.length() >= startsWith.length()) {
-          if (name.startsWith(startsWith)) {
-            sum += Integer.parseInt(profile[COUNT_INDEX]);
-          }
-        }
-      }
+      sum += Integer.parseInt(profile[COUNT_INDEX]);
     }
     return sum;
   }
@@ -81,21 +63,14 @@ public class DataProcessor {
   public List<String> getNamesStartingWith(String startsWith, String gender, int start, int end) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
-      List<String[]> yearData = getYearData(start);
+      List<String[]> yearData = getProfilesStartingWith(startsWith, gender, start);
       for (String[] profile : yearData) {
-        String name = profile[NAME_INDEX];
-        if (profile[GENDER_INDEX].equals(gender)) {
-          if (name.length() >= startsWith.length()) {
-            if (name.startsWith(startsWith)) {
-              names.add(name);
-            }
-          }
-        }
+        names.add(profile[NAME_INDEX]);
       }
       start++;
     }
-    names = sortRemoveDuplicates(names);
-    return names;
+      names = sortRemoveDuplicates(names);
+      return names;
   }
 
   //returns all names of rank in range with gender
@@ -121,6 +96,7 @@ public class DataProcessor {
     }
     return name;
   }
+
   //getRanks and getNames
   public List<Integer> getRanks(int start, int end, String name, String gender) {
     List<Integer> ranks = new ArrayList<>();
@@ -243,5 +219,23 @@ public class DataProcessor {
     }
     mostFrequentStrings.add(Integer.toString(max));
     return mostFrequentStrings;
+  }
+  private List<String[]> getProfilesStartingWith(String startsWith, String gender, int start) {
+    List<String[]> yearData = getYearData(start);
+    List<String[]> profiles = new ArrayList<>();
+    if (yearData == null) {
+      return profiles;
+    }
+    for (String[] profile : yearData) {
+      String name = profile[NAME_INDEX];
+      if (profile[GENDER_INDEX].equals(gender)) {
+        if (name.length() >= startsWith.length()) {
+          if (name.startsWith(startsWith)) {
+            profiles.add(profile);
+          }
+        }
+      }
+    }
+    return profiles;
   }
 }

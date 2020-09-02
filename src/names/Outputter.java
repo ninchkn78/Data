@@ -32,22 +32,22 @@ public class Outputter {
   }
 
   public String topNames(int year) {
-    String maleName = process.getName(year, "M", 1);
+    String maleName = process.getNameFromRank(year, "M", 1);
       if (maleName.equals(NAME_ERROR)) {
           return NAME_ERROR;
       }
       if (maleName.equals(YEAR_ERROR)) {
           return YEAR_ERROR;
       }
-    String femaleName = process.getName(year, "F", 1);
+    String femaleName = process.getNameFromRank(year, "F", 1);
     return maleName + "\n" + femaleName;
   }
 
   public String countNamesAndBabies(int year, String startsWith, String gender) {
     int countNames = process.countNamesStartingWith(year, startsWith, gender);
-      if (countNames == -1) {
-          return YEAR_ERROR;
-      }
+    if (countNames == -1){
+      return YEAR_ERROR;
+    }
     int totalBabies = process.countBabiesByYear(year, startsWith, gender);
     return "Names: " + countNames + "\nBabies: " + totalBabies;
   }
@@ -63,7 +63,7 @@ public class Outputter {
       if (rank == 0) {
         return NAME_ERROR;
       }
-    return process.getName(dataEndYear, gender, rank) + " " + gender;
+    return process.getNameFromRank(dataEndYear, gender, rank) + " " + gender;
   }
 
   //how should this handle ties?
@@ -93,6 +93,7 @@ public class Outputter {
       throw new InvalidParameterException(RANGE_ERROR);
     }
   }
+
   public void validateGender(String gender){
     if (!GENDERS.contains(gender.toUpperCase())) {
       throw new InvalidParameterException(GENDER_ERROR);

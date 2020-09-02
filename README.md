@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 22 hours 30 min
+Hours Spent: 23 hours
 
 ### Resources Used
 Make first letter capital 
@@ -63,3 +63,5 @@ the end easier
 check for when years are missing based off of the get 
 
 prefix is counting names, could adapt get top names method? 
+
+need to make constants public 
