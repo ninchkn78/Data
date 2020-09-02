@@ -100,7 +100,7 @@ class OutputTest {
 
   @Test
   void Basic3MultipleNames() {
-    assertEquals("Miryam Michelle Lucy 1", Test.mostPopularName(1, 3, "F"));
+    assertEquals("Lucy Michelle Miryam 1", Test.mostPopularName(1, 3, "F"));
   }
 
   @Test

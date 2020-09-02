@@ -72,7 +72,7 @@ public class Outputter {
           return RANGE_ERROR;
       }
     List<String> names = process.getNamesRank(start, end, gender, 1);
-    return process.mostFrequent(names);
+    return process.mostFrequentNames(names);
   }
 
   public List<String> mostPopularLetter(int start, int end) {
