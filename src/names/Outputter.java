@@ -129,7 +129,6 @@ public class Outputter {
     List<String> names = process.maxOccurrences(namesToRankChangeMap);
     names.remove(names.size() - 1);
     return names;
-
   }
 
 

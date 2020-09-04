@@ -12,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 24 hours
+Hours Spent: 25 hours 30 minutes
 
 ### Resources Used
 Make first letter capital 
