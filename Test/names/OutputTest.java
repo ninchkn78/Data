@@ -128,7 +128,7 @@ class OutputTest {
   @Test
   void Basic4SingleNameAmongYears() {
     List<String> expectedOutput = Collections.singletonList("Sophie");
-    assertEquals(expectedOutput, Test.mostPopularLetter(1, 5));
+    assertEquals(expectedOutput, Test.mostPopularLetter(2, 5));
   }
 
   @Test
@@ -170,4 +170,23 @@ class OutputTest {
         List<Integer> expectedOutput = Arrays.asList(0, 0, 0, 0, 0);
         assertEquals(expectedOutput, Test.getRanksFromRange(1, 5, "J", "M"));
 }
+
+  @Test
+  void Complete2NegativeChange() {
+    assertEquals(-4, Test.rankChange(1, 5, "Miryam", "F"));
+    assertEquals(-4, Test.rankChange(1,5,"Alex","M"));
+  }
+
+  @Test
+  void Complete2PositiveChange() {
+    assertEquals(6, Test.rankChange(1, 5, "Sophie", "F"));
+  }
+  @Test
+  void Complete2NoChange() {
+    assertEquals(0, Test.rankChange(1, 4, "Jerry", "M"));
+  }
+  @Test
+  void Complete2NameNotInBothYears() {
+    assertEquals(-1, Test.rankChange(1, 3, "Sophie", "F"));
+  }
 }

@@ -33,19 +33,18 @@ public class Outputter {
 
   public String topNames(int year) {
     String maleName = process.getNameFromRank(year, "M", 1);
-      if (maleName.equals(NAME_ERROR)) {
-          return NAME_ERROR;
-      }
-      else if (maleName.equals(YEAR_ERROR)) {
-          return YEAR_ERROR;
-      }
+    if (maleName.equals(NAME_ERROR)) {
+      return NAME_ERROR;
+    } else if (maleName.equals(YEAR_ERROR)) {
+      return YEAR_ERROR;
+    }
     String femaleName = process.getNameFromRank(year, "F", 1);
     return maleName + "\n" + femaleName;
   }
 
   public String countNamesAndBabies(int year, String startsWith, String gender) {
     int countNames = process.countNamesStartingWith(year, startsWith, gender);
-    if (countNames == -1){
+    if (countNames == -1) {
       return YEAR_ERROR;
     }
     int totalBabies = process.countBabiesByYear(year, startsWith, gender);
@@ -59,31 +58,31 @@ public class Outputter {
   public String getTodayName(int year, String name, String gender) {
     int rank = process.getRank(year, gender, name);
     //if getRank couldn't find a name
-      if (rank == 0) {
-        return NAME_ERROR;
-      }
+    if (rank == 0) {
+      return NAME_ERROR;
+    }
     String todayName = process.getNameFromRank(dataEndYear, gender, rank);
     return todayName + " " + gender;
   }
 
   //how should this handle ties?
   public String mostPopularName(int start, int end, String gender) {
-      if (start < dataStartYear || end > dataEndYear) {
-          return RANGE_ERROR;
-      }
+    if (start < dataStartYear || end > dataEndYear) {
+      return RANGE_ERROR;
+    }
     List<String> names = process.getNamesFromRank(start, end, gender, 1);
     return process.mostFrequentNames(names);
   }
 
   public List<String> mostPopularLetter(int start, int end) {
-      if (start < dataStartYear || end > dataEndYear) {
-          return Collections.singletonList(RANGE_ERROR);
-      }
+    if (start < dataStartYear || end > dataEndYear) {
+      return Collections.singletonList(RANGE_ERROR);
+    }
     List<String> letters = process.mostPopularLetters(start, end, "F");
     if (letters.size() == 0) {
       return letters;
     }
-    String letter = letters.remove(0).substring(0,1);
+    String letter = letters.remove(0).substring(0, 1);
     return process.getNamesStartingWith(letter, "F", start, end);
   }
 
@@ -91,14 +90,25 @@ public class Outputter {
     return process.getRanks(start, end, name, gender);
   }
 
+  public int rankChange(int start, int end, String name, String gender) {
+    //need to call validateRange
+    int nameFirstRank = process.getRank(start, gender, name);
+    int nameLastRank = process.getRank(end, gender, name);
+    if (nameFirstRank == 0 || nameLastRank == 0) {
+      return -1;
+    } else {
+      return nameFirstRank - nameLastRank;
+    }
+  }
+
   //validate data range input
   private void validateRange(int start, int end) {
-    if((start > end) || (start < dataStartYear) || (end > dataEndYear)) {
+    if ((start > end) || (start < dataStartYear) || (end > dataEndYear)) {
       throw new InvalidParameterException(RANGE_ERROR);
     }
   }
 
-  public void validateGender(String gender){
+  public void validateGender(String gender) {
     if (!GENDERS.contains(gender.toUpperCase())) {
       throw new InvalidParameterException(GENDER_ERROR);
     }
@@ -106,8 +116,8 @@ public class Outputter {
 
   //fixes format of name to be same as dataset
   //assumed to be capital first letter lowercase rest of letters
-  private String validateName(String name){
-    return name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+  private String validateName(String name) {
+    return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
 
   public static void main(String[] args) {
