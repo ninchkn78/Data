@@ -36,7 +36,7 @@ public class Outputter {
       if (maleName.equals(NAME_ERROR)) {
           return NAME_ERROR;
       }
-      if (maleName.equals(YEAR_ERROR)) {
+      else if (maleName.equals(YEAR_ERROR)) {
           return YEAR_ERROR;
       }
     String femaleName = process.getNameFromRank(year, "F", 1);
@@ -58,12 +58,12 @@ public class Outputter {
 
   public String getTodayName(int year, String name, String gender) {
     int rank = process.getRank(year, gender, name);
-   // compareRank = compareRank.replaceAll("\n", "");
     //if getRank couldn't find a name
       if (rank == 0) {
         return NAME_ERROR;
       }
-    return process.getNameFromRank(dataEndYear, gender, rank) + " " + gender;
+    String todayName = process.getNameFromRank(dataEndYear, gender, rank);
+    return todayName + " " + gender;
   }
 
   //how should this handle ties?

@@ -38,7 +38,7 @@ public class DataProcessor {
 
   //counts number of names with given gender and starting string in a given year
   public int countNamesStartingWith(int year, String startsWith, String gender) {
-    if (getYearData(year) == null){
+    if (getYearData(year) == null) {
       return -1;
     }
     List<String[]> yearData = getProfilesStartingWith(startsWith, gender, year);
@@ -69,8 +69,8 @@ public class DataProcessor {
       }
       start++;
     }
-      names = sortRemoveDuplicates(names);
-      return names;
+    names = sortRemoveDuplicates(names);
+    return names;
   }
 
   //returns all names of rank in range with gender
@@ -125,18 +125,28 @@ public class DataProcessor {
   //how should this handle ties?
   //returns most frequently occurring name in non unique list of strings
   public String mostFrequentNames(List<String> names) {
-    int currCount;
+    int currentCount; //renamed from currCount
     Map<String, Integer> nameCountMap = new TreeMap<>();
     for (String name : names) {
       if (name.equals(NAME_ERROR)) {
         continue;
       }
-      currCount = nameCountMap.getOrDefault(name, 0);
-      nameCountMap.put(name, currCount + 1);
+      currentCount = nameCountMap.getOrDefault(name, 0);
+      nameCountMap.put(name, currentCount + 1);
     }
     if (nameCountMap.isEmpty()) {
       return NAME_ERROR;
     }
+
+//    Map<String, Integer> letterCountMap = new TreeMap<>();
+//    for (String letter : alphaArray) {
+//      year = start;
+//      while (year <= end) {
+//        currCount = letterCountMap.getOrDefault(letter, 0);
+//        letterCountMap.put(letter, currCount + countBabiesByYear(year, letter, gender));
+//        year++;
+//      }
+//    }
     return listToString(maxOccurrences(nameCountMap));
   }
 
@@ -187,15 +197,15 @@ public class DataProcessor {
   //in the range starting with that letter of specified gender
   private Map<String, Integer> countBabiesByLetter(int start, int end, String gender) {
     int year;
-    int currCount;
-    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int currentCount; //renamed from currCount
+    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //constant maybe
     String[] alphaArray = alphabet.split("");
     Map<String, Integer> letterCountMap = new TreeMap<>();
     for (String letter : alphaArray) {
       year = start;
       while (year <= end) {
-        currCount = letterCountMap.getOrDefault(letter, 0);
-        letterCountMap.put(letter, currCount + countBabiesByYear(year, letter, gender));
+        currentCount = letterCountMap.getOrDefault(letter, 0);
+        letterCountMap.put(letter, currentCount + countBabiesByYear(year, letter, gender));
         year++;
       }
     }
@@ -229,14 +239,20 @@ public class DataProcessor {
     }
     for (String[] profile : yearData) {
       String name = profile[NAME_INDEX];
-      if (profile[GENDER_INDEX].equals(gender)) {
-        if (name.length() >= startsWith.length()) {
-          if (name.startsWith(startsWith)) {
-            profiles.add(profile);
-          }
-        }
+//      if (profile[GENDER_INDEX].equals(gender)) {
+//        if (name.length() >= startsWith.length()) {
+//          if (name.startsWith(startsWith)) {
+//            profiles.add(profile);
+//          }
+//        }
+//      }
+      if (profile[GENDER_INDEX].equals(gender) && //test
+          name.length() >= startsWith.length() &&
+          name.startsWith(startsWith)) {
+        profiles.add(profile);
       }
     }
     return profiles;
   }
 }
+
