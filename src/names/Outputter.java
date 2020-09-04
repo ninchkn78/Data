@@ -1,9 +1,13 @@
 package names;
 
+import static java.lang.StrictMath.abs;
+
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
@@ -43,6 +47,7 @@ public class Outputter {
   }
 
   public String countNamesAndBabies(int year, String startsWith, String gender) {
+    validateGender(gender);
     int countNames = process.countNamesStartingWith(year, startsWith, gender);
     if (countNames == -1) {
       return YEAR_ERROR;
@@ -52,10 +57,14 @@ public class Outputter {
   }
 
   public List<Integer> getRanks(String name, String gender) {
+    name = validateName(name);
+    validateGender(gender);
     return process.getRanks(dataStartYear, dataEndYear, name, gender);
   }
 
   public String getTodayName(int year, String name, String gender) {
+    name = validateName(name);
+    validateGender(gender);
     int rank = process.getRank(year, gender, name);
     //if getRank couldn't find a name
     if (rank == 0) {
@@ -67,6 +76,7 @@ public class Outputter {
 
   //how should this handle ties?
   public String mostPopularName(int start, int end, String gender) {
+    validateGender(gender);
     if (start < dataStartYear || end > dataEndYear) {
       return RANGE_ERROR;
     }
@@ -87,19 +97,42 @@ public class Outputter {
   }
 
   public List<Integer> getRanksFromRange(int start, int end, String name, String gender) {
+    validateRange(start,end);
+    validateGender(gender);
+    name = validateName(name);
     return process.getRanks(start, end, name, gender);
   }
 
+  //if name isn't in both years, returns 0
   public int rankChange(int start, int end, String name, String gender) {
-    //need to call validateRange
+    validateRange(start,end);
+    validateGender(gender);
+    name = validateName(name);
     int nameFirstRank = process.getRank(start, gender, name);
     int nameLastRank = process.getRank(end, gender, name);
     if (nameFirstRank == 0 || nameLastRank == 0) {
-      return -1;
+      return 0;
     } else {
       return nameFirstRank - nameLastRank;
     }
   }
+
+  //for ties, returns all names
+  public List<String> biggestRankChange (int start, int end, String gender){
+    validateRange(start,end);
+    validateGender(gender);
+    Map<String, Integer> namesToRankChangeMap = new TreeMap<>();
+    List<String> namesFromFirstYear = process.getNamesStartingWith("",gender,start,start);
+    for (String name : namesFromFirstYear){
+      namesToRankChangeMap.put(name, abs(rankChange(start,end,name,gender)));
+    }
+    List<String> names = process.maxOccurrences(namesToRankChangeMap);
+    names.remove(names.size() - 1);
+    return names;
+
+  }
+
+
 
   //validate data range input
   private void validateRange(int start, int end) {
@@ -121,17 +154,18 @@ public class Outputter {
   }
 
   public static void main(String[] args) {
-    Outputter Test = new Outputter("ssa_2000s");
-    System.out.println(Test.validateName("bob"));
-    System.out.println(Test.validateName("niCoHlAS"));
-    System.out.println(Test.validateName("Jake"));
-    System.out.println(Test.topNames(1990));
-    System.out.println(Test.countNamesAndBabies(1900, "R", "M"));
-    System.out.println(Test.countNamesAndBabies(1900, "Q", "F"));
-    System.out.println(Test.getRanks("Alex", "M"));
-    System.out.println((Test.getTodayName(2001, "Janet", "F")));
-    System.out.println(Test.mostPopularName(2001, 2001, "F"));
-    System.out.println(Test.mostPopularLetter(1900, 1910));
-    System.out.println(Test.mostPopularLetter(1900, 1925));
+    Outputter Test = new Outputter("Test");
+    System.out.println(Test.biggestRankChange(1,1,"M"));
+//    System.out.println(Test.validateName("bob"));
+//    System.out.println(Test.validateName("niCoHlAS"));
+//    System.out.println(Test.validateName("Jake"));
+//    System.out.println(Test.topNames(1990));
+//    System.out.println(Test.countNamesAndBabies(1900, "R", "M"));
+//    System.out.println(Test.countNamesAndBabies(1900, "Q", "F"));
+//    System.out.println(Test.getRanks("Alex", "M"));
+//    System.out.println((Test.getTodayName(2001, "Janet", "F")));
+//    System.out.println(Test.mostPopularName(2001, 2001, "F"));
+//    System.out.println(Test.mostPopularLetter(1900, 1910));
+//    System.out.println(Test.mostPopularLetter(1900, 1925));
   }
 }

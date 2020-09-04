@@ -1,5 +1,6 @@
 package names;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -15,6 +16,7 @@ class OutputTest {
   //don't have a beforeEach because none of my methods being tested
   //change the state of any of the instance variables
   Outputter Test = new Outputter("Test");
+  Outputter Test2 = new Outputter("Test2");
 
   @Test
   void Test1EmptyDataSet() {
@@ -187,6 +189,25 @@ class OutputTest {
   }
   @Test
   void Complete2NameNotInBothYears() {
-    assertEquals(-1, Test.rankChange(1, 3, "Sophie", "F"));
+    assertEquals(0, Test.rankChange(1, 3, "Sophie", "F"));
+  }
+
+  @Test
+  void Complete3SingleName() {
+    List<String> expectedOutput = Collections.singletonList("Sophie");
+    assertEquals(expectedOutput, Test.biggestRankChange(1, 5, "F"));
+  }
+
+  @Test
+  void Complete3MultipleNames() {
+    List<String> expectedOutput = Arrays.asList("Albert","Alex");
+    assertEquals(expectedOutput, Test.biggestRankChange(2, 3, "M"));
+  }
+
+  //note: names that only appear in one year count as no rank change
+  @Test
+  void Complete3NoRankChanges() {
+    List<String> expectedOutput = new ArrayList<>();
+    assertEquals(expectedOutput, Test2.biggestRankChange(1999, 2000, "M"));
   }
 }

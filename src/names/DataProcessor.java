@@ -138,15 +138,6 @@ public class DataProcessor {
       return NAME_ERROR;
     }
 
-//    Map<String, Integer> letterCountMap = new TreeMap<>();
-//    for (String letter : alphaArray) {
-//      year = start;
-//      while (year <= end) {
-//        currCount = letterCountMap.getOrDefault(letter, 0);
-//        letterCountMap.put(letter, currCount + countBabiesByYear(year, letter, gender));
-//        year++;
-//      }
-//    }
     return listToString(maxOccurrences(nameCountMap));
   }
 
@@ -214,11 +205,11 @@ public class DataProcessor {
 
   //given a map of String Integer key value pairs
   // returns keys with max value in values
-  private List<String> maxOccurrences(Map<String, Integer> stringIntMap) {
+  public List<String> maxOccurrences(Map<String, Integer> stringIntMap) {
     List<String> mostFrequentStrings = new ArrayList<>();
     int max = Collections.max(stringIntMap.values());
     if (max == 0) {
-      mostFrequentStrings.add("EMPTY");
+      mostFrequentStrings.add("");
       return mostFrequentStrings;
     }
     for (String key : stringIntMap.keySet()) {
