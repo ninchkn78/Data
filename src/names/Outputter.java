@@ -87,6 +87,10 @@ public class Outputter {
     return process.getNamesStartingWith(letter, "F", start, end);
   }
 
+  public List<Integer> getRanksFromRange(int start, int end, String name, String gender) {
+    return process.getRanks(start, end, name, gender);
+  }
+
   //validate data range input
   private void validateRange(int start, int end) {
     if((start > end) || (start < dataStartYear) || (end > dataEndYear)) {
