@@ -215,17 +215,32 @@ class OutputTest {
 
   @Test
   void Complete4NameInSomeYears() {
-    assertEquals(1.8, Test.getAverageRank(1, 5, "Sophie", "F"));
+    assertEquals(3.0, Test.getAverageRankRange(1, 5, "Sophie", "F"));
   }
 
   @Test
   void Complete4NameInAllYears() {
-    assertEquals(3, Test.getAverageRank(1, 5, "Miryam", "F"));
-    assertEquals(3, Test.getAverageRank(1, 5, "Alex", "M"));
+    assertEquals(3, Test.getAverageRankRange(1, 5, "Miryam", "F"));
+    assertEquals(3, Test.getAverageRankRange(1, 5, "Alex", "M"));
   }
 
   @Test
   void Complete4NameNotInRange() {
-    assertEquals(0, Test.getAverageRank(1, 5, "Sophie", "M"));
+    assertEquals(0, Test.getAverageRankRange(1, 5, "Sophie", "M"));
+  }
+  @Test
+  void Complete6NameInSomeYears() {
+    assertEquals(1.0, Test.getAverageRankRecent(4, "Sophie", "F"));
+  }
+
+  @Test
+  void Complete6NameInAllYears() {
+    assertEquals(3, Test.getAverageRankRecent(5, "Miryam", "F"));
+    assertEquals(3, Test.getAverageRankRecent(5, "Alex", "M"));
+  }
+
+  @Test
+  void Complete6NameNotInRange() {
+    assertEquals(0, Test.getAverageRankRecent(5, "Sophie", "M"));
   }
 }

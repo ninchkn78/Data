@@ -130,19 +130,28 @@ public class Outputter {
     names.remove(names.size() - 1);
     return names;
   }
-  public double getAverageRank(int start, int end, String name, String gender) {
+  public double getAverageRankRange(int start, int end, String name, String gender) {
     validateRange(start,end);
     validateGender(gender);
     name = validateName(name);
     float sum = 0;
-    float count = end - start + 1;
+    float count = 0;
     while (start <= end) {
-      sum += process.getRank(start,gender,name);
+      int rank = process.getRank(start,gender,name);
+      if (rank != 0){
+        sum += rank;
+        count ++;
+      }
       start++;
     }
     double average = Math.round(sum/count * 100.0)/100.0;
     return average;
+  }
+//add a method here
 
+  public double getAverageRankRecent(int numYears, String name, String gender) {
+    int start = dataEndYear - numYears + 1;
+    return getAverageRankRange(start,dataEndYear,name,gender);
   }
 
   //validate data range input
