@@ -286,6 +286,21 @@ class OutputTest {
     List<String> expectedOutput = Arrays.asList("NAME NOT FOUND");
     assertEquals(expectedOutput, Test.namesOfRank(0, 0, "F", 1));
   }
+  @Test
+  void Complete8SingleNameRank2() {
+    assertEquals("Jerry 2", Test.mostFrequentRank(1, 5, "M", 2));
+  }
+
+  @Test
+  void Complete8MultipleNamesRank1() {
+    assertEquals("Lucy Michelle Sophie 1", Test.mostFrequentRank(2,4, "F", 1));
+  }
+
+  @Test
+  void Complete8NameNotInDataSet() {
+    assertEquals("NAME NOT FOUND", Test.mostFrequentRank(0, 0, "F", 1));
+  }
+
 
 
 }

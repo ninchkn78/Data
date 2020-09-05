@@ -183,6 +183,12 @@ public class Outputter {
     return names;
   }
 
+  public String mostFrequentRank(int start, int end, String gender, int targetRank){
+    List<String> names = namesOfRank(start,end,gender,targetRank);
+    return process.mostFrequentNames(names);
+  }
+
+
   //validate data range input
   private void validateRange(int start, int end) {
     if ((start > end) || (start < dataStartYear) || (end > dataEndYear)) {
