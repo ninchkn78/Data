@@ -1,7 +1,8 @@
 data
 ====
 
-This project uses data about [baby names from the US Social Security Administration](https://www.ssa.gov/oact/babynames/limits.html) to answer specific questions. 
+This project uses data about [baby names from the US Social Security Administration] 
+(https://www.ssa.gov/oact/babynames/limits.html) to answer specific questions. 
 
 
 Name: Alex Chao

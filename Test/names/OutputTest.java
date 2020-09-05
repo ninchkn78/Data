@@ -149,29 +149,29 @@ class OutputTest {
   //the first thing that happens
 
 
-    @Test
-    void Complete1FemaleRanks() {
-        List<Integer> expectedOutput = Arrays.asList(1, 2, 3, 4, 5);
-        assertEquals(expectedOutput, Test.getRanksFromRange(1, 5, "Miryam", "F"));
-    }
+  @Test
+  void Complete1FemaleRanks() {
+    List<Integer> expectedOutput = Arrays.asList(1, 2, 3, 4, 5);
+    assertEquals(expectedOutput, Test.getRanksFromRange(1, 5, "Miryam", "F"));
+  }
 
-    @Test
-    void Complete1MaleRanks() {
-        List<Integer> expectedOutput = Arrays.asList(1, 2, 3, 4, 5);
-        assertEquals(expectedOutput,Test.getRanksFromRange(1, 5, "Alex", "M"));
-    }
+  @Test
+  void Complete1MaleRanks() {
+    List<Integer> expectedOutput = Arrays.asList(1, 2, 3, 4, 5);
+    assertEquals(expectedOutput,Test.getRanksFromRange(1, 5, "Alex", "M"));
+  }
 
-    @Test
-    void Complete1EmptyFile() {
-        List<Integer> expectedOutput = Collections.singletonList(0);
-        assertEquals(expectedOutput, Test.getRanksFromRange(0, 0, "Alex", "M"));
-    }
+  @Test
+  void Complete1EmptyFile() {
+    List<Integer> expectedOutput = Collections.singletonList(0);
+    assertEquals(expectedOutput, Test.getRanksFromRange(0, 0, "Alex", "M"));
+  }
 
-    @Test
-    void Complete1NameNotFound() {
-        List<Integer> expectedOutput = Arrays.asList(0, 0, 0, 0, 0);
-        assertEquals(expectedOutput, Test.getRanksFromRange(1, 5, "J", "M"));
-}
+  @Test
+  void Complete1NameNotFound() {
+    List<Integer> expectedOutput = Arrays.asList(0, 0, 0, 0, 0);
+    assertEquals(expectedOutput, Test.getRanksFromRange(1, 5, "J", "M"));
+  }
 
   @Test
   void Complete2NegativeChange() {
@@ -183,10 +183,12 @@ class OutputTest {
   void Complete2PositiveChange() {
     assertEquals(6, Test.rankChange(1, 5, "Sophie", "F"));
   }
+
   @Test
   void Complete2NoChange() {
     assertEquals(0, Test.rankChange(1, 4, "Jerry", "M"));
   }
+
   @Test
   void Complete2NameNotInBothYears() {
     assertEquals(0, Test.rankChange(1, 3, "Sophie", "F"));
@@ -209,5 +211,21 @@ class OutputTest {
   void Complete3NoRankChanges() {
     List<String> expectedOutput = new ArrayList<>();
     assertEquals(expectedOutput, Test2.biggestRankChange(1999, 2000, "M"));
+  }
+
+  @Test
+  void Complete4NameInSomeYears() {
+    assertEquals(1.8, Test.getAverageRank(1, 5, "Sophie", "F"));
+  }
+
+  @Test
+  void Complete4NameInAllYears() {
+    assertEquals(3, Test.getAverageRank(1, 5, "Miryam", "F"));
+    assertEquals(3, Test.getAverageRank(1, 5, "Alex", "M"));
+  }
+
+  @Test
+  void Complete4NameNotInRange() {
+    assertEquals(0, Test.getAverageRank(1, 5, "Sophie", "M"));
   }
 }
