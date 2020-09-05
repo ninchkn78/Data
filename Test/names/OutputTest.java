@@ -20,8 +20,14 @@ class OutputTest {
   //change the state of any of the instance variables
   Outputter Test = new Outputter("Test", "FOLDER");
   Outputter Test2 = new Outputter("Test2", "FOLDER");
-  //Outputter Test3 = new Outputter("Test3","FOLDER");
 
+
+
+  @Test
+  void HandleErrorInvalidFolder() {
+  assertThrows(NullPointerException.class, () ->
+        new Outputter("Test3","FOLDER"));
+  }
   @Test
   void HandleErrorName() {
     assertEquals("Sophie F", Test.getTodayName(1, "miryam", "F"));

@@ -9,6 +9,7 @@ This project uses data about [baby names from the US Social Security Administrat
 -zip file
 -handle URL
 -handle empty files
+-how to throw exceptions
 -refactor the 3 repeated methods
 -complete readme
 -main method
