@@ -110,10 +110,6 @@ class OutputTest {
     assertEquals("NAME NOT FOUND", Test.mostPopularName(0, 0, "F"));
   }
 
-  @Test
-  void Basic3YearNotInDataSet() {
-    assertEquals("INVALID RANGE", Test.mostPopularName(1, 6, "F"));
-  }
 
   @Test
   void Basic4TiesAmongYears() {
@@ -139,15 +135,10 @@ class OutputTest {
     assertEquals(expectedOutput, Test.mostPopularLetter(0, 0));
   }
 
-  @Test
-  void Basic4YearNotInDataset() {
-    assertEquals(Collections.singletonList("INVALID RANGE"), Test.mostPopularLetter(1, 6));
-  }
 
  //have one test that checks all the errors
   //make a note about how the funciton doesn't matter since it's
   //the first thing that happens
-
 
   @Test
   void Complete1FemaleRanks() {
@@ -300,7 +291,21 @@ class OutputTest {
   void Complete8NameNotInDataSet() {
     assertEquals("NAME NOT FOUND", Test.mostFrequentRank(0, 0, "F", 1));
   }
-
+  @Test
+  void Complete9EmptyFile() {
+    List<String> expectedOutput = new ArrayList<>();
+    assertEquals(expectedOutput, Test.mostCommonPrefix(0, 0, "F"));
+  }
+  @Test
+  void Complete9MultiplePrefixes() {
+    List<String> expectedOutput = Arrays.asList("Alex", "Symon");
+    assertEquals(expectedOutput, Test2.mostCommonPrefix(1999, 2000, "M"));
+  }
+  @Test
+  void Complete9SinglePrefix() {
+    List<String> expectedOutput = Arrays.asList("Lucy");
+    assertEquals(expectedOutput, Test2.mostCommonPrefix(1999, 2000, "F"));
+  }
 
 
 }

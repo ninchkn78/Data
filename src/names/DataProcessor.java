@@ -45,6 +45,10 @@ public class DataProcessor {
     return yearData.size();
   }
 
+  public int countNamesStartingWithRange(int start, int end, String startsWith, String gender) {
+    return getNamesStartingWith(startsWith,gender,start,end).size();
+  }
+
   //counts number of babies with given gender and starting string in a given year
   public int countBabiesByYear(int year, String startsWith, String gender) {
     int sum = 0;

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-//talk to TA about this
-
+//talk to TA about this class
+//ask about comments
 /**
  * Feel free to completely change this code or delete it entirely.
  */
@@ -20,8 +20,6 @@ public class Outputter {
   /**
    * Start of the program.
    */
-  //change later to take in a folder
-
   private final int dataStartYear;
   private final int dataEndYear;
   private final DataProcessor process;
@@ -188,6 +186,21 @@ public class Outputter {
     return process.mostFrequentNames(names);
   }
 
+  public List<String> mostCommonPrefix(int start, int end, String gender){
+    Map<String, Integer> prefixCountMap = new TreeMap<>();
+    List<String> allNames = process.getNamesStartingWith("",gender,start,end);
+    if (allNames.isEmpty()) {
+      return allNames;
+    }
+    for (String name : allNames) {
+        prefixCountMap.put(name, process.countNamesStartingWithRange(start,end,name,gender));
+      }
+      start++;
+    List<String> names = process.maxOccurrences(prefixCountMap);
+    names.remove(names.size() - 1);
+    return names;
+  }
+
 
   //validate data range input
   private void validateRange(int start, int end) {
@@ -197,7 +210,7 @@ public class Outputter {
   }
 
   public void validateGender(String gender) {
-    if (!GENDERS.contains(gender.toUpperCase())) {
+    if (!GENDERS.contains(gender)) {
       throw new InvalidParameterException(GENDER_ERROR);
     }
   }
