@@ -209,6 +209,9 @@ public class DataProcessor {
   // returns keys with max value in values
   public List<String> maxOccurrences(Map<String, Integer> stringIntMap) {
     List<String> mostFrequentStrings = new ArrayList<>();
+    if(stringIntMap.isEmpty()){
+      return mostFrequentStrings;
+    }
     int max = Collections.max(stringIntMap.values());
     if (max == 0) {
       return mostFrequentStrings;
