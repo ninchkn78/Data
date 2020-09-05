@@ -1,5 +1,6 @@
 package names;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //ask about having databases be made in the call
 
@@ -17,6 +20,44 @@ class OutputTest {
   //change the state of any of the instance variables
   Outputter Test = new Outputter("Test");
   Outputter Test2 = new Outputter("Test2");
+
+  @Test
+  void HandleErrorName() {
+    assertEquals("Sophie F", Test.getTodayName(1, "miryam", "F"));
+    assertEquals("Sophie F", Test.getTodayName(1, "miRyAm", "F"));
+  }
+  @Test
+  void HandleErrorGender() {
+    Exception exception = assertThrows(InvalidParameterException.class, () -> {
+      Test.getTodayName(1, "Miryam", "f");
+    });
+
+    String expectedMessage = "INVALID GENDER";
+    String actualMessage = exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
+  }
+  @Test
+  void HandleErrorYear() {
+    String expectedMessage = "INVALID RANGE";
+    Exception exception1 = assertThrows(InvalidParameterException.class, () -> {
+      Test.mostPopularLetter(1,6);
+    });
+    String actualMessage1 = exception1.getMessage();
+    assertTrue(actualMessage1.contains(expectedMessage));
+    Exception exception2 = assertThrows(InvalidParameterException.class, () -> {
+      Test.mostPopularLetter(-1,5);
+    });
+    String actualMessage2 = exception2.getMessage();
+    assertTrue(actualMessage2.contains(expectedMessage));
+    Exception exception3 = assertThrows(InvalidParameterException.class, () -> {
+      Test.mostPopularLetter(5,2);
+    });
+    String actualMessage3 = exception3.getMessage();
+    assertTrue(actualMessage3.contains(expectedMessage));
+  }
+
+
 
   @Test
   void Test1EmptyDataSet() {

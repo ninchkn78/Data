@@ -5,7 +5,6 @@ import static java.lang.StrictMath.abs;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -77,17 +76,13 @@ public class Outputter {
   //how should this handle ties?
   public String mostPopularName(int start, int end, String gender) {
     validateGender(gender);
-    if (start < dataStartYear || end > dataEndYear) {
-      return RANGE_ERROR;
-    }
+    validateRange(start,end);
     List<String> names = process.getNamesFromRank(start, end, gender, 1);
     return process.mostFrequentNames(names);
   }
 
   public List<String> mostPopularLetter(int start, int end) {
-    if (start < dataStartYear || end > dataEndYear) {
-      return Collections.singletonList(RANGE_ERROR);
-    }
+    validateRange(start,end);
     List<String> letters = process.mostPopularLetters(start, end, "F");
     if (letters.size() == 0) {
       return letters;
@@ -169,10 +164,13 @@ public class Outputter {
 
   public double getAverageRankRecent(int numYears, String name, String gender) {
     int start = dataEndYear - numYears + 1;
+    //don't need to validate since already checked in getAverageRankRange
     return getAverageRankRange(start,dataEndYear,name,gender);
   }
 
   public List<String> namesOfRank(int start, int end, String gender, int targetRank){
+    validateGender(gender);
+    validateRange(start,end);
     List<String> names = new ArrayList<>();
     while(start <= end){
       names.add(process.getNameFromRank(start,gender,targetRank));
@@ -182,11 +180,14 @@ public class Outputter {
   }
 
   public String mostFrequentRank(int start, int end, String gender, int targetRank){
+    //don't need to validate
     List<String> names = namesOfRank(start,end,gender,targetRank);
     return process.mostFrequentNames(names);
   }
 
   public List<String> mostCommonPrefix(int start, int end, String gender){
+    validateRange(start,end);
+    validateGender(gender);
     Map<String, Integer> prefixCountMap = new TreeMap<>();
     List<String> allNames = process.getNamesStartingWith("",gender,start,end);
     if (allNames.isEmpty()) {
@@ -195,7 +196,6 @@ public class Outputter {
     for (String name : allNames) {
         prefixCountMap.put(name, process.countNamesStartingWithRange(start,end,name,gender));
       }
-      start++;
     List<String> names = process.maxOccurrences(prefixCountMap);
     names.remove(names.size() - 1);
     return names;
@@ -209,7 +209,7 @@ public class Outputter {
     }
   }
 
-  public void validateGender(String gender) {
+  private void validateGender(String gender) {
     if (!GENDERS.contains(gender)) {
       throw new InvalidParameterException(GENDER_ERROR);
     }

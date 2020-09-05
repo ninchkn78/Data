@@ -16,6 +16,8 @@ Finish Date:
 Hours Spent: 27 hours 30 minutes
 
 ### Resources Used
+how to handle exception assertion 
+https://www.baeldung.com/junit-assert-exception
 Make first letter capital 
 https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
 Getting Integers from a string
