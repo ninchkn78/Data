@@ -17,14 +17,13 @@ public class FileReader {
   private static int getYear(String path) {
     // Replacing every non-digit number
     path = path.replaceAll("[^\\d]", "");
-      if (path.equals("")) {
-          return -1;
-      }
+    if (path.equals("")) {
+      return -1;
+    }
     return Integer.parseInt(path);
   }
 
-  public static Map<Integer, List<String[]>> generateMap(String dataSource, String dataType)
-       {
+  public static Map<Integer, List<String[]>> generateMap(String dataSource, String dataType) {
     int year;
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     File[] textFiles = handleDataType(dataSource, dataType);
@@ -32,18 +31,18 @@ public class FileReader {
       year = getYear(file.getName());
       dataSet.put(year, generateList(file));
     }
-      return dataSet;
-    }
+    return dataSet;
+  }
 
-  private static File[] handleDataType(String dataSource, String dataType){
-    if(dataType.equals("FOLDER")){
-      Path path = null;
+  private static File[] handleDataType(String dataSource, String dataType) {
+    if (dataType.equals("FOLDER")) {
+      Path path;
       try {
         path = Paths
-            .get(Objects.requireNonNull(FileReader.class.getClassLoader().getResource(dataSource)).toURI());
+            .get(Objects.requireNonNull(FileReader.class.getClassLoader().getResource(dataSource))
+                .toURI());
         File folder = new File(String.valueOf(path));
-        File[] textFiles = folder.listFiles();
-        return textFiles;
+        return folder.listFiles();
       } catch (URISyntaxException e) {
         System.out.println("INVALID DATA SOURCE");
         System.exit(-1);
@@ -52,7 +51,7 @@ public class FileReader {
     return null;
   }
 
-  private static List<String[]> generateList(File textFile)  {
+  private static List<String[]> generateList(File textFile) {
     List<String[]> profiles = new ArrayList<>();
     String[] profile;
     Scanner scan = null;

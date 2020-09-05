@@ -2,7 +2,6 @@ package names;
 
 import static java.lang.StrictMath.abs;
 
-import java.io.FileNotFoundException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +11,7 @@ import java.util.TreeMap;
 
 //talk to TA about this class
 //ask about comments
+
 /**
  * Feel free to completely change this code or delete it entirely.
  */
@@ -77,13 +77,13 @@ public class Outputter {
   //how should this handle ties?
   public String mostPopularName(int start, int end, String gender) {
     validateGender(gender);
-    validateRange(start,end);
+    validateRange(start, end);
     List<String> names = process.getNamesFromRank(start, end, gender, 1);
     return process.mostFrequentNames(names);
   }
 
   public List<String> mostPopularLetter(int start, int end) {
-    validateRange(start,end);
+    validateRange(start, end);
     List<String> letters = process.mostPopularLetters(start, end, "F");
     if (letters.size() == 0) {
       return letters;
@@ -93,7 +93,7 @@ public class Outputter {
   }
 
   public List<Integer> getRanksFromRange(int start, int end, String name, String gender) {
-    validateRange(start,end);
+    validateRange(start, end);
     validateGender(gender);
     name = validateName(name);
     return process.getRanks(start, end, name, gender);
@@ -101,7 +101,7 @@ public class Outputter {
 
   //if name isn't in both years, returns 0
   public int rankChange(int start, int end, String name, String gender) {
-    validateRange(start,end);
+    validateRange(start, end);
     validateGender(gender);
     name = validateName(name);
     int nameFirstRank = process.getRank(start, gender, name);
@@ -114,16 +114,16 @@ public class Outputter {
   }
 
   //for ties, returns all names
-  public List<String> biggestRankChange (int start, int end, String gender){
-    validateRange(start,end);
+  public List<String> biggestRankChange(int start, int end, String gender) {
+    validateRange(start, end);
     validateGender(gender);
     Map<String, Integer> namesToRankChangeMap = new TreeMap<>();
-    List<String> namesFromFirstYear = process.getNamesStartingWith("",gender,start,start);
+    List<String> namesFromFirstYear = process.getNamesStartingWith("", gender, start, start);
     if (namesFromFirstYear.isEmpty()) {
       return namesFromFirstYear;
     }
-    for (String name : namesFromFirstYear){
-      namesToRankChangeMap.put(name, abs(rankChange(start,end,name,gender)));
+    for (String name : namesFromFirstYear) {
+      namesToRankChangeMap.put(name, abs(rankChange(start, end, name, gender)));
     }
     List<String> names = process.maxOccurrences(namesToRankChangeMap);
     names.remove(names.size() - 1);
@@ -131,32 +131,33 @@ public class Outputter {
   }
 
   public double getAverageRankRange(int start, int end, String name, String gender) {
-    validateRange(start,end);
+    validateRange(start, end);
     validateGender(gender);
     name = validateName(name);
     float sum = 0;
     float count = 0;
     while (start <= end) {
-      int rank = process.getRank(start,gender,name);
-      if (rank != 0){
+      int rank = process.getRank(start, gender, name);
+      if (rank != 0) {
         sum += rank;
-        count ++;
+        count++;
       }
       start++;
     }
-    return Math.round(sum/count * 100.0)/100.0;
+    return Math.round(sum / count * 100.0) / 100.0;
   }
-//ask about this, duplication and rounding
-  public List<String> highestAverageRank(int start, int end, String gender){
-    validateRange(start,end);
+
+  //ask about this, duplication and rounding
+  public List<String> highestAverageRank(int start, int end, String gender) {
+    validateRange(start, end);
     validateGender(gender);
     Map<String, Integer> namesToAverageRankMap = new TreeMap<>();
-    List<String> allNames = process.getNamesStartingWith("",gender,start,end);
+    List<String> allNames = process.getNamesStartingWith("", gender, start, end);
     if (allNames.isEmpty()) {
       return allNames;
     }
-    for (String name : allNames){
-      namesToAverageRankMap.put(name, -1 * (int)getAverageRankRange(start,end,name,gender));
+    for (String name : allNames) {
+      namesToAverageRankMap.put(name, -1 * (int) getAverageRankRange(start, end, name, gender));
     }
     List<String> names = process.maxOccurrences(namesToAverageRankMap);
     names.remove(names.size() - 1);
@@ -166,37 +167,37 @@ public class Outputter {
   public double getAverageRankRecent(int numYears, String name, String gender) {
     int start = dataEndYear - numYears + 1;
     //don't need to validate since already checked in getAverageRankRange
-    return getAverageRankRange(start,dataEndYear,name,gender);
+    return getAverageRankRange(start, dataEndYear, name, gender);
   }
 
-  public List<String> namesOfRank(int start, int end, String gender, int targetRank){
+  public List<String> namesOfRank(int start, int end, String gender, int targetRank) {
     validateGender(gender);
-    validateRange(start,end);
+    validateRange(start, end);
     List<String> names = new ArrayList<>();
-    while(start <= end){
-      names.add(process.getNameFromRank(start,gender,targetRank));
+    while (start <= end) {
+      names.add(process.getNameFromRank(start, gender, targetRank));
       start++;
     }
     return names;
   }
 
-  public String mostFrequentRank(int start, int end, String gender, int targetRank){
+  public String mostFrequentRank(int start, int end, String gender, int targetRank) {
     //don't need to validate
-    List<String> names = namesOfRank(start,end,gender,targetRank);
+    List<String> names = namesOfRank(start, end, gender, targetRank);
     return process.mostFrequentNames(names);
   }
 
-  public List<String> mostCommonPrefix(int start, int end, String gender){
-    validateRange(start,end);
+  public List<String> mostCommonPrefix(int start, int end, String gender) {
+    validateRange(start, end);
     validateGender(gender);
     Map<String, Integer> prefixCountMap = new TreeMap<>();
-    List<String> allNames = process.getNamesStartingWith("",gender,start,end);
+    List<String> allNames = process.getNamesStartingWith("", gender, start, end);
     if (allNames.isEmpty()) {
       return allNames;
     }
     for (String name : allNames) {
-        prefixCountMap.put(name, process.countNamesStartingWithRange(start,end,name,gender));
-      }
+      prefixCountMap.put(name, process.countNamesStartingWithRange(start, end, name, gender));
+    }
     List<String> names = process.maxOccurrences(prefixCountMap);
     names.remove(names.size() - 1);
     return names;
@@ -222,9 +223,9 @@ public class Outputter {
     return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
 
-  public static void main(String[] args) throws FileNotFoundException {
+  public static void main(String[] args) {
     Outputter Test = new Outputter("Test", "FOLDER");
-    System.out.println(Test.biggestRankChange(1,1,"M"));
+    System.out.println(Test.biggestRankChange(1, 1, "M"));
 //    System.out.println(Test.validateName("bob"));
 //    System.out.println(Test.validateName("niCoHlAS"));
 //    System.out.println(Test.validateName("Jake"));

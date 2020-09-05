@@ -27,6 +27,7 @@ class OutputTest {
     assertEquals("Sophie F", Test.getTodayName(1, "miryam", "F"));
     assertEquals("Sophie F", Test.getTodayName(1, "miRyAm", "F"));
   }
+
   @Test
   void HandleErrorGender() {
     Exception exception = assertThrows(InvalidParameterException.class, () ->
@@ -37,16 +38,20 @@ class OutputTest {
 
     assertTrue(actualMessage.contains(expectedMessage));
   }
+
   @Test
   void HandleErrorYear() {
     String expectedMessage = "INVALID RANGE";
-    Exception exception1 = assertThrows(InvalidParameterException.class, () -> Test.mostPopularLetter(1,6));
+    Exception exception1 = assertThrows(InvalidParameterException.class,
+        () -> Test.mostPopularLetter(1, 6));
     String actualMessage1 = exception1.getMessage();
     assertTrue(actualMessage1.contains(expectedMessage));
-    Exception exception2 = assertThrows(InvalidParameterException.class, () -> Test.mostPopularLetter(-1,5));
+    Exception exception2 = assertThrows(InvalidParameterException.class,
+        () -> Test.mostPopularLetter(-1, 5));
     String actualMessage2 = exception2.getMessage();
     assertTrue(actualMessage2.contains(expectedMessage));
-    Exception exception3 = assertThrows(InvalidParameterException.class, () -> Test.mostPopularLetter(5,2));
+    Exception exception3 = assertThrows(InvalidParameterException.class,
+        () -> Test.mostPopularLetter(5, 2));
     String actualMessage3 = exception3.getMessage();
     assertTrue(actualMessage3.contains(expectedMessage));
   }
@@ -84,26 +89,20 @@ class OutputTest {
 
   @Test
   void Basic1FemaleRanks() {
-    List<Integer> expectedOutput = Arrays.asList(0,1,2,3,4,5);
+    List<Integer> expectedOutput = Arrays.asList(0, 1, 2, 3, 4, 5);
     assertEquals(expectedOutput, Test.getRanks("Miryam", "F"));
   }
 
   @Test
   void Basic1MaleRanks() {
-    List<Integer> expectedOutput = Arrays.asList(0,1,2,3,4,5);
+    List<Integer> expectedOutput = Arrays.asList(0, 1, 2, 3, 4, 5);
     assertEquals(expectedOutput, Test.getRanks("Alex", "M"));
   }
-
-//    @Test
-//    void Test1EmptyFile() {
-//        List<String> expectedOutput = Collections.singletonList("NAME NOT FOUND");
-//        assertEquals(expectedOutput, Test.getRanks("Alex", "M"));
-//    }
 
   @Test
   void Basic1NameNotFound() {
     List<Integer> expectedOutput = Arrays
-        .asList(0,0,0,0,0,0);
+        .asList(0, 0, 0, 0, 0, 0);
     assertEquals(expectedOutput, Test.getRanks("J", "M"));
   }
 
@@ -168,11 +167,6 @@ class OutputTest {
     assertEquals(expectedOutput, Test.mostPopularLetter(0, 0));
   }
 
-
- //have one test that checks all the errors
-  //make a note about how the funciton doesn't matter since it's
-  //the first thing that happens
-
   @Test
   void Complete1FemaleRanks() {
     List<Integer> expectedOutput = Arrays.asList(1, 2, 3, 4, 5);
@@ -182,7 +176,7 @@ class OutputTest {
   @Test
   void Complete1MaleRanks() {
     List<Integer> expectedOutput = Arrays.asList(1, 2, 3, 4, 5);
-    assertEquals(expectedOutput,Test.getRanksFromRange(1, 5, "Alex", "M"));
+    assertEquals(expectedOutput, Test.getRanksFromRange(1, 5, "Alex", "M"));
   }
 
   @Test
@@ -200,7 +194,7 @@ class OutputTest {
   @Test
   void Complete2NegativeChange() {
     assertEquals(-4, Test.rankChange(1, 5, "Miryam", "F"));
-    assertEquals(-4, Test.rankChange(1,5,"Alex","M"));
+    assertEquals(-4, Test.rankChange(1, 5, "Alex", "M"));
   }
 
   @Test
@@ -226,7 +220,7 @@ class OutputTest {
 
   @Test
   void Complete3MultipleNames() {
-    List<String> expectedOutput = Arrays.asList("Albert","Alex");
+    List<String> expectedOutput = Arrays.asList("Albert", "Alex");
     assertEquals(expectedOutput, Test.biggestRankChange(2, 3, "M"));
   }
 
@@ -236,6 +230,7 @@ class OutputTest {
     List<String> expectedOutput = new ArrayList<>();
     assertEquals(expectedOutput, Test2.biggestRankChange(1999, 2000, "M"));
   }
+
   @Test
   void Complete3EmptyFile() {
     List<String> expectedOutput = new ArrayList<>();
@@ -274,7 +269,7 @@ class OutputTest {
   @Test
   void Complete5EmptyDataFile() {
     List<String> expectedOutput = new ArrayList<>();
-    assertEquals(expectedOutput, Test.highestAverageRank(0,0, "M"));
+    assertEquals(expectedOutput, Test.highestAverageRank(0, 0, "M"));
   }
 
   @Test
@@ -295,13 +290,13 @@ class OutputTest {
 
   @Test
   void Complete7SameNameRank1() {
-    List<String> expectedOutput = Arrays.asList("Miryam","Miryam");
+    List<String> expectedOutput = Arrays.asList("Miryam", "Miryam");
     assertEquals(expectedOutput, Test2.namesOfRank(1999, 2000, "F", 1));
   }
 
   @Test
   void Complete7MultipleNamesRank3() {
-    List<String> expectedOutput = Arrays.asList("Prateek","Albert","Alex","Jeffrey");
+    List<String> expectedOutput = Arrays.asList("Prateek", "Albert", "Alex", "Jeffrey");
     assertEquals(expectedOutput, Test.namesOfRank(1, 4, "M", 3));
   }
 
@@ -310,6 +305,7 @@ class OutputTest {
     List<String> expectedOutput = Collections.singletonList("NAME NOT FOUND");
     assertEquals(expectedOutput, Test.namesOfRank(0, 0, "F", 1));
   }
+
   @Test
   void Complete8SingleNameRank2() {
     assertEquals("Jerry 2", Test.mostFrequentRank(1, 5, "M", 2));
@@ -317,23 +313,26 @@ class OutputTest {
 
   @Test
   void Complete8MultipleNamesRank1() {
-    assertEquals("Lucy Michelle Sophie 1", Test.mostFrequentRank(2,4, "F", 1));
+    assertEquals("Lucy Michelle Sophie 1", Test.mostFrequentRank(2, 4, "F", 1));
   }
 
   @Test
   void Complete8NameNotInDataSet() {
     assertEquals("NAME NOT FOUND", Test.mostFrequentRank(0, 0, "F", 1));
   }
+
   @Test
   void Complete9EmptyFile() {
     List<String> expectedOutput = new ArrayList<>();
     assertEquals(expectedOutput, Test.mostCommonPrefix(0, 0, "F"));
   }
+
   @Test
   void Complete9MultiplePrefixes() {
     List<String> expectedOutput = Arrays.asList("Alex", "Symon");
     assertEquals(expectedOutput, Test2.mostCommonPrefix(1999, 2000, "M"));
   }
+
   @Test
   void Complete9SinglePrefix() {
     List<String> expectedOutput = Collections.singletonList("Lucy");

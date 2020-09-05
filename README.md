@@ -4,6 +4,15 @@ data
 This project uses data about [baby names from the US Social Security Administration] 
 (https://www.ssa.gov/oact/babynames/limits.html) to answer specific questions. 
 
+### TODO 
+-optional 10
+-zip file
+-handle URL
+-handle empty files
+-refactor the 3 repeated methods
+-complete readme
+-main method
+
 
 Name: Alex Chao
 

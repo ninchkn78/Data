@@ -1,6 +1,5 @@
 package names;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -47,7 +46,7 @@ public class DataProcessor {
   }
 
   public int countNamesStartingWithRange(int start, int end, String startsWith, String gender) {
-    return getNamesStartingWith(startsWith,gender,start,end).size();
+    return getNamesStartingWith(startsWith, gender, start, end).size();
   }
 
   //counts number of babies with given gender and starting string in a given year
