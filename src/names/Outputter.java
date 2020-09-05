@@ -76,8 +76,7 @@ public class Outputter {
 
   //how should this handle ties?
   public String mostPopularName(int start, int end, String gender) {
-    validateGender(gender);
-    validateRange(start, end);
+    validateGenderAndRange(start,end,gender);
     List<String> names = process.getNamesFromRank(start, end, gender, 1);
     return process.mostFrequentNames(names);
   }
@@ -93,16 +92,14 @@ public class Outputter {
   }
 
   public List<Integer> getRanksFromRange(int start, int end, String name, String gender) {
-    validateRange(start, end);
-    validateGender(gender);
+    validateGenderAndRange(start,end,gender);
     name = validateName(name);
     return process.getRanks(start, end, name, gender);
   }
 
   //if name isn't in both years, returns 0
   public int rankChange(int start, int end, String name, String gender) {
-    validateRange(start, end);
-    validateGender(gender);
+    validateGenderAndRange(start,end,gender);
     name = validateName(name);
     int nameFirstRank = process.getRank(start, gender, name);
     int nameLastRank = process.getRank(end, gender, name);
@@ -115,8 +112,7 @@ public class Outputter {
 
   //for ties, returns all names
   public List<String> biggestRankChange(int start, int end, String gender) {
-    validateRange(start, end);
-    validateGender(gender);
+    validateGenderAndRange(start,end,gender);
     Map<String, Integer> namesToRankChangeMap = new TreeMap<>();
     List<String> namesFromFirstYear = process.getNamesStartingWith("", gender, start, start);
     if (namesFromFirstYear.isEmpty()) {
@@ -149,8 +145,7 @@ public class Outputter {
 
   //ask about this, duplication and rounding
   public List<String> highestAverageRank(int start, int end, String gender) {
-    validateRange(start, end);
-    validateGender(gender);
+    validateGenderAndRange(start,end,gender);
     Map<String, Integer> namesToAverageRankMap = new TreeMap<>();
     List<String> allNames = process.getNamesStartingWith("", gender, start, end);
     if (allNames.isEmpty()) {
@@ -171,8 +166,7 @@ public class Outputter {
   }
 
   public List<String> namesOfRank(int start, int end, String gender, int targetRank) {
-    validateGender(gender);
-    validateRange(start, end);
+    validateGenderAndRange(start,end,gender);
     List<String> names = new ArrayList<>();
     while (start <= end) {
       names.add(process.getNameFromRank(start, gender, targetRank));
@@ -188,8 +182,7 @@ public class Outputter {
   }
 
   public List<String> mostCommonPrefix(int start, int end, String gender) {
-    validateRange(start, end);
-    validateGender(gender);
+    validateGenderAndRange(start,end,gender);
     Map<String, Integer> prefixCountMap = new TreeMap<>();
     List<String> allNames = process.getNamesStartingWith("", gender, start, end);
     if (allNames.isEmpty()) {
@@ -203,7 +196,10 @@ public class Outputter {
     return names;
   }
 
-
+private void validateGenderAndRange(int start, int end, String gender){
+    validateGender(gender);
+    validateRange(start,end);
+}
   //validate data range input
   private void validateRange(int start, int end) {
     if ((start > end) || (start < dataStartYear) || (end > dataEndYear)) {

@@ -7,7 +7,6 @@ This project uses data about [baby names from the US Social Security Administrat
 ### TODO 
 -optional 10
 -zip file
--handle URL
 -handle empty files
 -how to throw exceptions
 -refactor the 3 repeated methods
@@ -23,9 +22,14 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 28 hours 30 minutes
+Hours Spent: 31 hours 0 minutes
 
 ### Resources Used
+handling URL sources
+https://stackoverflow.com/questions/6932369/inputstream-from-a-url
+https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+http://theoryapp.com/read-from-url-in-java/
+https://www.baeldung.com/convert-file-to-input-stream
 how to handle exception assertion 
 https://www.baeldung.com/junit-assert-exception
 Make first letter capital 
