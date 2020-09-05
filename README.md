@@ -9,7 +9,6 @@ This project uses data about [baby names from the US Social Security Administrat
 -zip file
 -handle empty files
 -how to throw exceptions
--refactor the 3 repeated methods
 -complete readme
 -main method
 
@@ -44,7 +43,7 @@ Initializing ArrayList with Zeroes
 https://stackoverflow.com/questions/5600668/how-can-i-initialize-an-arraylist-with-all-zeroes-in-java
 ### Running the Program
 
-Main class:
+Main class: Main 
 
 Data files needed: 
 
