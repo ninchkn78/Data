@@ -176,6 +176,10 @@ public class Outputter {
 
   public List<String> namesOfRank(int start, int end, String gender, int targetRank){
     List<String> names = new ArrayList<>();
+    while(start <= end){
+      names.add(process.getNameFromRank(start,gender,targetRank));
+      start++;
+    }
     return names;
   }
 

@@ -269,5 +269,23 @@ class OutputTest {
     assertEquals(0, Test.getAverageRankRecent(5, "Sophie", "M"));
   }
 
+  @Test
+  void Complete7SameNameRank1() {
+    List<String> expectedOutput = Arrays.asList("Miryam","Miryam");
+    assertEquals(expectedOutput, Test2.namesOfRank(1999, 2000, "F", 1));
+  }
+
+  @Test
+  void Complete7MultipleNamesRank3() {
+    List<String> expectedOutput = Arrays.asList("Prateek","Albert","Alex","Jeffrey");
+    assertEquals(expectedOutput, Test.namesOfRank(1, 4, "M", 3));
+  }
+
+  @Test
+  void Complete7EmptyFile() {
+    List<String> expectedOutput = Arrays.asList("NAME NOT FOUND");
+    assertEquals(expectedOutput, Test.namesOfRank(0, 0, "F", 1));
+  }
+
 
 }
