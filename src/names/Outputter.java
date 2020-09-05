@@ -3,12 +3,14 @@ package names;
 import static java.lang.StrictMath.abs;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+//talk to TA about this
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -123,6 +125,9 @@ public class Outputter {
     validateGender(gender);
     Map<String, Integer> namesToRankChangeMap = new TreeMap<>();
     List<String> namesFromFirstYear = process.getNamesStartingWith("",gender,start,start);
+    if (namesFromFirstYear.isEmpty()) {
+      return namesFromFirstYear;
+    }
     for (String name : namesFromFirstYear){
       namesToRankChangeMap.put(name, abs(rankChange(start,end,name,gender)));
     }
@@ -130,6 +135,7 @@ public class Outputter {
     names.remove(names.size() - 1);
     return names;
   }
+
   public double getAverageRankRange(int start, int end, String name, String gender) {
     validateRange(start,end);
     validateGender(gender);
@@ -144,14 +150,33 @@ public class Outputter {
       }
       start++;
     }
-    double average = Math.round(sum/count * 100.0)/100.0;
-    return average;
+    return Math.round(sum/count * 100.0)/100.0;
   }
-//add a method here
+//ask about this, duplication and rounding
+  public List<String> highestAverageRank(int start, int end, String gender){
+    validateRange(start,end);
+    validateGender(gender);
+    Map<String, Integer> namesToAverageRankMap = new TreeMap<>();
+    List<String> allNames = process.getNamesStartingWith("",gender,start,end);
+    if (allNames.isEmpty()) {
+      return allNames;
+    }
+    for (String name : allNames){
+      namesToAverageRankMap.put(name, -1 * (int)getAverageRankRange(start,end,name,gender));
+    }
+    List<String> names = process.maxOccurrences(namesToAverageRankMap);
+    names.remove(names.size() - 1);
+    return names;
+  }
 
   public double getAverageRankRecent(int numYears, String name, String gender) {
     int start = dataEndYear - numYears + 1;
     return getAverageRankRange(start,dataEndYear,name,gender);
+  }
+
+  public List<String> namesOfRank(int start, int end, String gender, int targetRank){
+    List<String> names = new ArrayList<>();
+    return names;
   }
 
   //validate data range input

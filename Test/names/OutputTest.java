@@ -212,6 +212,11 @@ class OutputTest {
     List<String> expectedOutput = new ArrayList<>();
     assertEquals(expectedOutput, Test2.biggestRankChange(1999, 2000, "M"));
   }
+  @Test
+  void Complete3EmptyFile() {
+    List<String> expectedOutput = new ArrayList<>();
+    assertEquals(expectedOutput, Test.biggestRankChange(0, 0, "M"));
+  }
 
   @Test
   void Complete4NameInSomeYears() {
@@ -228,6 +233,26 @@ class OutputTest {
   void Complete4NameNotInRange() {
     assertEquals(0, Test.getAverageRankRange(1, 5, "Sophie", "M"));
   }
+
+  @Test
+  void Complete5MultipleNames() {
+    List<String> expectedOutput = Arrays.asList("Lucy", "Michelle", "Sophie");
+    assertEquals(expectedOutput, Test.highestAverageRank(2, 5, "F"));
+  }
+
+  @Test
+  void Complete5SingeName() {
+    List<String> expectedOutput = Arrays.asList("Alex");
+    assertEquals(expectedOutput, Test2.highestAverageRank(1999, 2000, "M"));
+  }
+
+
+  @Test
+  void Complete5EmptyDataFile() {
+    List<String> expectedOutput = new ArrayList<>();
+    assertEquals(expectedOutput, Test.highestAverageRank(0,0, "M"));
+  }
+
   @Test
   void Complete6NameInSomeYears() {
     assertEquals(1.0, Test.getAverageRankRecent(4, "Sophie", "F"));
@@ -243,4 +268,6 @@ class OutputTest {
   void Complete6NameNotInRange() {
     assertEquals(0, Test.getAverageRankRecent(5, "Sophie", "M"));
   }
+
+
 }
