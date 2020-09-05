@@ -141,8 +141,7 @@ public class DataProcessor {
     if (nameCountMap.isEmpty()) {
       return NAME_ERROR;
     }
-
-    return listToString(maxOccurrences(nameCountMap));
+    return listToString(maxOccurrences(nameCountMap)) + " " + maxValue(nameCountMap);
   }
 
   //this one increments by total babies not by 1
@@ -150,7 +149,6 @@ public class DataProcessor {
   public List<String> mostPopularLetters(int start, int end, String gender) {
     Map<String, Integer> letterCountMap = countBabiesByLetter(start, end, gender);
     List<String> letters = maxOccurrences(letterCountMap);
-    letters.remove(letters.size() - 1);
     return letters;
   }
 
@@ -213,7 +211,6 @@ public class DataProcessor {
     List<String> mostFrequentStrings = new ArrayList<>();
     int max = Collections.max(stringIntMap.values());
     if (max == 0) {
-      mostFrequentStrings.add("");
       return mostFrequentStrings;
     }
     for (String key : stringIntMap.keySet()) {
@@ -221,8 +218,10 @@ public class DataProcessor {
         mostFrequentStrings.add(key);
       }
     }
-    mostFrequentStrings.add(Integer.toString(max));
     return mostFrequentStrings;
+  }
+  private int maxValue(Map<String,Integer> stringIntegerMap){
+    return Collections.max(stringIntegerMap.values());
   }
 
   //gets yearData from a year and filters out names of incorrect gender or starting String

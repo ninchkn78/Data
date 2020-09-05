@@ -122,7 +122,6 @@ public class Outputter {
       namesToRankChangeMap.put(name, abs(rankChange(start, end, name, gender)));
     }
     List<String> names = process.maxOccurrences(namesToRankChangeMap);
-    names.remove(names.size() - 1);
     return names;
   }
 
@@ -155,7 +154,6 @@ public class Outputter {
       namesToAverageRankMap.put(name, -1 * (int) getAverageRankRange(start, end, name, gender));
     }
     List<String> names = process.maxOccurrences(namesToAverageRankMap);
-    names.remove(names.size() - 1);
     return names;
   }
 
@@ -192,7 +190,6 @@ public class Outputter {
       prefixCountMap.put(name, process.countNamesStartingWithRange(start, end, name, gender));
     }
     List<String> names = process.maxOccurrences(prefixCountMap);
-    names.remove(names.size() - 1);
     return names;
   }
 
