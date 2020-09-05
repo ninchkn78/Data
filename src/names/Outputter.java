@@ -2,6 +2,7 @@ package names;
 
 import static java.lang.StrictMath.abs;
 
+import java.io.FileNotFoundException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,8 +29,8 @@ public class Outputter {
   private final static String GENDER_ERROR = "INVALID GENDER";
   private final static List<String> GENDERS = Arrays.asList("M", "F");
 
-  public Outputter(String folderName) {
-    process = new DataProcessor(folderName);
+  public Outputter(String dataSource, String dataType) {
+    process = new DataProcessor(dataSource, dataType);
     dataStartYear = process.getDataFirstYear();
     dataEndYear = process.getDataLastYear();
   }
@@ -221,8 +222,8 @@ public class Outputter {
     return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
 
-  public static void main(String[] args) {
-    Outputter Test = new Outputter("Test");
+  public static void main(String[] args) throws FileNotFoundException {
+    Outputter Test = new Outputter("Test", "FOLDER");
     System.out.println(Test.biggestRankChange(1,1,"M"));
 //    System.out.println(Test.validateName("bob"));
 //    System.out.println(Test.validateName("niCoHlAS"));

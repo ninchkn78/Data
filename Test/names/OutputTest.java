@@ -18,8 +18,9 @@ class OutputTest {
 
   //don't have a beforeEach because none of my methods being tested
   //change the state of any of the instance variables
-  Outputter Test = new Outputter("Test");
-  Outputter Test2 = new Outputter("Test2");
+  Outputter Test = new Outputter("Test", "FOLDER");
+  Outputter Test2 = new Outputter("Test2", "FOLDER");
+  //Outputter Test3 = new Outputter("Test3","FOLDER");
 
   @Test
   void HandleErrorName() {
@@ -28,9 +29,8 @@ class OutputTest {
   }
   @Test
   void HandleErrorGender() {
-    Exception exception = assertThrows(InvalidParameterException.class, () -> {
-      Test.getTodayName(1, "Miryam", "f");
-    });
+    Exception exception = assertThrows(InvalidParameterException.class, () ->
+        Test.getTodayName(1, "Miryam", "f"));
 
     String expectedMessage = "INVALID GENDER";
     String actualMessage = exception.getMessage();
@@ -40,24 +40,16 @@ class OutputTest {
   @Test
   void HandleErrorYear() {
     String expectedMessage = "INVALID RANGE";
-    Exception exception1 = assertThrows(InvalidParameterException.class, () -> {
-      Test.mostPopularLetter(1,6);
-    });
+    Exception exception1 = assertThrows(InvalidParameterException.class, () -> Test.mostPopularLetter(1,6));
     String actualMessage1 = exception1.getMessage();
     assertTrue(actualMessage1.contains(expectedMessage));
-    Exception exception2 = assertThrows(InvalidParameterException.class, () -> {
-      Test.mostPopularLetter(-1,5);
-    });
+    Exception exception2 = assertThrows(InvalidParameterException.class, () -> Test.mostPopularLetter(-1,5));
     String actualMessage2 = exception2.getMessage();
     assertTrue(actualMessage2.contains(expectedMessage));
-    Exception exception3 = assertThrows(InvalidParameterException.class, () -> {
-      Test.mostPopularLetter(5,2);
-    });
+    Exception exception3 = assertThrows(InvalidParameterException.class, () -> Test.mostPopularLetter(5,2));
     String actualMessage3 = exception3.getMessage();
     assertTrue(actualMessage3.contains(expectedMessage));
   }
-
-
 
   @Test
   void Test1EmptyDataSet() {
@@ -274,7 +266,7 @@ class OutputTest {
 
   @Test
   void Complete5SingeName() {
-    List<String> expectedOutput = Arrays.asList("Alex");
+    List<String> expectedOutput = Collections.singletonList("Alex");
     assertEquals(expectedOutput, Test2.highestAverageRank(1999, 2000, "M"));
   }
 
@@ -315,7 +307,7 @@ class OutputTest {
 
   @Test
   void Complete7EmptyFile() {
-    List<String> expectedOutput = Arrays.asList("NAME NOT FOUND");
+    List<String> expectedOutput = Collections.singletonList("NAME NOT FOUND");
     assertEquals(expectedOutput, Test.namesOfRank(0, 0, "F", 1));
   }
   @Test
@@ -344,7 +336,7 @@ class OutputTest {
   }
   @Test
   void Complete9SinglePrefix() {
-    List<String> expectedOutput = Arrays.asList("Lucy");
+    List<String> expectedOutput = Collections.singletonList("Lucy");
     assertEquals(expectedOutput, Test2.mostCommonPrefix(1999, 2000, "F"));
   }
 

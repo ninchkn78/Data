@@ -1,5 +1,6 @@
 package names;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -23,8 +24,8 @@ public class DataProcessor {
   //need to declare this as TreeMap so can use firstKey and lastKey
   private final TreeMap<Integer, List<String[]>> dataSet;
 
-  public DataProcessor(String folderName) {
-    dataSet = (TreeMap<Integer, List<String[]>>) FileReader.generateMap(folderName);
+  public DataProcessor(String dataSource, String dataType) {
+    dataSet = (TreeMap<Integer, List<String[]>>) FileReader.generateMap(dataSource, dataType);
   }
 
 

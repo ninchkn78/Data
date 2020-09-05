@@ -13,7 +13,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 27 hours 30 minutes
+Hours Spent: 28 hours 30 minutes
 
 ### Resources Used
 how to handle exception assertion 
