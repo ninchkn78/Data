@@ -14,7 +14,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 32 hours 0 minutes
+Hours Spent: 34 hours 0 minutes
 
 ### Resources Used
 Reading individual files in a zip 
@@ -53,7 +53,7 @@ Extra credit:
 ### Handling Errors
 
 Invalid data sources should cause DataReader to create an empty dataSet, and then if the dataSet 
-is empty, DataProcessor will throw an invalid parameter exception. 
+is empty, DataProcessor will throw an illegal argument exception. 
 
 ### Notes/Assumptions
 Lines are in the format Name, Gender as M/F, Occurences 

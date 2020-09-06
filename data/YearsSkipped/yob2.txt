@@ -1,0 +1,5 @@
+Michelle,F,2000
+Miryam,F,1900
+Jared,M,2000
+Alex,M,1900
+Albert,M,1800

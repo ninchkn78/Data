@@ -34,21 +34,28 @@ class OutputTest {
 
   @Test
   void HandleErrorNonExistentDataSource() {
-  assertThrows(InvalidParameterException.class, () ->
+  assertThrows(IllegalArgumentException.class, () ->
         new Outputter("Tes34$%^t3","FOLDER"));
-  assertThrows(InvalidParameterException.class, () ->
+  assertThrows(IllegalArgumentException.class, () ->
         new Outputter("www123$$%11.com", "URL"));
-    assertThrows(InvalidParameterException.class, () ->
+    assertThrows(IllegalArgumentException.class, () ->
         new Outputter("w#0!ww.com", "URL_ZIP"));
-    assertThrows(InvalidParameterException.class, () ->
+    assertThrows(IllegalArgumentException.class, () ->
         new Outputter("not2$%^&names.zip", "LOCAL_ZIP"));
   }
 
   @Test
   void HandleErrorEmptyFolder() {
-    assertThrows(InvalidParameterException.class, () ->
+    assertThrows(IllegalArgumentException.class, () ->
         new Outputter("EmptyFile","FOLDER"));
   }
+
+  @Test
+  void HandleErrorNonSequentialYears() {
+    assertThrows(IllegalArgumentException.class, () ->
+        new Outputter("YearsSkipped","FOLDER"));
+  }
+
   @Test
   void HandleErrorName() {
     assertEquals("Sophie F", TestFolder.todayName(1, "miryam", "F"));

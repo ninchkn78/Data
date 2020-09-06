@@ -6,8 +6,10 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.Set;
 import java.util.TreeMap;
+import javax.xml.crypto.Data;
 
 public class DataProcessor {
   //Constants
@@ -26,11 +28,24 @@ public class DataProcessor {
 
   public DataProcessor(String dataSource, String dataType) {
     dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateMap(dataSource, dataType);
-    if (dataSet.isEmpty()){
-      throw new InvalidParameterException(DataReader.DATA_SOURCE_ERROR);
-    }
+    validateDataSet(dataSet);
   }
 
+  private void validateDataSet(TreeMap<Integer, List<String[]>> dataSet){
+    if (dataSet.isEmpty()){
+      throw new IllegalArgumentException(DataReader.DATA_SOURCE_ERROR);
+    }
+    //check to make sure there are no missing years
+    //i.e. all years are sequential and increasing by 1
+    int previous = dataSet.firstKey() - 1;
+    for(int year : dataSet.keySet()){
+      if(year != previous + 1 ){
+        System.out.println("YEARS NOT VALID");
+        throw new IllegalArgumentException(DataReader.DATA_SOURCE_ERROR);
+      }
+      previous ++;
+    }
+  }
 
   public int getDataFirstYear() {
     return dataSet.firstKey();
