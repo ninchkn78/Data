@@ -56,14 +56,14 @@ class OutputTest {
 
   @Test
   void HandleErrorName() {
-    assertEquals("Sophie F", TestFolder.todayName(1, "miryam", "F"));
-    assertEquals("Sophie F", TestFolder.todayName(1, "miRyAm", "F"));
+    assertEquals("Sophie", TestFolder.todayName(1, "miryam", "F", false));
+    assertEquals("Sophie", TestFolder.todayName(1, "miRyAm", "F", false));
   }
 
   @Test
   void HandleErrorGender() {
     Exception exception = assertThrows(InvalidParameterException.class, () ->
-        TestFolder.todayName(1, "Miryam", "f"));
+        TestFolder.todayName(1, "Miryam", "f", false));
 
     String expectedMessage = "INVALID GENDER";
     String actualMessage = exception.getMessage();
@@ -139,38 +139,38 @@ class OutputTest {
 
   @Test
   void Basic2FemaleNameInDataSet() {
-    assertEquals("Sophie F", TestFolder.todayName(1, "Miryam", "F"));
+    assertEquals("Sophie", TestFolder.todayName(1, "Miryam", "F", false));
   }
 
   @Test
   void Basic2MaleNameInDataSet() {
-    assertEquals("Matt M", TestFolder.todayName(3, "Alex", "M"));
+    assertEquals("Matt", TestFolder.todayName(3, "Alex", "M", false));
   }
 
   @Test
   void Basic2NameNotInDataSet() {
-    assertEquals("NAME NOT FOUND", TestFolder.todayName(3, "Jackie", "M"));
-    assertEquals("NAME NOT FOUND", TestFolder.todayName(3, "Jackie", "F"));
+    assertEquals("NAME NOT FOUND", TestFolder.todayName(3, "Jackie", "M", false));
+    assertEquals("NAME NOT FOUND", TestFolder.todayName(3, "Jackie", "F", false));
   }
 
   @Test
   void Basic2YearNotInDataSet() {
-    assertEquals("NAME NOT FOUND", TestFolder.todayName(7, "Miryam", "F"));
+    assertEquals("NAME NOT FOUND", TestFolder.todayName(7, "Miryam", "F", false));
   }
 
   @Test
   void Basic3SingleName() {
-    assertEquals("Jared 2", TestFolder.mostPopularName(1, 5, "M"));
+    assertEquals("Jared 2", TestFolder.mostPopularNames(1, 5, "M"));
   }
 
   @Test
   void Basic3MultipleNames() {
-    assertEquals("Lucy Michelle Miryam 1", TestFolder.mostPopularName(1, 3, "F"));
+    assertEquals("Lucy Michelle Miryam 1", TestFolder.mostPopularNames(1, 3, "F"));
   }
 
   @Test
   void Basic3NameNotInDataSet() {
-    assertEquals("NAME NOT FOUND", TestFolder.mostPopularName(0, 0, "F"));
+    assertEquals("NAME NOT FOUND", TestFolder.mostPopularNames(0, 0, "F"));
   }
 
 
@@ -370,5 +370,26 @@ class OutputTest {
     assertEquals(expectedOutput, TestFolder2.mostCommonPrefix(1999, 2000, "F"));
   }
 
+  @Test
+  void Complete10MeaningFoundPrefix() {
+    assertEquals("Jaredr2ru2u20t9u0b English, Biblical From the Hebrew name ????? (Yared) or ????? (Yered) which meant \"descent\".\nMichelleldjblkj444kljdflkdj French, English French feminine form of MICHAEL", TestFolder2.topMaleAndFemaleName(2002, true));
+  }
+
+  @Test
+  void Complete10MeaningNotFound() {
+    assertEquals("Ajkldjb (no meaning found)\nMhkejb (no meaning found)", TestFolder2.topMaleAndFemaleName(2001, true));
+    List<String> input = Arrays.asList("Adfbx", "Mdgijljt", "XEEE");
+    List<String> expectedOutput = Arrays.asList("Adfbx (no meaning found)", "Mdgijljt (no meaning found)", "XEEE (meaning not found)");
+    assertEquals(expectedOutput,TestFolder.addMeaningToNameList(true, input, "M"));
+  }
+
+  @Test
+  void Complete10MeaningFoundFullName() {
+    assertEquals("Jared English, Biblical From the Hebrew name ????? (Yared) or ????? (Yered) which meant \"descent\".\nMichelle French, English French feminine form of MICHAEL", TestFolder.topMaleAndFemaleName(2, true));
+    assertEquals("Sophie French, English, German French form of SOPHIA", TestFolder.todayName(1, "Miryam", "F", true));
+    List<String> expectedOutput = Arrays.asList("Alex English Short form of ANDER, ANDRA and other beginning with alex.", "Matt English Short form of HEW or HIAS", "Michael English, German, Czech, Biblical From the Hebrew name ???????? (Mika'el) which meant \"who is like God?\".");
+    List<String> input = Arrays.asList("Alex", "Matt", "Michael");
+    assertEquals(expectedOutput,TestFolder.addMeaningToNameList(true, input, "M"));
+  }
 
 }

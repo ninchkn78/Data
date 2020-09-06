@@ -6,11 +6,11 @@ public class Main {
     Outputter Test = new Outputter("ssa_complete", "FOLDER");
     //Outputter Test = new Outputter("https://www.ssa.gov/oact/babynames/names.zip", "URL_ZIP");
     //Outputter Test = new Outputter("names.zip", "LOCAL_ZIP");
-    System.out.println(Test.topMaleAndFemaleName(1990));
+    System.out.println(Test.topMaleAndFemaleName(1990, false));
     System.out.println(Test.countNamesAndBabies(1900, "R", "M"));
     System.out.println(Test.ranksFromDataset("Megan","F"));
-    System.out.println(Test.todayName(2000,"Megan","F"));
-    System.out.println(Test.mostPopularName(1880,2018,"F"));
+    System.out.println(Test.todayName(2000,"Megan","F", false));
+    System.out.println(Test.mostPopularNames(1880,2018,"F"));
     System.out.println(Test.mostPopularFemaleStartingLetter(1880,2018));
     System.out.println(Test.ranksFromRange(1880,2018,"Megan","F"));
     System.out.println(Test.rankChange(1880,2018,"Megan","F"));

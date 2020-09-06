@@ -52,8 +52,8 @@ public class Outputter {
     } else if (maleName.equals(YEAR_ERROR)) {
       return YEAR_ERROR;
     }
-    System.out.println(nameMeaning("M",maleName));
-    System.out.println(nameMeaning("F",femaleName));
+    maleName = addMeaningToName(wantMeaning,maleName,"M");
+    femaleName = addMeaningToName(wantMeaning,femaleName,"F");
     return maleName + "\n" + femaleName;
   }
 
@@ -74,7 +74,7 @@ public class Outputter {
     return process.getRanks(dataStartYear, dataEndYear, name, gender);
   }
 
-  public String todayName(int year, String name, String gender) {
+  public String todayName(int year, String name, String gender, boolean wantMeaning) {
     name = validateName(name);
     validateGender(gender);
     int rank = process.getRank(year, gender, name);
@@ -83,11 +83,12 @@ public class Outputter {
       return NAME_ERROR;
     }
     String todayName = process.getNameFromRank(dataEndYear, gender, rank);
-    return todayName + " " + gender;
+    todayName = addMeaningToName(wantMeaning,todayName,gender);
+    return todayName;
   }
 
   //how should this handle ties?
-  public String mostPopularName(int start, int end, String gender) {
+  public String mostPopularNames(int start, int end, String gender) {
     validateGenderAndRange(start, end, gender);
     List<String> names = process.getNamesFromRank(start, end, gender, 1);
     return process.mostFrequentNames(names);
@@ -198,14 +199,7 @@ public class Outputter {
   }
 
   //starts at the biggest prefix then gets smaller
-  private String nameMeaning(String gender, String name){
-    Map<String,String> meanings = new HashMap<>();
-    if(gender.equals("F")){
-      meanings = femaleNameMeanings;
-    }
-    else if(gender.equals("M")){
-      meanings = maleNameMeanings;
-    }
+  private String nameMeaning(Map<String,String> meanings, String name){
     name = name.toUpperCase();
     //check all prefixes, if a meaning is found return the meaning
     int endIndex = name.length() ;
@@ -242,5 +236,29 @@ public class Outputter {
   //assumed to be capital first letter lowercase rest of letters
   private String validateName(String name) {
     return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+  }
+
+  private String addMeaningToName(boolean wantMeaning, String name, String gender){
+    if(wantMeaning){
+      Map<String,String> meanings = new HashMap<>();
+      if(gender.equals("F")){
+        meanings = femaleNameMeanings;
+      }
+      else if(gender.equals("M")){
+        meanings = maleNameMeanings;
+      }
+      return name + " " + nameMeaning(meanings,name);
+    }
+    return name;
+  }
+  public List<String> addMeaningToNameList(boolean wantMeaning, List<String> names, String gender){
+    if(wantMeaning){
+      int i = 0;
+      while(i < names.size()){
+        names.set(i,addMeaningToName(true,names.get(i),gender));
+        i++;
+      }
+    }
+    return names;
   }
 }

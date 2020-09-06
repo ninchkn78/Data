@@ -143,8 +143,8 @@ public class DataProcessor {
     return 0;
   }
 
-  //how should this handle ties?
-  //returns most frequently occurring name in non unique list of strings
+  //returns most frequently occurring name in non unique list of name with how many times the name
+  //appeared appended at the end
   public String mostFrequentNames(List<String> names) {
     int currentCount;
     Map<String, Integer> nameCountMap = new TreeMap<>();
