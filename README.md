@@ -14,7 +14,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 34 hours 0 minutes
+Hours Spent: 34 hours 30 minutes
 
 ### Resources Used
 Reading individual files in a zip 

@@ -24,7 +24,7 @@ public class DataProcessor {
   private final TreeMap<Integer, List<String[]>> dataSet;
 
   public DataProcessor(String dataSource, String dataType) {
-    dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateMap(dataSource, dataType);
+    dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateNamesDataMap(dataSource, dataType);
     validateDataSet(dataSet);
   }
 

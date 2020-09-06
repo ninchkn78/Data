@@ -26,6 +26,8 @@ public class DataReader {
   private final static String FILE_PREFIX = "yob";
   public final static String DATA_SOURCE_ERROR = "INVALID DATA SOURCE";
   private final static int FILE_NAME_ERROR = -1;
+  private final static String FEMALE_GENDER = "f";
+  private final static String MALE_GENDER = "m";
 
   private static int getYear(String fileName) {
     // Replacing every non-digit number
@@ -36,7 +38,7 @@ public class DataReader {
     return Integer.parseInt(fileName);
   }
 
-  public static Map<Integer, List<String[]>> generateMap(String dataSource, String dataType) {
+  public static Map<Integer, List<String[]>> generateNamesDataMap(String dataSource, String dataType) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     return switch (dataType) {
       case "FOLDER" -> generateMapFromFolder(dataSource);
@@ -45,6 +47,34 @@ public class DataReader {
       case "URL_ZIP" -> generateMapFromZIP(dataSource, "URL");
       default -> dataSet;
     };
+  }
+  public static Map<String, String> generateNamesMeaningsMap(String gender, String dataSource){
+    File meanings = createFileFromLocalSource(dataSource);
+    Map<String, String> nameMeanings = new TreeMap<>();
+    Scanner scan;
+    try {
+      scan = new Scanner(meanings);
+      String line, name, meaning;
+      int nameEndIndex, genderIndex, meaningStartIndex;
+      while (scan.hasNextLine()) {
+        line = scan.nextLine();
+        nameEndIndex = line.indexOf(" ");
+        //assumes the gender is one space after the name
+        genderIndex = nameEndIndex + 1;
+        //assumes the meaning starts one space after the gender
+        meaningStartIndex = genderIndex + 2;
+        String nameGender = line.substring(genderIndex,genderIndex + 1);
+        if(nameGender.toUpperCase().equals(gender)){
+          name = line.substring(0,nameEndIndex);
+          meaning = line.substring(meaningStartIndex);
+          nameMeanings.put(name,meaning);
+        }
+
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return nameMeanings;
   }
 
   private static List<String[]> generateList(InputStream textFile) {
@@ -61,7 +91,7 @@ public class DataReader {
 
   public static Map<Integer, List<String[]>> generateMapFromFolder(String dataSource) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
-    File[] textFiles = createFolderFromLocalSource(dataSource).listFiles();
+    File[] textFiles = createFileFromLocalSource(dataSource).listFiles();
     int year;
     if (textFiles != null) {
       for (File file : textFiles) {
@@ -122,7 +152,7 @@ public class DataReader {
     return dataSet;
   }
 
-  private static File createFolderFromLocalSource(String dataSource) {
+  private static File createFileFromLocalSource(String dataSource) {
     Path path = null;
     try {
       path = Paths
@@ -150,6 +180,8 @@ public class DataReader {
     }
     return null;
   }
-
+  public static void main(String[] args) {
+    System.out.println(generateNamesMeaningsMap("F","meanings.txt").get("DANIELLE"));
+  }
 }
 

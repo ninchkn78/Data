@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.zip.ZipInputStream;
 
 //this class allows a ZipInputStream to create InputStreams for each ZipEntry
+//source reference in README
 public class ZippedFileInputStream extends InputStream {
 
   private final ZipInputStream is;
