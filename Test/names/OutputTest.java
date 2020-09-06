@@ -1,17 +1,15 @@
 package names;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.junit.jupiter.api.Test;
 
 //ask about having databases be made in the call
 
@@ -272,7 +270,7 @@ class OutputTest {
 
   @Test
   void Complete4NameInSomeYears() {
-    assertEquals(3.0, TestFolder.averageRank(1, 5, "Sophie", "F"));
+    assertEquals(3, TestFolder.averageRank(1, 5, "Sophie", "F"));
   }
 
   @Test
@@ -307,7 +305,7 @@ class OutputTest {
 
   @Test
   void Complete6NameInSomeYears() {
-    assertEquals(1.0, TestFolder.recentAverageRank(4, "Sophie", "F"));
+    assertEquals(1, TestFolder.recentAverageRank(4, "Sophie", "F"));
   }
 
   @Test

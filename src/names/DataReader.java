@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -102,6 +101,7 @@ public class DataReader {
     return dataSet;
   }
 
+  //ASSUMES THAT ALL FILES WITH NUMBERS ARE TEXT FILES WITH DATA BASED ON YEAR
   public static Map<Integer, List<String[]>> generateMapFromZIP(String dataSource,
       String dataType) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
@@ -135,9 +135,8 @@ public class DataReader {
   }
 
   private static ZipInputStream getZipStream(String dataSource, String dataType) {
-    URL source = null;
     try {
-      source = new URL(dataSource);
+      URL source = new URL(dataSource);
       if (dataType.equals("URL")) {
         return new ZipInputStream(
             source.openStream());
@@ -152,9 +151,5 @@ public class DataReader {
     return null;
   }
 
-  public static void main(String[] args) {
-    System.out
-        .println(DataReader.generateMap("https://www.ssa.gov/oact/babynames/names.zip", "URL_ZIP"));
-  }
 }
 

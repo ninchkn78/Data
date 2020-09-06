@@ -123,11 +123,11 @@ public class Outputter {
     return process.maxOccurrences(namesToRankChangeMap);
   }
 
-  public double averageRank(int start, int end, String name, String gender) {
+  //average rank returned is an int
+  public int averageRank(int start, int end, String name, String gender) {
     validateGenderAndRange(start, end, gender);
     name = validateName(name);
-    float sum = 0;
-    float count = 0;
+    int sum = 0, count = 0;
     while (start <= end) {
       int rank = process.getRank(start, gender, name);
       if (rank != 0) {
@@ -136,7 +136,10 @@ public class Outputter {
       }
       start++;
     }
-    return Math.round(sum / count * 100.0) / 100.0;
+    if (count == 0) {
+      return sum;
+    }
+    return sum / count;
   }
 
   //ask about this, duplication and rounding
@@ -147,12 +150,12 @@ public class Outputter {
     for (String name : allNames) {
       //since a higher average rank is a smaller number, multiplying by -1 makes it so the highest
       //rank is actually the biggest number
-      namesToAverageRankMap.put(name, -1 * (int) averageRank(start, end, name, gender));
+      namesToAverageRankMap.put(name, -1 * averageRank(start, end, name, gender));
     }
     return process.maxOccurrences(namesToAverageRankMap);
   }
 
-  public double recentAverageRank(int numYears, String name, String gender) {
+  public int recentAverageRank(int numYears, String name, String gender) {
     int start = dataEndYear - numYears + 1;
     //don't need to validate since already checked in getAverageRankRange
     return averageRank(start, dataEndYear, name, gender);

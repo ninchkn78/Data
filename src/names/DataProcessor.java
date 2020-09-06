@@ -1,15 +1,12 @@
 package names;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.MissingResourceException;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.xml.crypto.Data;
 
 public class DataProcessor {
   //Constants
@@ -31,19 +28,19 @@ public class DataProcessor {
     validateDataSet(dataSet);
   }
 
-  private void validateDataSet(TreeMap<Integer, List<String[]>> dataSet){
-    if (dataSet.isEmpty()){
+  private void validateDataSet(TreeMap<Integer, List<String[]>> dataSet) {
+    if (dataSet.isEmpty()) {
       throw new IllegalArgumentException(DataReader.DATA_SOURCE_ERROR);
     }
     //check to make sure there are no missing years
     //i.e. all years are sequential and increasing by 1
     int previous = dataSet.firstKey() - 1;
-    for(int year : dataSet.keySet()){
-      if(year != previous + 1 ){
+    for (int year : dataSet.keySet()) {
+      if (year != previous + 1) {
         System.out.println("YEARS NOT VALID");
         throw new IllegalArgumentException(DataReader.DATA_SOURCE_ERROR);
       }
-      previous ++;
+      previous++;
     }
   }
 
@@ -148,7 +145,7 @@ public class DataProcessor {
   //how should this handle ties?
   //returns most frequently occurring name in non unique list of strings
   public String mostFrequentNames(List<String> names) {
-    int currentCount; //renamed from currCount
+    int currentCount;
     Map<String, Integer> nameCountMap = new TreeMap<>();
     for (String name : names) {
       if (name.equals(NAME_ERROR)) {
@@ -163,12 +160,10 @@ public class DataProcessor {
     return listToString(maxOccurrences(nameCountMap)) + " " + maxValue(nameCountMap);
   }
 
-  //this one increments by total babies not by 1
-  //can it be a dictionary instead?
+
   public List<String> mostPopularLetters(int start, int end, String gender) {
     Map<String, Integer> letterCountMap = countBabiesByLetter(start, end, gender);
-    List<String> letters = maxOccurrences(letterCountMap);
-    return letters;
+    return maxOccurrences(letterCountMap);
   }
 
   private List<String[]> getYearData(int start) {
@@ -208,8 +203,7 @@ public class DataProcessor {
   //returns key value pairs where key is a letter and value is number of baby names
   //in the range starting with that letter of specified gender
   private Map<String, Integer> countBabiesByLetter(int start, int end, String gender) {
-    int year;
-    int currentCount; //renamed from currCount
+    int year, currentCount;
     String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //constant maybe
     String[] alphaArray = alphabet.split("");
     Map<String, Integer> letterCountMap = new TreeMap<>();
@@ -228,7 +222,7 @@ public class DataProcessor {
   // returns keys with max value in values
   public List<String> maxOccurrences(Map<String, Integer> stringIntMap) {
     List<String> mostFrequentStrings = new ArrayList<>();
-    if(stringIntMap.isEmpty()){
+    if (stringIntMap.isEmpty()) {
       return mostFrequentStrings;
     }
     int max = Collections.max(stringIntMap.values());
@@ -242,7 +236,8 @@ public class DataProcessor {
     }
     return mostFrequentStrings;
   }
-  private int maxValue(Map<String,Integer> stringIntegerMap){
+
+  private int maxValue(Map<String, Integer> stringIntegerMap) {
     return Collections.max(stringIntegerMap.values());
   }
 
@@ -255,14 +250,7 @@ public class DataProcessor {
     }
     for (String[] profile : yearData) {
       String name = profile[NAME_INDEX];
-//      if (profile[GENDER_INDEX].equals(gender)) {
-//        if (name.length() >= startsWith.length()) {
-//          if (name.startsWith(startsWith)) {
-//            profiles.add(profile);
-//          }
-//        }
-//      }
-      if (profile[GENDER_INDEX].equals(gender) && //test
+      if (profile[GENDER_INDEX].equals(gender) &&
           name.length() >= startsWith.length() &&
           name.startsWith(startsWith)) {
         profiles.add(profile);
