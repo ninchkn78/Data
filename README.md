@@ -4,8 +4,6 @@ data
 This project uses data about [baby names from the US Social Security Administration] 
 (https://www.ssa.gov/oact/babynames/limits.html) to answer specific questions. 
 
-
-
 Name: Alex Chao
 
 ### Timeline
@@ -14,7 +12,7 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 35 hours 30 minutes
+Hours Spent: 37 hours 30 minutes
 
 ### Resources Used
 Reading individual files in a zip 

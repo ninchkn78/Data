@@ -27,9 +27,8 @@ public class DataReader {
   private final static String FILE_PREFIX = "yob";
   public final static String DATA_SOURCE_ERROR = "INVALID DATA SOURCE";
   private final static int FILE_NAME_ERROR = -1;
-  private final static String FEMALE_GENDER = "f";
-  private final static String MALE_GENDER = "m";
 
+  //assuming file name only contains numbers that represent a year, gets the year as an int
   private static int getYear(String fileName) {
     // Replacing every non-digit number
     fileName = fileName.replaceAll("[^\\d]", "");
@@ -39,7 +38,8 @@ public class DataReader {
     return Integer.parseInt(fileName);
   }
 
-  public static Map<Integer, List<String[]>> generateNamesDataMap(String dataSource, String dataType) {
+  //given a data source, returns a map with years as keys and data as values
+  public static Map<Integer, List<String[]>> generateNamesDataSet(String dataSource, String dataType) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     return switch (dataType) {
       case "FOLDER" -> generateMapFromFolder(dataSource);
@@ -49,6 +49,8 @@ public class DataReader {
       default -> dataSet;
     };
   }
+
+  //given a data source of meanings, returns names mapped to meanings
   public static Map<String, String> generateNamesMeaningsMap(String gender, String dataSource){
     File meanings = createFileFromLocalSource(dataSource);
     Map<String, String> nameMeanings = new HashMap<>();
@@ -78,6 +80,7 @@ public class DataReader {
     return nameMeanings;
   }
 
+  //given a text file as an input stream, makes an List with each line as an array of information
   private static List<String[]> generateList(InputStream textFile) {
     List<String[]> profiles = new ArrayList<>();
     String[] profile;
@@ -90,7 +93,8 @@ public class DataReader {
     return profiles;
   }
 
-  public static Map<Integer, List<String[]>> generateMapFromFolder(String dataSource) {
+  //given a folder, makes map with years as keys and yearData as values
+  private static Map<Integer, List<String[]>> generateMapFromFolder(String dataSource) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     File[] textFiles = createFileFromLocalSource(dataSource).listFiles();
     int year;
@@ -109,7 +113,8 @@ public class DataReader {
     return dataSet;
   }
 
-  public static Map<Integer, List<String[]>> generateMapFromURL(String dataSource) {
+  //given a URL, makes map with years as keys and yearData as values
+  private static Map<Integer, List<String[]>> generateMapFromURL(String dataSource) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     try {
       URL source = new URL(dataSource);
@@ -132,8 +137,9 @@ public class DataReader {
     return dataSet;
   }
 
+  //given a ZIP source, makes map with years as keys and yearData as values
   //ASSUMES THAT ALL FILES WITH NUMBERS ARE TEXT FILES WITH DATA BASED ON YEAR
-  public static Map<Integer, List<String[]>> generateMapFromZIP(String dataSource,
+  private static Map<Integer, List<String[]>> generateMapFromZIP(String dataSource,
       String dataType) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     try {
@@ -153,6 +159,7 @@ public class DataReader {
     return dataSet;
   }
 
+  //makes a file object given the name of the file
   private static File createFileFromLocalSource(String dataSource) {
     Path path = null;
     try {
@@ -165,6 +172,7 @@ public class DataReader {
     return new File(String.valueOf(path));
   }
 
+  //makes an ZipInputStream, given the name of the dataSource and if it's local or from a URL
   private static ZipInputStream getZipStream(String dataSource, String dataType) {
     try {
       URL source = new URL(dataSource);
@@ -181,8 +189,6 @@ public class DataReader {
     }
     return null;
   }
-  public static void main(String[] args) {
-    System.out.println(generateNamesMeaningsMap("F","meanings.txt").get("DANIELLE"));
-  }
+
 }
 

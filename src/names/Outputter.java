@@ -44,6 +44,7 @@ public class Outputter {
     femaleNameMeanings = DataReader.generateNamesMeaningsMap("F","meanings.txt");
   }
 
+  //test 1
   public String topMaleAndFemaleName(int year, boolean wantMeaning) {
     String maleName = process.getNameFromRank(year, "M", 1);
     String femaleName = process.getNameFromRank(year, "F", 1);
@@ -57,6 +58,7 @@ public class Outputter {
     return maleName + "\n" + femaleName;
   }
 
+  //test 2
   public String countNamesAndBabies(int year, String startsWith, String gender) {
     validateGender(gender);
     int countNames = process.countNamesStartingWith(year, startsWith, gender);
@@ -68,12 +70,14 @@ public class Outputter {
     return "Names: " + countNames + "\nBabies: " + totalBabies;
   }
 
+  //basic 1
   public List<Integer> ranksFromDataset(String name, String gender) {
     name = validateName(name);
     validateGender(gender);
     return process.getRanks(dataStartYear, dataEndYear, name, gender);
   }
 
+  //basic 2
   public String todayName(int year, String name, String gender, boolean wantMeaning) {
     name = validateName(name);
     validateGender(gender);
@@ -87,13 +91,14 @@ public class Outputter {
     return todayName;
   }
 
-  //how should this handle ties?
+  //basic 3
   public String mostPopularNames(int start, int end, String gender) {
     validateGenderAndRange(start, end, gender);
     List<String> names = process.getNamesFromRank(start, end, gender, 1);
     return process.mostFrequentNames(names);
   }
 
+  //basic 4
   public List<String> mostPopularFemaleStartingLetter(int start, int end) {
     validateRange(start, end);
     List<String> letters = process.mostPopularLetters(start, end, "F");
@@ -104,12 +109,14 @@ public class Outputter {
     return process.getNamesStartingWith(letter, "F", start, end);
   }
 
+  //complete 1
   public List<Integer> ranksFromRange(int start, int end, String name, String gender) {
     validateGenderAndRange(start, end, gender);
     name = validateName(name);
     return process.getRanks(start, end, name, gender);
   }
 
+  //complete 2
   //if name isn't in both years, returns 0
   public int rankChange(int start, int end, String name, String gender) {
     validateGenderAndRange(start, end, gender);
@@ -123,6 +130,7 @@ public class Outputter {
     }
   }
 
+  //complete 3
   //for ties, returns all names
   public List<String> namesWithBiggestRankChange(int start, int end, String gender) {
     validateGenderAndRange(start, end, gender);
@@ -134,6 +142,7 @@ public class Outputter {
     return process.maxOccurrences(namesToRankChangeMap);
   }
 
+  //complete 4
   //average rank returned is an int
   public int averageRank(int start, int end, String name, String gender) {
     validateGenderAndRange(start, end, gender);
@@ -153,7 +162,7 @@ public class Outputter {
     return sum / count;
   }
 
-  //ask about this, duplication and rounding
+  //complete 5
   public List<String> namesWithHighestAverageRank(int start, int end, String gender) {
     validateGenderAndRange(start, end, gender);
     Map<String, Integer> namesToAverageRankMap = new TreeMap<>();
@@ -166,12 +175,14 @@ public class Outputter {
     return process.maxOccurrences(namesToAverageRankMap);
   }
 
+  //complete 6
   public int recentAverageRank(int numYears, String name, String gender) {
     int start = dataEndYear - numYears + 1;
     //don't need to validate since already checked in getAverageRankRange
     return averageRank(start, dataEndYear, name, gender);
   }
 
+  //complete 7
   public List<String> namesWithRank(int start, int end, String gender, int targetRank) {
     validateGenderAndRange(start, end, gender);
     List<String> names = new ArrayList<>();
@@ -182,12 +193,14 @@ public class Outputter {
     return names;
   }
 
+  //complete 8
   public String mostFrequentRankedNames(int start, int end, String gender, int targetRank) {
     //don't need to validate
     List<String> names = namesWithRank(start, end, gender, targetRank);
     return process.mostFrequentNames(names);
   }
 
+  //complete 9
   public List<String> mostCommonPrefix(int start, int end, String gender) {
     validateGenderAndRange(start, end, gender);
     Map<String, Integer> prefixCountMap = new TreeMap<>();
@@ -198,6 +211,7 @@ public class Outputter {
     return process.maxOccurrences(prefixCountMap);
   }
 
+  //complete 10
   //starts at the biggest prefix then gets smaller
   private String nameMeaning(Map<String,String> meanings, String name){
     name = name.toUpperCase();
@@ -219,7 +233,6 @@ public class Outputter {
     validateRange(start, end);
   }
 
-  //validate data range input
   private void validateRange(int start, int end) {
     if ((start > end) || (start < dataStartYear) || (end > dataEndYear)) {
       throw new InvalidParameterException(RANGE_ERROR);
@@ -238,6 +251,18 @@ public class Outputter {
     return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
 
+  //demonstrates possible functionality for adding names when a list is returned
+  public List<String> addMeaningToNameList(boolean wantMeaning, List<String> names, String gender){
+    if(wantMeaning){
+      int i = 0;
+      while(i < names.size()){
+        names.set(i,addMeaningToName(true,names.get(i),gender));
+        i++;
+      }
+    }
+    return names;
+  }
+
   private String addMeaningToName(boolean wantMeaning, String name, String gender){
     if(wantMeaning){
       Map<String,String> meanings = new HashMap<>();
@@ -251,14 +276,5 @@ public class Outputter {
     }
     return name;
   }
-  public List<String> addMeaningToNameList(boolean wantMeaning, List<String> names, String gender){
-    if(wantMeaning){
-      int i = 0;
-      while(i < names.size()){
-        names.set(i,addMeaningToName(true,names.get(i),gender));
-        i++;
-      }
-    }
-    return names;
-  }
+
 }

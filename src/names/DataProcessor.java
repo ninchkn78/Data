@@ -25,7 +25,7 @@ public class DataProcessor {
 
 
   public DataProcessor(String dataSource, String dataType) {
-    dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateNamesDataMap(dataSource, dataType);
+    dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateNamesDataSet(dataSource, dataType);
     validateDataSet(dataSet);
   }
 
@@ -53,7 +53,7 @@ public class DataProcessor {
     return dataSet.lastKey();
   }
 
-  //counts number of names with given gender and starting string in a given year
+  //counts number of names w/year, starting string, gender
   public int countNamesStartingWith(int year, String startsWith, String gender) {
     if (getYearData(year) == null) {
       return -1;
@@ -62,11 +62,12 @@ public class DataProcessor {
     return yearData.size();
   }
 
+  //counts number of names in given range w/gender,starting string
   public int countNamesStartingWithRange(int start, int end, String startsWith, String gender) {
     return getNamesStartingWith(startsWith, gender, start, end).size();
   }
 
-  //counts number of babies with given gender and starting string in a given year
+  //counts number of babies w/year,starting string, gender
   public int countBabiesByYear(int year, String startsWith, String gender) {
     int sum = 0;
     List<String[]> yearData = getProfilesStartingWith(startsWith, gender, year);
@@ -80,7 +81,7 @@ public class DataProcessor {
     return sum;
   }
 
-  //returns alphabetized list of all names in a given range of given gender and with starting string
+  //returns alphabetized list of all names in range w/starting string, gender
   public List<String> getNamesStartingWith(String startsWith, String gender, int start, int end) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
@@ -94,7 +95,7 @@ public class DataProcessor {
     return names;
   }
 
-  //returns all names of rank in range with gender
+  //returns all names of rank in range w/gender
   public List<String> getNamesFromRank(int start, int end, String gender, int targetRank) {
     List<String> names = new ArrayList<>();
     while (start <= end) {
@@ -104,7 +105,7 @@ public class DataProcessor {
     return names;
   }
 
-  //gets name given rank year and gender
+  //gets name of rank w/gender, year
   public String getNameFromRank(int year, String gender, int targetRank) {
     List<String[]> yearData = getYearData(year);
     if (yearData == null) {
@@ -118,7 +119,7 @@ public class DataProcessor {
     return name;
   }
 
-  //getRanks and getNames
+  //gets list of ranks per year in range w/name, gender
   public List<Integer> getRanks(int start, int end, String name, String gender) {
     List<Integer> ranks = new ArrayList<>();
     while (start <= end) {
@@ -161,12 +162,13 @@ public class DataProcessor {
     return listToString(maxOccurrences(nameCountMap)) + " " + maxValue(nameCountMap);
   }
 
-
+  //returns the most popular starting letters of babies' names by baby count in given range, gender
   public List<String> mostPopularLetters(int start, int end, String gender) {
     Map<String, Integer> letterCountMap = countBabiesByLetter(start, end, gender);
     return maxOccurrences(letterCountMap);
   }
 
+  //gets data from a given year
   private List<String[]> getYearData(int start) {
     return dataSet.get(start);
   }
@@ -178,6 +180,7 @@ public class DataProcessor {
     return names;
   }
 
+  //converts a list to a string
   private String listToString(List<String> list) {
     StringBuilder sb = new StringBuilder();
     for (String s : list) {
@@ -202,7 +205,7 @@ public class DataProcessor {
   }
 
   //returns key value pairs where key is a letter and value is number of baby names
-  //in the range starting with that letter of specified gender
+  //in the range starting with that letter
   private Map<String, Integer> countBabiesByLetter(int start, int end, String gender) {
     int year, currentCount;
     String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //constant maybe
@@ -238,11 +241,12 @@ public class DataProcessor {
     return mostFrequentStrings;
   }
 
+  //get the maximum Integer in a String, Integer map
   private int maxValue(Map<String, Integer> stringIntegerMap) {
     return Collections.max(stringIntegerMap.values());
   }
 
-  //gets yearData from a year and filters out names of incorrect gender or starting String
+  //gets yearData from a year and filters for names with starting string and gender
   private List<String[]> getProfilesStartingWith(String startsWith, String gender, int start) {
     List<String[]> yearData = getYearData(start);
     List<String[]> profiles = new ArrayList<>();
