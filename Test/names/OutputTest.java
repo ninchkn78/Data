@@ -35,11 +35,13 @@ class OutputTest {
   @Test
   void HandleErrorNonExistentDataSource() {
   assertThrows(InvalidParameterException.class, () ->
-        new Outputter("Test3","FOLDER"));
+        new Outputter("Tes34$%^t3","FOLDER"));
   assertThrows(InvalidParameterException.class, () ->
-        new Outputter("www.com", "URL"));
+        new Outputter("www123$$%11.com", "URL"));
     assertThrows(InvalidParameterException.class, () ->
-        new Outputter("www.com", "URL_ZIP"));
+        new Outputter("w#0!ww.com", "URL_ZIP"));
+    assertThrows(InvalidParameterException.class, () ->
+        new Outputter("not2$%^&names.zip", "LOCAL_ZIP"));
   }
 
   @Test

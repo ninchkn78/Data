@@ -108,10 +108,12 @@ public class DataReader {
     try {
       ZipInputStream zipStream = getZipStream(dataSource, dataType);
       ZipEntry entry;
-      while ((entry = zipStream.getNextEntry()) != null) {
-        InputStream textFile = new ZippedFileInputStream(zipStream);
-        if (getYear(entry.getName()) != FILE_NAME_ERROR) {
-          dataSet.put(getYear(entry.getName()), generateList(textFile));
+      if (zipStream != null) {
+        while ((entry = zipStream.getNextEntry()) != null) {
+          InputStream textFile = new ZippedFileInputStream(zipStream);
+          if (getYear(entry.getName()) != FILE_NAME_ERROR) {
+            dataSet.put(getYear(entry.getName()), generateList(textFile));
+          }
         }
       }
     } catch (IOException e) {
@@ -136,10 +138,6 @@ public class DataReader {
     URL source = null;
     try {
       source = new URL(dataSource);
-    } catch (MalformedURLException e) {
-      System.out.println(DATA_SOURCE_ERROR);
-    }
-    try {
       if (dataType.equals("URL")) {
         return new ZipInputStream(
             source.openStream());
@@ -149,7 +147,7 @@ public class DataReader {
                 .openStream());
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println(DATA_SOURCE_ERROR);
     }
     return null;
   }

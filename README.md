@@ -50,6 +50,10 @@ Known Bugs:
 
 Extra credit:
 
+### Handling Errors
+
+Invalid data sources should cause DataReader to create an empty dataSet, and then if the dataSet 
+is empty, DataProcessor will throw an invalid parameter exception. 
 
 ### Notes/Assumptions
 Lines are in the format Name, Gender as M/F, Occurences 
