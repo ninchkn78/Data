@@ -2,6 +2,7 @@ package names;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -32,9 +33,19 @@ class OutputTest {
 
 
   @Test
-  void HandleErrorInvalidFolder() {
-  assertThrows(NullPointerException.class, () ->
+  void HandleErrorNonExistentDataSource() {
+  assertThrows(InvalidParameterException.class, () ->
         new Outputter("Test3","FOLDER"));
+  assertThrows(InvalidParameterException.class, () ->
+        new Outputter("www.com", "URL"));
+    assertThrows(InvalidParameterException.class, () ->
+        new Outputter("www.com", "URL_ZIP"));
+  }
+
+  @Test
+  void HandleErrorEmptyFolder() {
+    assertThrows(InvalidParameterException.class, () ->
+        new Outputter("EmptyFile","FOLDER"));
   }
   @Test
   void HandleErrorName() {

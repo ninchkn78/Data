@@ -4,13 +4,6 @@ data
 This project uses data about [baby names from the US Social Security Administration] 
 (https://www.ssa.gov/oact/babynames/limits.html) to answer specific questions. 
 
-### TODO 
--optional 10
--zip file
--handle empty files
--how to throw exceptions
--complete readme
--main method
 
 
 Name: Alex Chao
@@ -21,9 +14,11 @@ Start Date: 08/22/20
 
 Finish Date: 
 
-Hours Spent: 31 hours 0 minutes
+Hours Spent: 32 hours 0 minutes
 
 ### Resources Used
+Reading individual files in a zip 
+https://stackoverflow.com/questions/15667125/read-content-from-files-which-are-inside-zip-file
 handling URL sources
 https://stackoverflow.com/questions/6932369/inputstream-from-a-url
 https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html

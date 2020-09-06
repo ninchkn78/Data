@@ -3,7 +3,9 @@ package names;
 public class Main {
   public static void main(String[] args) {
     // Outputter Test = new Outputter("https://www2.cs.duke.edu/courses/fall20/compsci307d/assign/01_data/data/ssa_complete/", "URL");
-    Outputter Test = new Outputter("ssa_complete", "FOLDER");
+    //Outputter Test = new Outputter("ssa_complete", "FOLDER");
+    Outputter Test = new Outputter("https://www.ssa.gov/oact/babynames/names.zip", "URL_ZIP");
+    //Outputter Test = new Outputter("names.zip", "LOCAL_ZIP");
     System.out.println(Test.topMaleAndFemaleName(1990));
     System.out.println(Test.countNamesAndBabies(1900, "R", "M"));
     System.out.println(Test.ranksFromDataset("Megan","F"));

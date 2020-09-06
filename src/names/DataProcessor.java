@@ -1,5 +1,6 @@
 package names;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -25,6 +26,9 @@ public class DataProcessor {
 
   public DataProcessor(String dataSource, String dataType) {
     dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateMap(dataSource, dataType);
+    if (dataSet.isEmpty()){
+      throw new InvalidParameterException(DataReader.DATA_SOURCE_ERROR);
+    }
   }
 
 
