@@ -89,17 +89,17 @@ class OutputTest {
   }
   @Test
   void Test1EmptyDataSet() {
-    assertEquals("NAME NOT FOUND", TestFolder.topMaleAndFemaleName(0));
+    assertEquals("NAME NOT FOUND", TestFolder.topMaleAndFemaleName(0, false));
   }
 
   @Test
   void Test1YearNotInDataSet() {
-    assertEquals("YEAR NOT IN DATABASE", TestFolder.topMaleAndFemaleName(8));
+    assertEquals("YEAR NOT IN DATABASE", TestFolder.topMaleAndFemaleName(8, false));
   }
 
   @Test
   void Test1YearInDataSet() {
-    assertEquals("Alex\nMiryam", TestFolder.topMaleAndFemaleName(1));
+    assertEquals("Alex\nMiryam", TestFolder.topMaleAndFemaleName(1, false));
   }
 
 

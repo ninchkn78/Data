@@ -12,6 +12,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -50,7 +51,7 @@ public class DataReader {
   }
   public static Map<String, String> generateNamesMeaningsMap(String gender, String dataSource){
     File meanings = createFileFromLocalSource(dataSource);
-    Map<String, String> nameMeanings = new TreeMap<>();
+    Map<String, String> nameMeanings = new HashMap<>();
     Scanner scan;
     try {
       scan = new Scanner(meanings);

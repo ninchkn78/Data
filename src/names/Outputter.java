@@ -5,6 +5,7 @@ import static java.lang.StrictMath.abs;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -30,20 +31,29 @@ public class Outputter {
   private final static String GENDER_ERROR = "INVALID GENDER";
   private final static List<String> GENDERS = Arrays.asList("M", "F");
 
+  //
+  private final Map<String,String> maleNameMeanings;
+  private final Map<String,String> femaleNameMeanings;
+
+
   public Outputter(String dataSource, String dataType) {
     process = new DataProcessor(dataSource, dataType);
     dataStartYear = process.getDataFirstYear();
     dataEndYear = process.getDataLastYear();
+    maleNameMeanings = DataReader.generateNamesMeaningsMap("M","meanings.txt");
+    femaleNameMeanings = DataReader.generateNamesMeaningsMap("F","meanings.txt");
   }
 
-  public String topMaleAndFemaleName(int year) {
+  public String topMaleAndFemaleName(int year, boolean wantMeaning) {
     String maleName = process.getNameFromRank(year, "M", 1);
+    String femaleName = process.getNameFromRank(year, "F", 1);
     if (maleName.equals(NAME_ERROR)) {
       return NAME_ERROR;
     } else if (maleName.equals(YEAR_ERROR)) {
       return YEAR_ERROR;
     }
-    String femaleName = process.getNameFromRank(year, "F", 1);
+    System.out.println(nameMeaning("M",maleName));
+    System.out.println(nameMeaning("F",femaleName));
     return maleName + "\n" + femaleName;
   }
 
@@ -185,6 +195,29 @@ public class Outputter {
       prefixCountMap.put(name, process.countNamesStartingWithRange(start, end, name, gender));
     }
     return process.maxOccurrences(prefixCountMap);
+  }
+
+  //starts at the biggest prefix then gets smaller
+  private String nameMeaning(String gender, String name){
+    Map<String,String> meanings = new HashMap<>();
+    if(gender.equals("F")){
+      meanings = femaleNameMeanings;
+    }
+    else if(gender.equals("M")){
+      meanings = maleNameMeanings;
+    }
+    name = name.toUpperCase();
+    //check all prefixes, if a meaning is found return the meaning
+    int endIndex = name.length() ;
+    String meaning;
+    while(endIndex > 0){
+      meaning = meanings.get(name.substring(0,endIndex));
+      if(meaning != null){
+        return meaning;
+      }
+      endIndex -= 1;
+    }
+    return "(meaning not found)";
   }
 
   private void validateGenderAndRange(int start, int end, String gender) {
