@@ -10,17 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-//talk to TA about this class
-//ask about comments
 
-/**
- * Feel free to completely change this code or delete it entirely.
- */
 public class Outputter {
-
-  /**
-   * Start of the program.
-   */
 
   private final int dataStartYear;
   private final int dataEndYear;
@@ -30,11 +21,10 @@ public class Outputter {
   private final static String NAME_ERROR = "NAME NOT FOUND";
   private final static String GENDER_ERROR = "INVALID GENDER";
   private final static List<String> GENDERS = Arrays.asList("M", "F");
+  private final static String NO_MEANING = "(no meaning found)";
 
-  //
   private final Map<String,String> maleNameMeanings;
   private final Map<String,String> femaleNameMeanings;
-
 
   public Outputter(String dataSource, String dataType) {
     process = new DataProcessor(dataSource, dataType);
@@ -62,10 +52,6 @@ public class Outputter {
   public String countNamesAndBabies(int year, String startsWith, String gender) {
     validateGender(gender);
     int countNames = process.countNamesStartingWith(year, startsWith, gender);
-    //countNamesStartingWith returns -1 when the year does not exist in the dataset
-    if (countNames == -1) {
-      return YEAR_ERROR;
-    }
     int totalBabies = process.countBabiesByYear(year, startsWith, gender);
     return "Names: " + countNames + "\nBabies: " + totalBabies;
   }
@@ -225,7 +211,7 @@ public class Outputter {
       }
       endIndex -= 1;
     }
-    return "(meaning not found)";
+    return NO_MEANING;
   }
 
   private void validateGenderAndRange(int start, int end, String gender) {

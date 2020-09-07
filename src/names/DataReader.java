@@ -21,7 +21,6 @@ import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-
 public class DataReader {
 
   private final static String FILE_PREFIX = "yob";
@@ -39,7 +38,7 @@ public class DataReader {
   }
 
   //given a data source, returns a map with years as keys and data as values
-  public static Map<Integer, List<String[]>> generateNamesDataSet(String dataSource, String dataType) {
+  public static Map<Integer, List<String[]>> generateBabyNamesDataSet(String dataSource, String dataType) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     return switch (dataType) {
       case "FOLDER" -> generateMapFromFolder(dataSource);
@@ -175,19 +174,22 @@ public class DataReader {
   //makes an ZipInputStream, given the name of the dataSource and if it's local or from a URL
   private static ZipInputStream getZipStream(String dataSource, String dataType) {
     try {
-      URL source = new URL(dataSource);
       if (dataType.equals("URL")) {
+        URL source = new URL(dataSource);
         return new ZipInputStream(
             source.openStream());
       } else if (dataType.equals("LOCAL")) {
-        return new ZipInputStream(
-            Objects.requireNonNull(DataReader.class.getClassLoader().getResource(dataSource))
-                .openStream());
+            File zipFile = createFileFromLocalSource(dataSource);
+            return new ZipInputStream(new FileInputStream(zipFile));
       }
     } catch (IOException e) {
       System.out.println(DATA_SOURCE_ERROR);
     }
     return null;
+  }
+  public static void main(String[] args) {
+    //System.out.println(DataReader.createFileFromLocalSource("names.zip"));
+    DataReader.getZipStream("names.zip","LOCAL");
   }
 
 }

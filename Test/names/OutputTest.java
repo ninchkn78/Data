@@ -11,24 +11,12 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-//ask about having databases be made in the call
+
 
 class OutputTest {
 
-  //don't have a beforeEach because none of my methods being tested
-  //change the state of any of the instance variables
   Outputter TestFolder = new Outputter("Test", "FOLDER");
   Outputter TestFolder2 = new Outputter("Test2", "FOLDER");
-  //Outputter URL = new Outputter("https://www2.cs.duke.edu/courses/fall20/compsci307d/assign/01_data/data/ssa_complete/", "URL");
-
-
-
-//  @Test
-//  void CheckURLDataSet() {
-//    assertEquals("Mary 76", URL.mostPopularName(1880,2018,"F"));
-//    assertEquals(Collections.singletonList("Loyd"),URL.biggestRankChange(1880,2018,"M"));
-//  }
-
 
   @Test
   void HandleErrorNonExistentDataSource() {
@@ -46,6 +34,12 @@ class OutputTest {
   void HandleErrorEmptyFolder() {
     assertThrows(IllegalArgumentException.class, () ->
         new Outputter("EmptyFile","FOLDER"));
+  }
+
+  @Test
+  void HandleErrorInvalidDataType() {
+    assertThrows(IllegalArgumentException.class, () ->
+        new Outputter("EmptyFile","FOLDEr"));
   }
 
   @Test
@@ -105,7 +99,7 @@ class OutputTest {
 
   @Test
   void Test2YearNotInDataSet() {
-    assertEquals("YEAR NOT IN DATABASE", TestFolder.countNamesAndBabies(1899, "A", "M"));
+    assertEquals("Names: 0\nBabies: 0", TestFolder.countNamesAndBabies(1899, "A", "M"));
   }
 
   @Test
@@ -379,7 +373,7 @@ class OutputTest {
   void Complete10MeaningNotFound() {
     assertEquals("Ajkldjb (no meaning found)\nMhkejb (no meaning found)", TestFolder2.topMaleAndFemaleName(2001, true));
     List<String> input = Arrays.asList("Adfbx", "Mdgijljt", "XEEE");
-    List<String> expectedOutput = Arrays.asList("Adfbx (no meaning found)", "Mdgijljt (no meaning found)", "XEEE (meaning not found)");
+    List<String> expectedOutput = Arrays.asList("Adfbx (no meaning found)", "Mdgijljt (no meaning found)", "XEEE (no meaning found)");
     assertEquals(expectedOutput,TestFolder.addMeaningToNameList(true, input, "M"));
   }
 

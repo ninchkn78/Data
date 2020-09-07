@@ -25,7 +25,7 @@ public class DataProcessor {
 
 
   public DataProcessor(String dataSource, String dataType) {
-    dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateNamesDataSet(dataSource, dataType);
+    dataSet = (TreeMap<Integer, List<String[]>>) DataReader.generateBabyNamesDataSet(dataSource, dataType);
     validateDataSet(dataSet);
   }
 
@@ -56,7 +56,7 @@ public class DataProcessor {
   //counts number of names w/year, starting string, gender
   public int countNamesStartingWith(int year, String startsWith, String gender) {
     if (getYearData(year) == null) {
-      return -1;
+      return 0;
     }
     List<String[]> yearData = getProfilesStartingWith(startsWith, gender, year);
     return yearData.size();
