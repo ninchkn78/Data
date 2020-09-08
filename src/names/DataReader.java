@@ -23,8 +23,8 @@ import java.util.zip.ZipInputStream;
 
 public class DataReader {
 
-  private final static String FILE_PREFIX = "yob";
   public final static String DATA_SOURCE_ERROR = "INVALID DATA SOURCE";
+  private final static String FILE_PREFIX = "yob";
   private final static int FILE_NAME_ERROR = -1;
 
   //assuming file name only contains numbers that represent a year, gets the year as an int
@@ -38,7 +38,8 @@ public class DataReader {
   }
 
   //given a data source, returns a map with years as keys and data as values
-  public static Map<Integer, List<String[]>> generateBabyNamesDataSet(String dataSource, String dataType) {
+  public static Map<Integer, List<String[]>> generateBabyNamesDataSet(String dataSource,
+      String dataType) {
     Map<Integer, List<String[]>> dataSet = new TreeMap<>();
     return switch (dataType) {
       case "FOLDER" -> generateMapFromFolder(dataSource);
@@ -50,7 +51,7 @@ public class DataReader {
   }
 
   //given a data source of meanings, returns names mapped to meanings
-  public static Map<String, String> generateNamesMeaningsMap(String gender, String dataSource){
+  public static Map<String, String> generateNamesMeaningsMap(String gender, String dataSource) {
     File meanings = createFileFromLocalSource(dataSource);
     Map<String, String> nameMeanings = new HashMap<>();
     Scanner scan;
@@ -65,11 +66,11 @@ public class DataReader {
         genderIndex = nameEndIndex + 1;
         //assumes the meaning starts one space after the gender
         meaningStartIndex = genderIndex + 2;
-        String nameGender = line.substring(genderIndex,genderIndex + 1);
-        if(nameGender.toUpperCase().equals(gender)){
-          name = line.substring(0,nameEndIndex);
+        String nameGender = line.substring(genderIndex, genderIndex + 1);
+        if (nameGender.toUpperCase().equals(gender)) {
+          name = line.substring(0, nameEndIndex);
           meaning = line.substring(meaningStartIndex);
-          nameMeanings.put(name,meaning);
+          nameMeanings.put(name, meaning);
         }
 
       }
@@ -179,8 +180,8 @@ public class DataReader {
         return new ZipInputStream(
             source.openStream());
       } else if (dataType.equals("LOCAL")) {
-            File zipFile = createFileFromLocalSource(dataSource);
-            return new ZipInputStream(new FileInputStream(zipFile));
+        File zipFile = createFileFromLocalSource(dataSource);
+        return new ZipInputStream(new FileInputStream(zipFile));
       }
     } catch (IOException e) {
       System.out.println(DATA_SOURCE_ERROR);

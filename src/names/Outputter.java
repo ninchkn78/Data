@@ -23,15 +23,15 @@ public class Outputter {
   private final static List<String> GENDERS = Arrays.asList("M", "F");
   private final static String NO_MEANING = "(no meaning found)";
 
-  private final Map<String,String> maleNameMeanings;
-  private final Map<String,String> femaleNameMeanings;
+  private final Map<String, String> maleNameMeanings;
+  private final Map<String, String> femaleNameMeanings;
 
   public Outputter(String dataSource, String dataType) {
     process = new DataProcessor(dataSource, dataType);
     dataStartYear = process.getDataFirstYear();
     dataEndYear = process.getDataLastYear();
-    maleNameMeanings = DataReader.generateNamesMeaningsMap("M","meanings.txt");
-    femaleNameMeanings = DataReader.generateNamesMeaningsMap("F","meanings.txt");
+    maleNameMeanings = DataReader.generateNamesMeaningsMap("M", "meanings.txt");
+    femaleNameMeanings = DataReader.generateNamesMeaningsMap("F", "meanings.txt");
   }
 
   //test 1
@@ -43,8 +43,8 @@ public class Outputter {
     } else if (maleName.equals(YEAR_ERROR)) {
       return YEAR_ERROR;
     }
-    maleName = addMeaningToName(wantMeaning,maleName,"M");
-    femaleName = addMeaningToName(wantMeaning,femaleName,"F");
+    maleName = addMeaningToName(wantMeaning, maleName, "M");
+    femaleName = addMeaningToName(wantMeaning, femaleName, "F");
     return maleName + "\n" + femaleName;
   }
 
@@ -73,7 +73,7 @@ public class Outputter {
       return NAME_ERROR;
     }
     String todayName = process.getNameFromRank(dataEndYear, gender, rank);
-    todayName = addMeaningToName(wantMeaning,todayName,gender);
+    todayName = addMeaningToName(wantMeaning, todayName, gender);
     return todayName;
   }
 
@@ -196,19 +196,19 @@ public class Outputter {
       prefixCountMap.put(name, process.countNamesStartingWithRange(start, end, name, gender));
     }
     String mostCommonPrefix = process.maxOccurrences(prefixCountMap).get(0);
-    return process.getNamesStartingWith(mostCommonPrefix,gender,start,end);
+    return process.getNamesStartingWith(mostCommonPrefix, gender, start, end);
   }
 
   //complete 10
   //starts at the biggest prefix then gets smaller
-  private String nameMeaning(Map<String,String> meanings, String name){
+  private String nameMeaning(Map<String, String> meanings, String name) {
     name = name.toUpperCase();
     //check all prefixes, if a meaning is found return the meaning
-    int endIndex = name.length() ;
+    int endIndex = name.length();
     String meaning;
-    while(endIndex > 0){
-      meaning = meanings.get(name.substring(0,endIndex));
-      if(meaning != null){
+    while (endIndex > 0) {
+      meaning = meanings.get(name.substring(0, endIndex));
+      if (meaning != null) {
         return meaning;
       }
       endIndex -= 1;
@@ -217,11 +217,11 @@ public class Outputter {
   }
 
   //demonstrates possible functionality for adding names when a list is returned
-  public List<String> addMeaningToNameList(boolean wantMeaning, List<String> names, String gender){
-    if(wantMeaning){
+  public List<String> addMeaningToNameList(boolean wantMeaning, List<String> names, String gender) {
+    if (wantMeaning) {
       int i = 0;
-      while(i < names.size()){
-        names.set(i,addMeaningToName(true,names.get(i),gender));
+      while (i < names.size()) {
+        names.set(i, addMeaningToName(true, names.get(i), gender));
         i++;
       }
     }
@@ -252,16 +252,15 @@ public class Outputter {
   }
 
 
-  private String addMeaningToName(boolean wantMeaning, String name, String gender){
-    if(wantMeaning){
-      Map<String,String> meanings = new HashMap<>();
-      if(gender.equals("F")){
+  private String addMeaningToName(boolean wantMeaning, String name, String gender) {
+    if (wantMeaning) {
+      Map<String, String> meanings = new HashMap<>();
+      if (gender.equals("F")) {
         meanings = femaleNameMeanings;
-      }
-      else if(gender.equals("M")){
+      } else if (gender.equals("M")) {
         meanings = maleNameMeanings;
       }
-      return name + " " + nameMeaning(meanings,name);
+      return name + " " + nameMeaning(meanings, name);
     }
     return name;
   }
