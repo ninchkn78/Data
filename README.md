@@ -115,6 +115,16 @@ similarly to how my methods that return single names are structured.
 
 ### Impressions
 
+I enjoyed coding this project and having to be really intentional about how I was writing code for
+the first time. I thought it was fun trying to reuse methods I had already written to answer future
+questions. 
+
+However, I think this project was unnecessarily stressful for me due to the fact that strict 
+expectations for the course were laid out at the beginning, and then I wasn't sure how much I had to 
+follow those since we were given this project with little initial guidance. As a result, I spent a 
+lot of time researching how to implement refactorings by myself only to be told a few days in 
+lecture that it wasn't a large concern for this project since we would go over it later. Although it
+was a good learning process for me, it was still stress inducing. 
 
 
 
