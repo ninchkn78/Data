@@ -187,10 +187,6 @@ public class DataReader {
     }
     return null;
   }
-  public static void main(String[] args) {
-    //System.out.println(DataReader.createFileFromLocalSource("names.zip"));
-    DataReader.getZipStream("names.zip","LOCAL");
-  }
 
 }
 

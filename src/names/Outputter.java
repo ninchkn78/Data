@@ -214,6 +214,18 @@ public class Outputter {
     return NO_MEANING;
   }
 
+  //demonstrates possible functionality for adding names when a list is returned
+  public List<String> addMeaningToNameList(boolean wantMeaning, List<String> names, String gender){
+    if(wantMeaning){
+      int i = 0;
+      while(i < names.size()){
+        names.set(i,addMeaningToName(true,names.get(i),gender));
+        i++;
+      }
+    }
+    return names;
+  }
+
   private void validateGenderAndRange(int start, int end, String gender) {
     validateGender(gender);
     validateRange(start, end);
@@ -237,17 +249,6 @@ public class Outputter {
     return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
 
-  //demonstrates possible functionality for adding names when a list is returned
-  public List<String> addMeaningToNameList(boolean wantMeaning, List<String> names, String gender){
-    if(wantMeaning){
-      int i = 0;
-      while(i < names.size()){
-        names.set(i,addMeaningToName(true,names.get(i),gender));
-        i++;
-      }
-    }
-    return names;
-  }
 
   private String addMeaningToName(boolean wantMeaning, String name, String gender){
     if(wantMeaning){
