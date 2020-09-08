@@ -258,7 +258,7 @@ class OutputTest {
 
   @Test
   void Complete3EmptyFile() {
-    List<String> expectedOutput = new ArrayList<>();
+    List<String> expectedOutput = Collections.singletonList("");
     assertEquals(expectedOutput, TestFolder.namesWithBiggestRankChange(0, 0, "M"));
   }
 
@@ -293,7 +293,7 @@ class OutputTest {
 
   @Test
   void Complete5EmptyDataFile() {
-    List<String> expectedOutput = new ArrayList<>();
+    List<String> expectedOutput = Collections.singletonList("");
     assertEquals(expectedOutput, TestFolder.namesWithHighestAverageRank(0, 0, "M"));
   }
 
@@ -349,19 +349,19 @@ class OutputTest {
   @Test
   void Complete9EmptyFile() {
     List<String> expectedOutput = new ArrayList<>();
-    assertEquals(expectedOutput, TestFolder.mostCommonPrefix(0, 0, "F"));
+    assertEquals(expectedOutput, TestFolder.mostCommonPrefixNames(0, 0, "F"));
   }
 
   @Test
   void Complete9MultiplePrefixes() {
-    List<String> expectedOutput = Arrays.asList("Alex", "Symon");
-    assertEquals(expectedOutput, TestFolder2.mostCommonPrefix(1999, 2000, "M"));
+    List<String> expectedOutput = Arrays.asList("Alex", "Alexander");
+    assertEquals(expectedOutput, TestFolder2.mostCommonPrefixNames(1999, 2000, "M"));
   }
 
   @Test
   void Complete9SinglePrefix() {
-    List<String> expectedOutput = Collections.singletonList("Lucy");
-    assertEquals(expectedOutput, TestFolder2.mostCommonPrefix(1999, 2000, "F"));
+    List<String> expectedOutput = Arrays.asList("Lucy", "Lucyia", "Lucyy");
+    assertEquals(expectedOutput, TestFolder2.mostCommonPrefixNames(1999, 2000, "F"));
   }
 
   @Test

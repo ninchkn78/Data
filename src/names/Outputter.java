@@ -187,14 +187,16 @@ public class Outputter {
   }
 
   //complete 9
-  public List<String> mostCommonPrefix(int start, int end, String gender) {
+  //if tie in prefixes, returns list using alphabetically first prefix
+  public List<String> mostCommonPrefixNames(int start, int end, String gender) {
     validateGenderAndRange(start, end, gender);
     Map<String, Integer> prefixCountMap = new TreeMap<>();
     List<String> allNames = process.getNamesStartingWith("", gender, start, end);
     for (String name : allNames) {
       prefixCountMap.put(name, process.countNamesStartingWithRange(start, end, name, gender));
     }
-    return process.maxOccurrences(prefixCountMap);
+    String mostCommonPrefix = process.maxOccurrences(prefixCountMap).get(0);
+    return process.getNamesStartingWith(mostCommonPrefix,gender,start,end);
   }
 
   //complete 10

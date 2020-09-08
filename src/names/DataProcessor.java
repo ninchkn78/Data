@@ -222,11 +222,11 @@ public class DataProcessor {
     return letterCountMap;
   }
 
-  //given a map of String Integer key value pairs
-  // returns keys with max value in values
+  // returns keys with max value in values, if empty map, returns empty string
   public List<String> maxOccurrences(Map<String, Integer> stringIntMap) {
     List<String> mostFrequentStrings = new ArrayList<>();
     if (stringIntMap.isEmpty()) {
+      mostFrequentStrings.add("");
       return mostFrequentStrings;
     }
     int max = Collections.max(stringIntMap.values());
