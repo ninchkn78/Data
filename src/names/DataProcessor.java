@@ -69,7 +69,7 @@ public class DataProcessor {
   }
 
   //counts number of babies w/year,starting string, gender
-  public int countBabiesByYear(int year, String startsWith, String gender) {
+  public int countBabiesInYear(int year, String startsWith, String gender) {
     int sum = 0;
     List<String[]> yearData = getProfilesStartingWith(startsWith, gender, year);
     //checks if year is in dataset
@@ -216,7 +216,7 @@ public class DataProcessor {
       year = start;
       while (year <= end) {
         currentCount = letterCountMap.getOrDefault(letter, 0);
-        letterCountMap.put(letter, currentCount + countBabiesByYear(year, letter, gender));
+        letterCountMap.put(letter, currentCount + countBabiesInYear(year, letter, gender));
         year++;
       }
     }

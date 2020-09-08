@@ -52,7 +52,7 @@ public class Outputter {
   public String countNamesAndBabies(int year, String startsWith, String gender) {
     validateGender(gender);
     int countNames = process.countNamesStartingWith(year, startsWith, gender);
-    int totalBabies = process.countBabiesByYear(year, startsWith, gender);
+    int totalBabies = process.countBabiesInYear(year, startsWith, gender);
     return "Names: " + countNames + "\nBabies: " + totalBabies;
   }
 
@@ -250,7 +250,6 @@ public class Outputter {
   private String validateName(String name) {
     return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
-
 
   private String addMeaningToName(boolean wantMeaning, String name, String gender) {
     if (wantMeaning) {
