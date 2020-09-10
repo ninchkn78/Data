@@ -1,5 +1,8 @@
 package names;
 
+/**
+ * @author Alex Chao
+ */
 public class Main {
 
   public static void main(String[] args) {

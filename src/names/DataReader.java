@@ -1,4 +1,7 @@
 package names;
+/**
+ * @author Alex Chao
+ */
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +26,11 @@ import java.util.zip.ZipInputStream;
 
 public class DataReader {
 
+  /**
+   * Reads information from text files and creates maps of the information
+   * throws exceptions if data sources are not valid
+   */
+
   public final static String DATA_SOURCE_ERROR = "INVALID DATA SOURCE";
   private final static String FILE_PREFIX = "yob";
   private final static int FILE_NAME_ERROR = -1;
@@ -37,6 +45,13 @@ public class DataReader {
     return Integer.parseInt(fileName);
   }
 
+  /**
+   * Creates a map of year to year data values when given a dataset of year data
+   * @param dataSource the name of the source of baby names text files
+   * @param dataType the type of data, currently supports local folder and local zip file in
+   *                 resources root, URL, and online zip file
+   * @return the full dataset of baby names data with years mapped to year data
+   */
   //given a data source, returns a map with years as keys and data as values
   public static Map<Integer, List<String[]>> generateBabyNamesDataSet(String dataSource,
       String dataType) {
@@ -50,7 +65,12 @@ public class DataReader {
     };
   }
 
-  //given a data source of meanings, returns names mapped to meanings
+  /**
+   * Creates a map of name to meanings when given a text file of meanings
+   * @param gender which gender's meanings should be returned
+   * @param dataSource name of local text file with meanings of names
+   * @return a map of names to meanings of the given gender
+   */
   public static Map<String, String> generateNamesMeaningsMap(String gender, String dataSource) {
     File meanings = createFileFromLocalSource(dataSource);
     Map<String, String> nameMeanings = new HashMap<>();
@@ -72,7 +92,6 @@ public class DataReader {
           meaning = line.substring(meaningStartIndex);
           nameMeanings.put(name, meaning);
         }
-
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
