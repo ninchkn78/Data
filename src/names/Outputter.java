@@ -263,5 +263,8 @@ public class Outputter {
     }
     return name;
   }
-
+  public static void main(String[] args){
+    Outputter test = new Outputter("ssa_complete","FOLDER");
+    System.out.println(test.addMeaningToName(true,"jozef","M"));
+  }
 }

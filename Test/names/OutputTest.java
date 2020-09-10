@@ -257,7 +257,7 @@ class OutputTest {
   }
 
   @Test
-  void Complete3EmptyFile() {
+  void Complete3EmptyF===ile() {
     List<String> expectedOutput = Collections.singletonList("");
     assertEquals(expectedOutput, TestFolder.namesWithBiggestRankChange(0, 0, "M"));
   }
